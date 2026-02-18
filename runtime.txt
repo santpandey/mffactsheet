@@ -1,3 +1,0 @@
-# This file intentionally left empty
-# Netlify should NOT install Python dependencies
-# This is a static site only
