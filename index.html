@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mutual Fund Allocation Tracker</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>📊 Mutual Fund Allocation Tracker</h1>
+        <p id="currentFundName">
+          Track and compare mutual fund holdings over time
+        </p>
+        <p class="subtitle">
+          Mirae Asset Large & Midcap Fund - Monthly Holdings Analysis
+        </p>
+      </header>
+
+      <div class="controls">
+        <div class="control-group">
+          <label for="fundSelect">🏦 Select Fund:</label>
+          <select id="fundSelect">
+            <option value="">Loading...</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="monthSelect">📅 Current Month:</label>
+          <select id="monthSelect">
+            <option value="">Loading...</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="compareSelect">📊 Compare With:</label>
+          <select id="compareSelect">
+            <option value="">Select month to compare with...</option>
+          </select>
+        </div>
+        <button id="compareBtn" class="btn-primary">Show Delta</button>
+        <button
+          id="syncBtn"
+          class="btn-sync"
+          title="Sync latest data from funds"
+        >
+          🔄 Sync Data
+        </button>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat-card">
+          <span class="stat-label">Total Holdings</span>
+          <span class="stat-value" id="totalHoldings">-</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Top Holding</span>
+          <span class="stat-value" id="topHolding">-</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Top 10 Concentration</span>
+          <span class="stat-value" id="top10Concentration">-</span>
+        </div>
+      </div>
+
+      <div class="charts-container">
+        <div class="chart-card">
+          <h2>Portfolio Allocation (Top 15)</h2>
+          <div class="chart-wrapper">
+            <canvas id="allocationChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h2>Sector/Holdings Distribution</h2>
+          <div class="chart-wrapper">
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="delta-section" id="deltaSection" style="display: none">
+        <h2>Monthly Changes: <span id="deltaTitle"></span></h2>
+        <p class="delta-hint">
+          Click on the cards below to filter the table by category
+        </p>
+        <div class="delta-summary">
+          <div
+            class="delta-stat added clickable"
+            id="filterAdded"
+            data-filter="added"
+          >
+            <span class="delta-icon">+</span>
+            <div class="delta-info">
+              <span class="delta-label">New Entries</span>
+              <span class="delta-value" id="newEntries">0</span>
+            </div>
+          </div>
+          <div
+            class="delta-stat removed clickable"
+            id="filterRemoved"
+            data-filter="removed"
+          >
+            <span class="delta-icon">-</span>
+            <div class="delta-info">
+              <span class="delta-label">Exited</span>
+              <span class="delta-value" id="exitedEntries">0</span>
+            </div>
+          </div>
+          <div
+            class="delta-stat changed clickable"
+            id="filterChanged"
+            data-filter="changed"
+          >
+            <span class="delta-icon">~</span>
+            <div class="delta-info">
+              <span class="delta-label">Changed</span>
+              <span class="delta-value" id="changedEntries">0</span>
+            </div>
+          </div>
+          <div
+            class="delta-stat all clickable active"
+            id="filterAll"
+            data-filter="all"
+          >
+            <span class="delta-icon">*</span>
+            <div class="delta-info">
+              <span class="delta-label">Show All</span>
+              <span class="delta-value" id="allEntries">0</span>
+            </div>
+          </div>
+        </div>
+        <div class="chart-card full-width">
+          <h3>% of NAV Changes (Top 20)</h3>
+          <div class="chart-wrapper-wide">
+            <canvas id="deltaChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Yearly Trend Section -->
+      <div class="yearly-section" id="yearlySection">
+        <h2>Yearly Trend Analysis</h2>
+        <div class="control-group" style="margin-bottom: 16px">
+          <label for="stockSelect">Select Stock to Track:</label>
+          <select id="stockSelect">
+            <option value="">Select a stock...</option>
+          </select>
+        </div>
+        <div class="chart-card full-width">
+          <h3>% of NAV Trend Across Months</h3>
+          <div class="chart-wrapper-wide">
+            <canvas id="yearlyChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card full-width">
+          <h3>Top 5 Holdings - Monthly Comparison</h3>
+          <div class="chart-wrapper-wide">
+            <canvas id="top5TrendChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Yearly Comparison Table Section (Matrix) -->
+      <div
+        class="yearly-matrix-section"
+        id="yearlyMatrixSection"
+        style="display: none"
+      >
+        <h2>Yearly Portfolio Matrix (All Months)</h2>
+        <div class="table-wrapper">
+          <table id="yearlyMatrixTable">
+            <thead id="yearlyMatrixHeader"></thead>
+            <tbody id="yearlyMatrixBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="table-section" id="tableSection">
+        <h2>Holdings Details <span id="tableFilterLabel"></span></h2>
+        <div class="table-controls">
+          <input type="text" id="searchInput" placeholder="Search company..." />
+          <select id="sortSelect">
+            <option value="nav-desc">% of NAV (High to Low)</option>
+            <option value="nav-asc">% of NAV (Low to High)</option>
+            <option value="delta-desc">Delta (High to Low)</option>
+            <option value="delta-asc">Delta (Low to High)</option>
+            <option value="name-asc">Company Name (A-Z)</option>
+          </select>
+        </div>
+        <div class="table-wrapper">
+          <table id="holdingsTable">
+            <thead>
+              <tr id="tableHeaderRow">
+                <th>#</th>
+                <th>Company</th>
+                <th id="headerCurrent">Current %</th>
+                <th id="headerPrevious">Previous %</th>
+                <th class="delta-col">Change</th>
+                <th class="delta-col">Status</th>
+              </tr>
+            </thead>
+            <tbody id="holdingsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer>
+        <p>
+          Data extracted from Mirae Asset Mutual Fund factsheets. For
+          informational purposes only.
+        </p>
+      </footer>
+    </div>
+
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="spinner"></div>
+      <p>Loading data...</p>
+    </div>
+
+    <script src="js/app-multi-fund.js"></script>
+  </body>
+</html>

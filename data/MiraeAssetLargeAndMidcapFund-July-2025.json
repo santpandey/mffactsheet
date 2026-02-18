@@ -1,0 +1,573 @@
+{
+  "fundName": "Mirae Asset Large & Midcap Fund",
+  "month": "July",
+  "year": 2025,
+  "extractedAt": "2026-02-16T18:16:35.997111",
+  "holdingsCount": 94,
+  "holdings": [
+    {
+      "company": "HDFC Bank Ltd.",
+      "percentOfNAV": 6.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Axis Bank Ltd.",
+      "percentOfNAV": 3.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "State Bank of India",
+      "percentOfNAV": 3.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Infosys Ltd.",
+      "percentOfNAV": 2.6,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ITC Ltd.",
+      "percentOfNAV": 2.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Bank Ltd.",
+      "percentOfNAV": 2.5,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Reliance Industries Ltd.",
+      "percentOfNAV": 2.44,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Larsen & Toubro Ltd.",
+      "percentOfNAV": 2.32,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Consultancy Services Ltd.",
+      "percentOfNAV": 2.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Maruti Suzuki India Ltd.",
+      "percentOfNAV": 1.8,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Delhivery Ltd.",
+      "percentOfNAV": 1.74,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "L&T Finance Ltd.",
+      "percentOfNAV": 1.69,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Communications Ltd.",
+      "percentOfNAV": 1.64,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Swiggy Ltd.",
+      "percentOfNAV": 1.61,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gland Pharma Ltd.",
+      "percentOfNAV": 1.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Lupin Ltd.",
+      "percentOfNAV": 1.46,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharat Forge Ltd.",
+      "percentOfNAV": 1.45,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mphasis Ltd.",
+      "percentOfNAV": 1.45,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aurobindo Pharma Ltd.",
+      "percentOfNAV": 1.32,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "PI Industries Ltd.",
+      "percentOfNAV": 1.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "PB Fintech Ltd.",
+      "percentOfNAV": 1.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Prestige Estates Projects Ltd.",
+      "percentOfNAV": 1.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sun Pharmaceutical Industries Ltd.",
+      "percentOfNAV": 1.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "CEAT Ltd.",
+      "percentOfNAV": 1.24,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Voltas Ltd.",
+      "percentOfNAV": 1.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "GO Digit General Insurance Ltd.",
+      "percentOfNAV": 1.21,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Laurus Labs Ltd.",
+      "percentOfNAV": 1.18,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SKF India Ltd.",
+      "percentOfNAV": 1.18,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Cummins India Ltd.",
+      "percentOfNAV": 1.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Power Company Ltd.",
+      "percentOfNAV": 1.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gujarat State Petronet Ltd.",
+      "percentOfNAV": 1.14,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dalmia Bharat Ltd.",
+      "percentOfNAV": 1.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dr. Reddy's Laboratories Ltd.",
+      "percentOfNAV": 1.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Wipro Ltd.",
+      "percentOfNAV": 1.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Crompton Greaves Consumer Electricals Ltd.",
+      "percentOfNAV": 1.05,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Vedanta Ltd.",
+      "percentOfNAV": 1.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Multi Commodity Exchange of India Ltd.",
+      "percentOfNAV": 1.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "IndusInd Bank Ltd.",
+      "percentOfNAV": 1.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Divi's Laboratories Ltd.",
+      "percentOfNAV": 1.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indus Towers Ltd.",
+      "percentOfNAV": 0.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Glenmark Pharmaceuticals Ltd.",
+      "percentOfNAV": 0.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Apollo Hospitals Enterprise Ltd.",
+      "percentOfNAV": 0.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "The Federal Bank Ltd.",
+      "percentOfNAV": 0.97,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hindustan Petroleum Corporation Ltd.",
+      "percentOfNAV": 0.96,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "LIC Housing Finance Ltd.",
+      "percentOfNAV": 0.92,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharti Airtel Ltd.",
+      "percentOfNAV": 0.91,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Trent Ltd.",
+      "percentOfNAV": 0.91,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "AWL Agri Business Ltd.",
+      "percentOfNAV": 0.91,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bata India Ltd.",
+      "percentOfNAV": 0.89,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Steel Ltd.",
+      "percentOfNAV": 0.88,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "MRF Ltd.",
+      "percentOfNAV": 0.88,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SBI Life Insurance Co. Ltd.",
+      "percentOfNAV": 0.87,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "KPIT Technologies Ltd.",
+      "percentOfNAV": 0.86,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "One 97 Communications Ltd.",
+      "percentOfNAV": 0.86,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hindustan Unilever Ltd.",
+      "percentOfNAV": 0.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Motors Ltd.",
+      "percentOfNAV": 0.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharat Heavy Electricals Ltd.",
+      "percentOfNAV": 0.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Steel Authority of India Ltd.",
+      "percentOfNAV": 0.8,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mahindra & Mahindra Ltd.",
+      "percentOfNAV": 0.76,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "FSN E-Commerce Ventures Ltd.",
+      "percentOfNAV": 0.74,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDB Financial Services Ltd.",
+      "percentOfNAV": 0.74,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Container Corporation of India Ltd.",
+      "percentOfNAV": 0.72,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Syngene International Ltd.",
+      "percentOfNAV": 0.71,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Suzlon Energy Ltd.",
+      "percentOfNAV": 0.71,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SRF Ltd.",
+      "percentOfNAV": 0.68,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Grasim Industries Ltd.",
+      "percentOfNAV": 0.67,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "AU Small Finance Bank Ltd.",
+      "percentOfNAV": 0.66,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Asset Management Co. Ltd.",
+      "percentOfNAV": 0.62,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Oberoi Realty Ltd.",
+      "percentOfNAV": 0.61,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "NTPC Ltd.",
+      "percentOfNAV": 0.59,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Century Plyboards Ltd.",
+      "percentOfNAV": 0.58,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Interglobe Aviation Ltd.",
+      "percentOfNAV": 0.57,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sona Blw Precision Forgings Ltd.",
+      "percentOfNAV": 0.54,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Deepak Nitrite Ltd.",
+      "percentOfNAV": 0.54,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HCL Technologies Ltd.",
+      "percentOfNAV": 0.54,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Titan Company Ltd.",
+      "percentOfNAV": 0.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Mahindra Bank Ltd.",
+      "percentOfNAV": 0.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Power Finance Corporation Ltd.",
+      "percentOfNAV": 0.44,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ola Electric Mobility Ltd.",
+      "percentOfNAV": 0.4,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Biocon Ltd.",
+      "percentOfNAV": 0.39,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Prince Pipes and Fittings Ltd.",
+      "percentOfNAV": 0.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "NMDC Ltd.",
+      "percentOfNAV": 0.35,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aditya Birla Capital Ltd.",
+      "percentOfNAV": 0.31,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hero MotoCorp Ltd.",
+      "percentOfNAV": 0.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gateway Distriparks Ltd.",
+      "percentOfNAV": 0.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Eternal Ltd.",
+      "percentOfNAV": 0.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gujarat Gas Ltd.",
+      "percentOfNAV": 0.23,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "GAIL Ltd.",
+      "percentOfNAV": 0.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "CG Power and Industrial Solutions Ltd.",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharat Electronics Ltd.",
+      "percentOfNAV": 0.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "United Spirits Ltd.",
+      "percentOfNAV": 0.1,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Avenue Supermarts Ltd.",
+      "percentOfNAV": 0.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Ports and Special Economic Zone Ltd.",
+      "percentOfNAV": 0.05,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hindalco Industries Ltd.",
+      "percentOfNAV": 0.05,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+[build]
+  # No build command needed - static site
+  publish = "."
+  
+[build.environment]
+  # No environment variables needed for static deployment
+
+[[redirects]]
+  # Redirect all paths to index.html for SPA behavior
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+[[headers]]
+  # Apply headers to all routes
+  for = "/*"
+  [headers.values]
+    # Security headers
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    
+    # Cache control for static assets
+    Cache-Control = "public, max-age=3600"
+
+[[headers]]
+  # Cache JSON data files for 5 minutes
+  for = "/data/*.json"
+  [headers.values]
+    Cache-Control = "public, max-age=300"
+    Content-Type = "application/json"
+
+[[headers]]
+  # Cache CSS and JS for 1 day
+  for = "/css/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/js/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
