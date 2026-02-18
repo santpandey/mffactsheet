@@ -1,9 +1,7 @@
 [build]
   # Static site - no build needed
+  command = "echo 'No build required - static site'"
   publish = "."
-  
-[build.processing]
-  skip_processing = false
 
 [[redirects]]
   # Redirect all paths to index.html for SPA behavior
