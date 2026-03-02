@@ -1,0 +1,754 @@
+{
+  "fundName": "HDFC Large and Mid Cap Fund",
+  "month": "July",
+  "year": 2025,
+  "extractedAt": "2026-02-23T18:07:30.444527",
+  "holdingsCount": 149,
+  "holdings": [
+    {
+      "company": "HDFC Bank Ltd.",
+      "industry": "Banks",
+      "percentOfNAV": 5.22
+    },
+    {
+      "company": "ICICI Bank Ltd.",
+      "industry": "Banks",
+      "percentOfNAV": 3.87
+    },
+    {
+      "company": "Bharti Airtel Ltd.",
+      "industry": "Telecom - Services",
+      "percentOfNAV": 2.1
+    },
+    {
+      "company": "Infosys Limited",
+      "industry": "IT - Software",
+      "percentOfNAV": 1.9
+    },
+    {
+      "company": "Axis Bank Ltd.",
+      "industry": "Banks",
+      "percentOfNAV": 1.72
+    },
+    {
+      "company": "MphasiS Limited.",
+      "industry": "IT - Software",
+      "percentOfNAV": 1.63
+    },
+    {
+      "company": "Fortis Healthcare Limited",
+      "industry": "Healthcare Services",
+      "percentOfNAV": 1.54
+    },
+    {
+      "company": "Max Financial Services Ltd.",
+      "industry": "Insurance",
+      "percentOfNAV": 1.48
+    },
+    {
+      "company": "State Bank of India",
+      "industry": "Banks",
+      "percentOfNAV": 1.27
+    },
+    {
+      "company": "Kotak Mahindra Bank Limited",
+      "industry": "Banks",
+      "percentOfNAV": 1.26
+    },
+    {
+      "company": "Maruti Suzuki India Limited",
+      "industry": "Automobiles",
+      "percentOfNAV": 1.16
+    },
+    {
+      "company": "Indusind Bank Ltd.",
+      "industry": "Banks",
+      "percentOfNAV": 1.14
+    },
+    {
+      "company": "Prestige Estates Projects Ltd.",
+      "industry": "Realty",
+      "percentOfNAV": 1.13
+    },
+    {
+      "company": "Hindustan Petroleum Corp. Ltd.",
+      "industry": "Petroleum Products",
+      "percentOfNAV": 1.1
+    },
+    {
+      "company": "Balkrishna Industries",
+      "industry": "Auto Components",
+      "percentOfNAV": 1.09
+    },
+    {
+      "company": "Gland Pharma Ltd.",
+      "industry": "Biotechnology",
+      "percentOfNAV": 1.09
+    },
+    {
+      "company": "InterGlobe Aviation Ltd.",
+      "industry": "Transport Services",
+      "percentOfNAV": 1.09
+    },
+    {
+      "company": "HCL Technologies Ltd.",
+      "industry": "IT - Software",
+      "percentOfNAV": 1.08
+    },
+    {
+      "company": "ESCORTS KUBOTA LIMITED",
+      "industry": "Construction Vehicles",
+      "percentOfNAV": 1.05
+    },
+    {
+      "company": "Lupin Ltd.",
+      "industry": "Biotechnology",
+      "percentOfNAV": 1.02
+    },
+    {
+      "company": "Larsen and Toubro Ltd.",
+      "industry": "Construction",
+      "percentOfNAV": 1.01
+    },
+    {
+      "company": "Reliance Industries Ltd.",
+      "industry": "Petroleum Products",
+      "percentOfNAV": 1.01
+    },
+    {
+      "company": "LIC Housing Finance",
+      "industry": "Finance",
+      "percentOfNAV": 1.0
+    },
+    {
+      "company": "Mahindra & Mahindra Financial Services Ltd.",
+      "industry": "Finance",
+      "percentOfNAV": 0.96
+    },
+    {
+      "company": "Tata Consultancy Services Ltd.",
+      "industry": "IT - Software",
+      "percentOfNAV": 0.96
+    },
+    {
+      "company": "Aurobindo Pharma Ltd.",
+      "industry": "Biotechnology",
+      "percentOfNAV": 0.94
+    },
+    {
+      "company": "Ajanta Pharma Limited",
+      "industry": "Biotechnology",
+      "percentOfNAV": 0.93
+    },
+    {
+      "company": "Indian Hotels Ltd.",
+      "industry": "Leisure Services",
+      "percentOfNAV": 0.93
+    },
+    {
+      "company": "NTPC Limited",
+      "industry": "Power",
+      "percentOfNAV": 0.88
+    },
+    {
+      "company": "Bajaj Finance Ltd.",
+      "industry": "Finance",
+      "percentOfNAV": 0.85
+    },
+    {
+      "company": "Coforge Limited",
+      "industry": "IT - Software",
+      "percentOfNAV": 0.85
+    },
+    {
+      "company": "Trent Ltd.",
+      "industry": "Retailing",
+      "percentOfNAV": 0.81
+    },
+    {
+      "company": "Ipca Laboratories Ltd.",
+      "industry": "Biotechnology",
+      "percentOfNAV": 0.79
+    },
+    {
+      "company": "Shriram Finance Ltd.",
+      "industry": "Finance",
+      "percentOfNAV": 0.77
+    },
+    {
+      "company": "Eternal Limited",
+      "industry": "Retailing",
+      "percentOfNAV": 0.74
+    },
+    {
+      "company": "Bharat Electronics Ltd.",
+      "industry": "Aerospace & Defense",
+      "percentOfNAV": 0.73
+    },
+    {
+      "company": "Hindalco Industries Ltd.",
+      "industry": "Non - Ferrous Metals",
+      "percentOfNAV": 0.73
+    },
+    {
+      "company": "Eicher Motors Ltd.",
+      "industry": "Automobiles",
+      "percentOfNAV": 0.72
+    },
+    {
+      "company": "Sun Pharmaceutical Industries Ltd.",
+      "industry": "Biotechnology",
+      "percentOfNAV": 0.72
+    },
+    {
+      "company": "Max Healthcare Institute Limited",
+      "industry": "Healthcare Services",
+      "percentOfNAV": 0.71
+    },
+    {
+      "company": "SRF Ltd.",
+      "industry": "Petrochemicals",
+      "percentOfNAV": 0.71
+    },
+    {
+      "company": "Hindustan Aeronautics Limited",
+      "industry": "Aerospace & Defense",
+      "percentOfNAV": 0.69
+    },
+    {
+      "company": "Jindal Steel & Power",
+      "industry": "Ferrous Metals",
+      "percentOfNAV": 0.69
+    },
+    {
+      "company": "Ambuja Cements Ltd.",
+      "industry": "Products",
+      "percentOfNAV": 0.68
+    },
+    {
+      "company": "Paradeep Phosphates Limited",
+      "industry": "Agrochemicals",
+      "percentOfNAV": 0.67
+    },
+    {
+      "company": "Glenmark Pharmaceuticals Ltd.",
+      "industry": "Biotechnology",
+      "percentOfNAV": 0.66
+    },
+    {
+      "company": "Indraprastha Gas Ltd.",
+      "industry": "Gas",
+      "percentOfNAV": 0.66
+    },
+    {
+      "company": "SBI Life Insurance Ltd.",
+      "industry": "Insurance",
+      "percentOfNAV": 0.66
+    },
+    {
+      "company": "Tata Motors Ltd.",
+      "industry": "Automobiles",
+      "percentOfNAV": 0.66
+    },
+    {
+      "company": "Motilal Oswal Financial Services Ltd.",
+      "industry": "Capital Markets",
+      "percentOfNAV": 0.64
+    },
+    {
+      "company": "Persistent Systems Limited",
+      "industry": "IT - Software",
+      "percentOfNAV": 0.63
+    },
+    {
+      "company": "Divis Laboratories Ltd.",
+      "industry": "Biotechnology",
+      "percentOfNAV": 0.61
+    },
+    {
+      "company": "Bharat Forge Ltd.",
+      "industry": "Auto Components",
+      "percentOfNAV": 0.6
+    },
+    {
+      "company": "ITC LIMITED",
+      "industry": "Diversified Fmcg",
+      "percentOfNAV": 0.6
+    },
+    {
+      "company": "Solar Industries India Ltd.",
+      "industry": "Petrochemicals",
+      "percentOfNAV": 0.6
+    },
+    {
+      "company": "Adani Energy Solutions Limited",
+      "industry": "Power",
+      "percentOfNAV": 0.59
+    },
+    {
+      "company": "Bandhan Bank Ltd.",
+      "industry": "Banks",
+      "percentOfNAV": 0.59
+    },
+    {
+      "company": "Five-Star Business Finance Limited",
+      "industry": "Finance",
+      "percentOfNAV": 0.58
+    },
+    {
+      "company": "L&T Finance Ltd.",
+      "industry": "Finance",
+      "percentOfNAV": 0.57
+    },
+    {
+      "company": "Cipla Ltd.",
+      "industry": "Biotechnology",
+      "percentOfNAV": 0.56
+    },
+    {
+      "company": "Au Small Finance Bank Ltd.",
+      "industry": "Banks",
+      "percentOfNAV": 0.55
+    },
+    {
+      "company": "IDFC First Bank Limited",
+      "industry": "Banks",
+      "percentOfNAV": 0.55
+    },
+    {
+      "company": "Power Finance Corporation Ltd.",
+      "industry": "Finance",
+      "percentOfNAV": 0.54
+    },
+    {
+      "company": "Voltas Ltd.",
+      "industry": "Durables",
+      "percentOfNAV": 0.54
+    },
+    {
+      "company": "Aster DM Healthcare Limited",
+      "industry": "Services",
+      "percentOfNAV": 0.52
+    },
+    {
+      "company": "Dilip Buildcon Ltd.",
+      "industry": "Construction",
+      "percentOfNAV": 0.52
+    },
+    {
+      "company": "Tata Steel Ltd.",
+      "industry": "Ferrous Metals",
+      "percentOfNAV": 0.52
+    },
+    {
+      "company": "Timken India Ltd.",
+      "industry": "Industrial Products",
+      "percentOfNAV": 0.51
+    },
+    {
+      "company": "PB Fintech Limited",
+      "industry": "(Fintech)",
+      "percentOfNAV": 0.5
+    },
+    {
+      "company": "Tata Consumer Products Limited",
+      "industry": "& Other Products",
+      "percentOfNAV": 0.5
+    },
+    {
+      "company": "Vishal Mega Mart Limited",
+      "industry": "Retailing",
+      "percentOfNAV": 0.5
+    },
+    {
+      "company": "Blue Star Ltd.",
+      "industry": "Durables",
+      "percentOfNAV": 0.49
+    },
+    {
+      "company": "Apollo Tyres Ltd.",
+      "industry": "Auto Components",
+      "percentOfNAV": 0.48
+    },
+    {
+      "company": "Torrent Pharmaceuticals Ltd.",
+      "industry": "Biotechnology",
+      "percentOfNAV": 0.48
+    },
+    {
+      "company": "PNB Housing Finance Ltd.",
+      "industry": "Finance",
+      "percentOfNAV": 0.47
+    },
+    {
+      "company": "Ashok Leyland Ltd",
+      "industry": "Vehicles",
+      "percentOfNAV": 0.46
+    },
+    {
+      "company": "Bosch Limited",
+      "industry": "Auto Components",
+      "percentOfNAV": 0.46
+    },
+    {
+      "company": "Eris Lifesciences Ltd",
+      "industry": "Biotechnology",
+      "percentOfNAV": 0.46
+    },
+    {
+      "company": "Indian Bank",
+      "industry": "Banks",
+      "percentOfNAV": 0.46
+    },
+    {
+      "company": "Tata Communications Limited",
+      "industry": "Telecom - Services",
+      "percentOfNAV": 0.46
+    },
+    {
+      "company": "Bank of Baroda",
+      "industry": "Banks",
+      "percentOfNAV": 0.45
+    },
+    {
+      "company": "Bharat Petroleum Corporation Ltd.",
+      "industry": "Products",
+      "percentOfNAV": 0.45
+    },
+    {
+      "company": "Tech Mahindra Ltd.",
+      "industry": "IT - Software",
+      "percentOfNAV": 0.45
+    },
+    {
+      "company": "Mahindra & Mahindra Ltd.",
+      "industry": "Automobiles",
+      "percentOfNAV": 0.44
+    },
+    {
+      "company": "Hyundai Motor India Limited",
+      "industry": "Automobiles",
+      "percentOfNAV": 0.43
+    },
+    {
+      "company": "Fsn Ecommerce Ventures Limited (Nykaa)",
+      "industry": "Retailing",
+      "percentOfNAV": 0.42
+    },
+    {
+      "company": "Power Grid Corporation India Ltd.",
+      "industry": "Power",
+      "percentOfNAV": 0.42
+    },
+    {
+      "company": "Steel Authority Of India Ltd.",
+      "industry": "Ferrous Metals",
+      "percentOfNAV": 0.41
+    },
+    {
+      "company": "Union Bank of India Banks",
+      "industry": "",
+      "percentOfNAV": 0.17
+    },
+    {
+      "company": "Bank of India Banks",
+      "industry": "",
+      "percentOfNAV": 0.16
+    },
+    {
+      "company": "Exide Industries Ltd. Auto",
+      "industry": "Components",
+      "percentOfNAV": 0.16
+    },
+    {
+      "company": "KEC International Ltd. Construction",
+      "industry": "",
+      "percentOfNAV": 0.16
+    },
+    {
+      "company": "Syngene International Limited Healthcare",
+      "industry": "Services",
+      "percentOfNAV": 0.16
+    },
+    {
+      "company": "360 ONE WAM LIMITED Capital",
+      "industry": "Markets",
+      "percentOfNAV": 0.15
+    },
+    {
+      "company": "Biocon Ltd. Pharmaceuticals",
+      "industry": "& Biotechnology",
+      "percentOfNAV": 0.15
+    },
+    {
+      "company": "Computer Age Management Services Capital",
+      "industry": "Markets",
+      "percentOfNAV": 0.15
+    },
+    {
+      "company": "Gujarat State Petronet Ltd. Gas",
+      "industry": "",
+      "percentOfNAV": 0.15
+    },
+    {
+      "company": "Kajaria Ceramics Ltd. Consumer",
+      "industry": "Durables",
+      "percentOfNAV": 0.15
+    },
+    {
+      "company": "PVR LIMITED Entertainment",
+      "industry": "",
+      "percentOfNAV": 0.15
+    },
+    {
+      "company": "STERLITE TECHNOLOGIES LIMITED Telecom Accessories",
+      "industry": "",
+      "percentOfNAV": 0.15
+    },
+    {
+      "company": "Brainbees Solutions Limited (FirstCry) Retailing",
+      "industry": "",
+      "percentOfNAV": 0.14
+    },
+    {
+      "company": "Lodha Developers Limited Realty",
+      "industry": "",
+      "percentOfNAV": 0.14
+    },
+    {
+      "company": "VODAFONE IDEA LIMITED Telecom",
+      "industry": "- Services",
+      "percentOfNAV": 0.14
+    },
+    {
+      "company": "Container Corporation of India Ltd. Transport",
+      "industry": "Services",
+      "percentOfNAV": 0.13
+    },
+    {
+      "company": "IIFL Finance Limited Finance",
+      "industry": "",
+      "percentOfNAV": 0.13
+    },
+    {
+      "company": "Nippon Life India Asset Management Limited Capital",
+      "industry": "Markets",
+      "percentOfNAV": 0.13
+    },
+    {
+      "company": "Sai Life Sciences Limited Pharmaceuticals",
+      "industry": "& Biotechnology",
+      "percentOfNAV": 0.13
+    },
+    {
+      "company": "Swiggy Limited Retailing",
+      "industry": "",
+      "percentOfNAV": 0.13
+    },
+    {
+      "company": "Zydus Lifesciences Limited Pharmaceuticals",
+      "industry": "& Biotechnology",
+      "percentOfNAV": 0.13
+    },
+    {
+      "company": "Canara Bank Banks",
+      "industry": "",
+      "percentOfNAV": 0.12
+    },
+    {
+      "company": "Deepak Nitrite Limited Chemicals",
+      "industry": "& Petrochemicals",
+      "percentOfNAV": 0.12
+    },
+    {
+      "company": "Samvardhana Motherson International Ltd. Auto",
+      "industry": "Components",
+      "percentOfNAV": 0.12
+    },
+    {
+      "company": "TVS Motor Ltd. Automobiles",
+      "industry": "",
+      "percentOfNAV": 0.12
+    },
+    {
+      "company": "Waaree Energies Limited Electrical",
+      "industry": "Equipment",
+      "percentOfNAV": 0.12
+    },
+    {
+      "company": "Archean Chemical Industries Limited Chemicals",
+      "industry": "& Petrochemicals",
+      "percentOfNAV": 0.11
+    },
+    {
+      "company": "Bharat Heavy Electricals Ltd. Electrical",
+      "industry": "Equipment",
+      "percentOfNAV": 0.11
+    },
+    {
+      "company": "JK Cement Limited Cement",
+      "industry": "& Cement Products",
+      "percentOfNAV": 0.1
+    },
+    {
+      "company": "Star Health and Allied Insurance Ltd Insurance",
+      "industry": "",
+      "percentOfNAV": 0.1
+    },
+    {
+      "company": "Brigade Enterprises Limited. Realty",
+      "industry": "",
+      "percentOfNAV": 0.09
+    },
+    {
+      "company": "eClerx Services Limited Commercial",
+      "industry": "Services & Supplies",
+      "percentOfNAV": 0.09
+    },
+    {
+      "company": "Life Insurance Corporation of India Insurance",
+      "industry": "",
+      "percentOfNAV": 0.09
+    },
+    {
+      "company": "One 97 Communications Limited Financial",
+      "industry": "Technology (Fintech)",
+      "percentOfNAV": 0.09
+    },
+    {
+      "company": "SAPPHIRE FOODS INDIA LIMITED Leisure",
+      "industry": "Services",
+      "percentOfNAV": 0.09
+    },
+    {
+      "company": "Sterling and Wilson Renewable Energy Ltd. Construction",
+      "industry": "",
+      "percentOfNAV": 0.09
+    },
+    {
+      "company": "SULA VINEYARDS LIMITED Beverages",
+      "industry": "",
+      "percentOfNAV": 0.09
+    },
+    {
+      "company": "Bajaj Housing Finance Ltd. Finance",
+      "industry": "",
+      "percentOfNAV": 0.08
+    },
+    {
+      "company": "NBCC (India) Limited Construction",
+      "industry": "",
+      "percentOfNAV": 0.08
+    },
+    {
+      "company": "OCCL Limited Chemicals",
+      "industry": "& Petrochemicals",
+      "percentOfNAV": 0.08
+    },
+    {
+      "company": "Sun TV Network Limited Entertainment",
+      "industry": "",
+      "percentOfNAV": 0.07
+    },
+    {
+      "company": "Sundram Fasteners Ltd. Auto",
+      "industry": "Components",
+      "percentOfNAV": 0.07
+    },
+    {
+      "company": "United Breweries Ltd. Beverages",
+      "industry": "",
+      "percentOfNAV": 0.07
+    },
+    {
+      "company": "Dabur India Ltd. Personal",
+      "industry": "Products",
+      "percentOfNAV": 0.06
+    },
+    {
+      "company": "Dixon Technologies (India) Ltd. Consumer",
+      "industry": "Durables",
+      "percentOfNAV": 0.06
+    },
+    {
+      "company": "L&T Technology Services Ltd. IT",
+      "industry": "- Services",
+      "percentOfNAV": 0.06
+    },
+    {
+      "company": "CG Power and Industrial Solutions Ltd. Electrical",
+      "industry": "Equipment",
+      "percentOfNAV": 0.05
+    },
+    {
+      "company": "IKIO Technologies Limited Consumer",
+      "industry": "Durables",
+      "percentOfNAV": 0.05
+    },
+    {
+      "company": "JSW Infrastructure Limited Transport",
+      "industry": "Infrastructure",
+      "percentOfNAV": 0.05
+    },
+    {
+      "company": "KEI Industries Ltd. Industrial",
+      "industry": "Products",
+      "percentOfNAV": 0.05
+    },
+    {
+      "company": "Nazara Technologies Limited Entertainment",
+      "industry": "",
+      "percentOfNAV": 0.05
+    },
+    {
+      "company": "Aarti Industries Ltd. Chemicals",
+      "industry": "& Petrochemicals",
+      "percentOfNAV": 0.04
+    },
+    {
+      "company": "Central Depository Services (India) Ltd. Capital",
+      "industry": "Markets",
+      "percentOfNAV": 0.04
+    },
+    {
+      "company": "Coromandel International Limited Fertilizers",
+      "industry": "& Agrochemicals",
+      "percentOfNAV": 0.04
+    },
+    {
+      "company": "Craftsman Automation Ltd Auto",
+      "industry": "Components",
+      "percentOfNAV": 0.04
+    },
+    {
+      "company": "Hexaware Technologies Ltd. IT",
+      "industry": "- Software",
+      "percentOfNAV": 0.04
+    },
+    {
+      "company": "Indian Railway Catering And Tourism Corp Ltd Leisure",
+      "industry": "Services",
+      "percentOfNAV": 0.04
+    },
+    {
+      "company": "LG Balakrishnan & Bros Ltd. Auto",
+      "industry": "Components",
+      "percentOfNAV": 0.04
+    },
+    {
+      "company": "Motherson Sumi Wiring India Limited Auto",
+      "industry": "Components",
+      "percentOfNAV": 0.04
+    },
+    {
+      "company": "UTI Asset Management Ltd Capital",
+      "industry": "Markets",
+      "percentOfNAV": 0.04
+    },
+    {
+      "company": "Cello World Limited Consumer",
+      "industry": "Durables",
+      "percentOfNAV": 0.03
+    }
+  ]
+}
