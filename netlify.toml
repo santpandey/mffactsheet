@@ -5,6 +5,7 @@
 
 [[redirects]]
   # Redirect all paths to index.html for SPA behavior
+  # force=false ensures existing files (like /data/*.json) are served directly
   from = "/*"
   to = "/index.html"
   status = 200
