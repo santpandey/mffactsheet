@@ -1,6 +1,11 @@
 """
 Automated Mirae Asset Monthly Portfolio Downloader
 Downloads portfolio files from Mirae Asset website with validation and safeguards
+
+DEPRECATED: This standalone script is superseded by scripts/downloaders/mirae_asset.py
+which uses the shared BaseFundDownloader architecture.
+Use sync_all_funds.py --fund mirae_asset instead.
+This file is kept for backward compatibility only.
 """
 
 import os

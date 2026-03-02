@@ -1,6 +1,6 @@
 """
-Extract holdings data from Excel files for multiple mutual funds
-Supports: Mirae Asset Large & Midcap Fund, Canara Robeco Large and Mid Cap Fund
+Extract holdings data from Excel files for multiple mutual funds.
+Add a new fund by appending an entry to the FUNDS dict below.
 """
 
 import json
@@ -14,20 +14,145 @@ except ImportError:
     print("ERROR: pandas not installed. Please run: pip install pandas openpyxl")
     exit(1)
 
-# Fund configurations
+# Fund configurations — one entry per fund.
+# Keys:
+#   name            : Display name written into JSON
+#   normalized_name : Used as the JSON filename prefix
+#   excel_folder    : Folder containing source .xlsx files
+#   data_folder     : Destination folder for JSON output
 FUNDS = {
-    "mirae": {
-        "name": "Mirae Asset Large & Midcap Fund",
-        "normalized_name": "MiraeAssetLargeAndMidcapFund",
-        "excel_folder": "excel-data/mirae-asset",
-        "data_folder": "data"
-    },
     "canara": {
         "name": "Canara Robeco Large and Mid Cap Fund",
         "normalized_name": "CanaraRobecoLargeAndMidCapFund",
         "excel_folder": "excel-data/canara-robeco",
-        "data_folder": "data"
-    }
+        "data_folder": "data",
+    },
+    "mirae": {
+        "name": "Mirae Asset Large & Midcap Fund",
+        "normalized_name": "MiraeAssetLargeAndMidcapFund",
+        "excel_folder": "excel-data/mirae-asset",
+        "data_folder": "data",
+    },
+    "sbi": {
+        "name": "SBI Large & Midcap Fund",
+        "normalized_name": "SBILargeAndMidcapFund",
+        "excel_folder": "excel-data/sbi",
+        "data_folder": "data",
+    },
+    "hdfc": {
+        "name": "HDFC Large and Mid Cap Fund",
+        "normalized_name": "HDFCLargeAndMidCapFund",
+        "excel_folder": "excel-data/hdfc",
+        "data_folder": "data",
+    },
+    "icici_prudential": {
+        "name": "ICICI Prudential Large & Mid Cap Fund",
+        "normalized_name": "ICICIPrudentialLargeAndMidCapFund",
+        "excel_folder": "excel-data/icici-prudential",
+        "data_folder": "data",
+    },
+    "kotak": {
+        "name": "Kotak Large & Midcap Fund",
+        "normalized_name": "KotakLargeAndMidcapFund",
+        "excel_folder": "excel-data/kotak",
+        "data_folder": "data",
+    },
+    "nippon": {
+        "name": "Nippon India Vision Fund",
+        "normalized_name": "NipponIndiaVisionFund",
+        "excel_folder": "excel-data/nippon",
+        "data_folder": "data",
+    },
+    "axis": {
+        "name": "Axis Large & Mid Cap Fund",
+        "normalized_name": "AxisLargeAndMidCapFund",
+        "excel_folder": "excel-data/axis",
+        "data_folder": "data",
+    },
+    "quant": {
+        "name": "Quant Large and Mid Cap Fund",
+        "normalized_name": "QuantLargeAndMidCapFund",
+        "excel_folder": "excel-data/quant",
+        "data_folder": "data",
+    },
+    "uti": {
+        "name": "UTI Large & Mid Cap Fund",
+        "normalized_name": "UTILargeAndMidCapFund",
+        "excel_folder": "excel-data/uti",
+        "data_folder": "data",
+    },
+    "dsp": {
+        "name": "DSP Large & Mid Cap Fund",
+        "normalized_name": "DSPLargeAndMidCapFund",
+        "excel_folder": "excel-data/dsp",
+        "data_folder": "data",
+    },
+    "tata": {
+        "name": "Tata Large & Mid Cap Fund",
+        "normalized_name": "TataLargeAndMidCapFund",
+        "excel_folder": "excel-data/tata",
+        "data_folder": "data",
+    },
+    "invesco": {
+        "name": "Invesco India Large & Mid Cap Fund",
+        "normalized_name": "InvescoIndiaLargeAndMidCapFund",
+        "excel_folder": "excel-data/invesco",
+        "data_folder": "data",
+    },
+    "motilal_oswal": {
+        "name": "Motilal Oswal Large and Midcap Fund",
+        "normalized_name": "MotilalOswalLargeAndMidcapFund",
+        "excel_folder": "excel-data/motilal-oswal",
+        "data_folder": "data",
+    },
+    "bandhan": {
+        "name": "Bandhan Large & Mid Cap Fund",
+        "normalized_name": "BandhanLargeAndMidCapFund",
+        "excel_folder": "excel-data/bandhan",
+        "data_folder": "data",
+    },
+    "aditya_birla": {
+        "name": "Aditya Birla Sun Life Large & Mid Cap Fund",
+        "normalized_name": "AdityaBirlaSunLifeLargeAndMidCapFund",
+        "excel_folder": "excel-data/aditya-birla",
+        "data_folder": "data",
+    },
+    "franklin": {
+        "name": "Franklin India Large & Mid Cap Fund",
+        "normalized_name": "FranklinIndiaLargeAndMidCapFund",
+        "excel_folder": "excel-data/franklin",
+        "data_folder": "data",
+    },
+    "whiteoak": {
+        "name": "WhiteOak Capital Large & Mid Cap Fund",
+        "normalized_name": "WhiteOakCapitalLargeAndMidCapFund",
+        "excel_folder": "excel-data/whiteoak",
+        "data_folder": "data",
+    },
+    "edelweiss": {
+        "name": "Edelweiss Large & Mid Cap Fund",
+        "normalized_name": "EdelweissLargeAndMidCapFund",
+        "excel_folder": "excel-data/edelweiss",
+        "data_folder": "data",
+    },
+    "sundaram": {
+        "name": "Sundaram Large and Mid Cap Fund",
+        "normalized_name": "SundaramLargeAndMidCapFund",
+        "excel_folder": "excel-data/sundaram",
+        "data_folder": "data",
+    },
+    "mahindra": {
+        "name": "Mahindra Manulife Large & Mid Cap Fund",
+        "normalized_name": "MahindraManulifeLargeAndMidCapFund",
+        "excel_folder": "excel-data/mahindra",
+        "data_folder": "data",
+    },
+    "hsbc": {
+        "name": "HSBC Large and Mid Cap Fund",
+        "normalized_name": "HSBCLargeAndMidCapFund",
+        "excel_folder": "excel-data/hsbc",
+        "data_folder": "data",
+    },
 }
 
 
@@ -375,6 +500,15 @@ def main():
     
     print("=" * 70)
     print(f"OVERALL: {total_success}/{total_files} files processed successfully")
+
+    # Keep frontend data discovery in sync after extraction
+    try:
+        from generate_manifest import generate_manifest
+
+        generate_manifest()
+    except Exception as e:
+        print(f"WARNING: Could not generate manifest.json: {e}")
+
     print("=" * 70)
 
 

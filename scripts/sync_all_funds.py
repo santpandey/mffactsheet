@@ -1,19 +1,24 @@
 """
 Unified Sync Script for All Mutual Funds
-Downloads latest data from all supported funds and extracts to JSON
+Auto-discovers all fund downloaders in scripts/downloaders/ and runs them.
 
 Usage:
-    python scripts/sync_all_funds.py                    # Sync all funds (auto-detect months)
-    python scripts/sync_all_funds.py --months 3         # Sync last 3 months
+    python scripts/sync_all_funds.py                        # Sync all funds (previous month)
+    python scripts/sync_all_funds.py --months 3             # Sync last 3 months
     python scripts/sync_all_funds.py --year 2026 --month 2  # Sync specific month
+    python scripts/sync_all_funds.py --fund canara_robeco   # Sync a single fund
+    python scripts/sync_all_funds.py --force                # Force re-download
+    python scripts/sync_all_funds.py --list                 # List all registered funds
 """
 
 import sys
-import subprocess
+import importlib
+import inspect
 import logging
+import subprocess
 from pathlib import Path
 from datetime import datetime, timedelta
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 # Setup logging
 LOG_DIR = Path(__file__).parent.parent / "logs"
@@ -31,280 +36,255 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def get_recent_months(count: int = 3) -> List[Tuple[int, int]]:
-    """
-    Get list of recent months to sync.
-    
-    Args:
-        count: Number of recent months to return
-        
-    Returns:
-        List of (year, month) tuples
-    """
+def get_recent_months(count: int = 1) -> List[Tuple[int, int]]:
+    """Return list of (year, month) for the last `count` months."""
     months = []
     current = datetime.now()
-    
     for i in range(count):
-        # Go back i months
         target = current - timedelta(days=30 * i)
         months.append((target.year, target.month))
-    
     return months
 
 
-def sync_canara_robeco(year: int = None, month: int = None, force: bool = False) -> bool:
+def discover_downloaders() -> Dict[str, object]:
     """
-    Sync Canara Robeco fund data.
-    
-    Args:
-        year: Target year (None for auto-detect)
-        month: Target month (None for auto-detect)
-        force: Force re-download even if exists
-        
-    Returns:
-        True if successful, False otherwise
+    Auto-discover all BaseFundDownloader subclasses in scripts/downloaders/.
+    Returns a dict of {fund_key: downloader_instance}.
     """
-    logger.info("="*70)
-    logger.info("SYNCING: Canara Robeco Large and Mid Cap Fund")
-    logger.info("="*70)
-    
-    script_path = Path(__file__).parent / "canara_auto_download.py"
-    
-    cmd = [sys.executable, str(script_path)]
-    
-    if year and month:
-        cmd.extend(["--year", str(year), "--month", str(month)])
-    
-    if force:
-        cmd.append("--force")
-    
-    try:
-        result = subprocess.run(
-            cmd,
-            capture_output=True,
-            text=True,
-            cwd=Path(__file__).parent.parent
-        )
-        
-        # Log output
-        if result.stdout:
-            for line in result.stdout.split('\n'):
-                if line.strip():
-                    logger.info(f"  [Canara] {line}")
-        
-        if result.returncode == 0:
-            logger.info("✓ Canara Robeco sync completed successfully")
-            return True
-        else:
-            logger.error(f"✗ Canara Robeco sync failed with exit code {result.returncode}")
-            if result.stderr:
-                logger.error(f"  Error: {result.stderr}")
-            return False
-            
-    except Exception as e:
-        logger.error(f"✗ Canara Robeco sync failed: {e}")
-        return False
+    from downloaders.base_downloader import BaseFundDownloader
 
+    downloaders_dir = Path(__file__).parent / "downloaders"
+    discovered: Dict[str, object] = {}
 
-def sync_mirae_asset_manual_reminder():
-    """
-    Display reminder for manual Mirae Asset download.
-    """
-    logger.info("="*70)
-    logger.info("MANUAL ACTION REQUIRED: Mirae Asset Large & Midcap Fund")
-    logger.info("="*70)
-    logger.info("")
-    logger.info("Mirae Asset requires manual download:")
-    logger.info("  1. Visit: https://www.miraeassetmf.co.in/downloads/portfolio")
-    logger.info("  2. Download 'Mirae Asset Large & Midcap Fund' for desired month")
-    logger.info("  3. Save to: excel-data/mirae-asset/maebf-{month}{year}.xlsx")
-    logger.info("")
-    logger.info("After downloading, this script will automatically extract the data.")
-    logger.info("")
+    for py_file in sorted(downloaders_dir.glob("*.py")):
+        if py_file.name.startswith("_") or py_file.name == "base_downloader.py":
+            continue
+        module_name = f"downloaders.{py_file.stem}"
+        try:
+            module = importlib.import_module(module_name)
+            for _, cls in inspect.getmembers(module, inspect.isclass):
+                if (
+                    issubclass(cls, BaseFundDownloader)
+                    and cls is not BaseFundDownloader
+                    and cls.FUND_KEY
+                ):
+                    instance = cls()
+                    discovered[cls.FUND_KEY] = instance
+                    logger.debug(f"  Registered: {cls.FUND_KEY} -> {cls.__name__}")
+        except Exception as e:
+            logger.warning(f"  Could not load {module_name}: {e}")
+
+    return discovered
 
 
 def extract_all_data() -> bool:
-    """
-    Run extraction script to process all Excel files.
-    
-    Returns:
-        True if successful, False otherwise
-    """
-    logger.info("="*70)
+    """Run extract_all_funds.py to process all downloaded Excel files."""
+    logger.info("=" * 70)
     logger.info("EXTRACTING: All fund data to JSON")
-    logger.info("="*70)
-    
+    logger.info("=" * 70)
     script_path = Path(__file__).parent / "extract_all_funds.py"
-    
     try:
         result = subprocess.run(
             [sys.executable, str(script_path)],
             capture_output=True,
             text=True,
-            cwd=Path(__file__).parent.parent
+            cwd=Path(__file__).parent.parent,
         )
-        
-        # Log output
         if result.stdout:
-            for line in result.stdout.split('\n'):
-                if line.strip() and not line.startswith('Processing:'):
+            for line in result.stdout.split("\n"):
+                if line.strip():
                     logger.info(f"  [Extract] {line}")
-        
         if result.returncode == 0:
-            logger.info("✓ Data extraction completed successfully")
+            logger.info("OK: Data extraction completed")
             return True
         else:
-            logger.error(f"✗ Data extraction failed with exit code {result.returncode}")
+            logger.error(f"FAILED: Data extraction exit code {result.returncode}")
+            if result.stderr:
+                logger.error(result.stderr[:500])
             return False
-            
     except Exception as e:
-        logger.error(f"✗ Data extraction failed: {e}")
+        logger.error(f"FAILED: Data extraction error: {e}")
         return False
 
 
 def verify_data() -> bool:
-    """
-    Run verification script to check data quality.
-    
-    Returns:
-        True if successful, False otherwise
-    """
-    logger.info("="*70)
+    """Run verify_data.py to check data quality."""
+    logger.info("=" * 70)
     logger.info("VERIFYING: Data quality")
-    logger.info("="*70)
-    
+    logger.info("=" * 70)
     script_path = Path(__file__).parent / "verify_data.py"
-    
     try:
         result = subprocess.run(
             [sys.executable, str(script_path)],
             capture_output=True,
             text=True,
-            cwd=Path(__file__).parent.parent
+            cwd=Path(__file__).parent.parent,
         )
-        
-        # Log output
         if result.stdout:
             logger.info(result.stdout)
-        
         return result.returncode == 0
-            
     except Exception as e:
-        logger.error(f"✗ Data verification failed: {e}")
+        logger.error(f"FAILED: Verification error: {e}")
         return False
 
 
 def main():
     """Main entry point."""
     import argparse
-    
+
     parser = argparse.ArgumentParser(
-        description='Sync all mutual fund data',
+        description="Sync all mutual fund data",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Sync all funds (auto-detect latest month)
-  python scripts/sync_all_funds.py
-  
-  # Sync last 3 months for all funds
-  python scripts/sync_all_funds.py --months 3
-  
-  # Sync specific month
-  python scripts/sync_all_funds.py --year 2026 --month 2
-  
-  # Force re-download even if exists
-  python scripts/sync_all_funds.py --force
-        """
+  python scripts/sync_all_funds.py                        # Sync all funds (previous month)
+  python scripts/sync_all_funds.py --months 3             # Sync last 3 months
+  python scripts/sync_all_funds.py --year 2026 --month 2  # Sync specific month
+  python scripts/sync_all_funds.py --fund canara_robeco   # Sync one fund only
+  python scripts/sync_all_funds.py --list                 # List all registered funds
+  python scripts/sync_all_funds.py --force                # Force re-download
+        """,
     )
-    
-    parser.add_argument('--year', type=int, help='Target year (default: auto-detect)')
-    parser.add_argument('--month', type=int, help='Target month 1-12 (default: auto-detect)')
-    parser.add_argument('--months', type=int, help='Number of recent months to sync (default: 1)')
-    parser.add_argument('--force', action='store_true', help='Force re-download even if exists')
-    parser.add_argument('--skip-extraction', action='store_true', help='Skip extraction step')
-    parser.add_argument('--skip-verification', action='store_true', help='Skip verification step')
-    
+    parser.add_argument("--year", type=int, help="Target year")
+    parser.add_argument("--month", type=int, help="Target month 1-12")
+    parser.add_argument("--months", type=int, default=1, help="Number of recent months (default: 1)")
+    parser.add_argument("--fund", type=str, help="Sync a single fund by FUND_KEY")
+    parser.add_argument("--force", action="store_true", help="Force re-download even if file exists")
+    parser.add_argument("--skip-extraction", action="store_true", help="Skip extraction step")
+    parser.add_argument("--skip-verification", action="store_true", help="Skip verification step")
+    parser.add_argument("--list", action="store_true", help="List all registered fund downloaders")
+
     args = parser.parse_args()
-    
-    logger.info("╔" + "="*68 + "╗")
-    logger.info("║" + " "*15 + "MUTUAL FUND DATA SYNC SCRIPT" + " "*25 + "║")
-    logger.info("╚" + "="*68 + "╝")
+
+    logger.info("=" * 70)
+    logger.info("  MUTUAL FUND DATA SYNC")
+    logger.info("=" * 70)
+    logger.info(f"Started: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info(f"Log: {log_file}")
     logger.info("")
-    logger.info(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    logger.info(f"Log file: {log_file}")
+
+    # Add scripts/ to sys.path so relative imports work when called directly
+    scripts_dir = str(Path(__file__).parent)
+    if scripts_dir not in sys.path:
+        sys.path.insert(0, scripts_dir)
+
+    # Discover all fund downloaders
+    all_downloaders = discover_downloaders()
+
+    if args.list:
+        logger.info(f"Registered fund downloaders ({len(all_downloaders)}):")
+        for key, dl in sorted(all_downloaders.items()):
+            logger.info(f"  {key:25s} -> {dl.FUND_DISPLAY_NAME}")
+        return
+
+    # Filter to single fund if requested
+    if args.fund:
+        if args.fund not in all_downloaders:
+            logger.error(f"Unknown fund key: '{args.fund}'. Use --list to see available funds.")
+            sys.exit(1)
+        downloaders_to_run = {args.fund: all_downloaders[args.fund]}
+    else:
+        downloaders_to_run = all_downloaders
+
+    logger.info(f"Funds to sync: {len(downloaders_to_run)}")
+    for key, dl in downloaders_to_run.items():
+        logger.info(f"  - {dl.FUND_DISPLAY_NAME}")
     logger.info("")
-    
+
     # Determine months to sync
     if args.year and args.month:
         months_to_sync = [(args.year, args.month)]
-    elif args.months:
+    else:
         months_to_sync = get_recent_months(args.months)
-    else:
-        months_to_sync = get_recent_months(1)
-    
-    logger.info(f"Syncing {len(months_to_sync)} month(s):")
-    for year, month in months_to_sync:
-        month_name = datetime(year, month, 1).strftime('%B')
-        logger.info(f"  - {month_name} {year}")
+
+    logger.info(f"Months to sync: {len(months_to_sync)}")
+    for y, m in months_to_sync:
+        logger.info(f"  - {datetime(y, m, 1).strftime('%B %Y')}")
     logger.info("")
-    
-    # Track results
-    canara_success = 0
-    canara_failed = 0
-    
-    # Sync Canara Robeco for each month
-    for year, month in months_to_sync:
-        if sync_canara_robeco(year, month, args.force):
-            canara_success += 1
-        else:
-            canara_failed += 1
+
+    # Run each downloader for each month
+    results: Dict[str, Dict] = {}
+    for fund_key, downloader in downloaders_to_run.items():
+        results[fund_key] = {"success": 0, "failed": 0, "skipped": 0}
+        for year, month in months_to_sync:
+            logger.info("-" * 70)
+            try:
+                ok = downloader.download(year, month, force=args.force)
+                if ok:
+                    results[fund_key]["success"] += 1
+                else:
+                    results[fund_key]["failed"] += 1
+            except Exception as e:
+                logger.error(f"Unexpected error for {fund_key}: {e}")
+                results[fund_key]["failed"] += 1
         logger.info("")
-    
-    # Show Mirae Asset reminder
-    sync_mirae_asset_manual_reminder()
-    
-    # Extract data (unless skipped)
-    extraction_success = True
+
+    # Extraction
+    extraction_ok = True
     if not args.skip_extraction:
-        extraction_success = extract_all_data()
+        extraction_ok = extract_all_data()
+        
+        # Generate manifest file for frontend after extraction
+        if extraction_ok:
+            logger.info("=" * 70)
+            logger.info("GENERATING: JSON Manifest for UI")
+            logger.info("=" * 70)
+            manifest_script = Path(__file__).parent / "generate_manifest.py"
+            try:
+                manifest_result = subprocess.run(
+                    [sys.executable, str(manifest_script)],
+                    capture_output=True,
+                    text=True,
+                    cwd=Path(__file__).parent.parent
+                )
+                if manifest_result.returncode == 0:
+                    logger.info("OK: Manifest generation completed")
+                else:
+                    logger.error(
+                        f"FAILED: Manifest generation exit code {manifest_result.returncode}"
+                    )
+                    if manifest_result.stderr:
+                        logger.error(manifest_result.stderr[:500])
+            except Exception as e:
+                logger.error(f"FAILED: Manifest generation error: {e}")
+                
         logger.info("")
-    
-    # Verify data (unless skipped)
-    verification_success = True
+
+    # Verification
+    verification_ok = True
     if not args.skip_verification:
-        verification_success = verify_data()
+        verification_ok = verify_data()
         logger.info("")
-    
+
     # Summary
-    logger.info("╔" + "="*68 + "╗")
-    logger.info("║" + " "*25 + "SYNC SUMMARY" + " "*31 + "║")
-    logger.info("╚" + "="*68 + "╝")
+    logger.info("=" * 70)
+    logger.info("  SYNC SUMMARY")
+    logger.info("=" * 70)
+    total_success = 0
+    total_failed = 0
+    for fund_key, res in results.items():
+        dl = downloaders_to_run[fund_key]
+        status = "OK" if res["failed"] == 0 else "PARTIAL" if res["success"] > 0 else "FAILED"
+        logger.info(
+            f"  [{status:7s}] {dl.FUND_DISPLAY_NAME}: "
+            f"{res['success']} ok, {res['failed']} failed"
+        )
+        total_success += res["success"]
+        total_failed += res["failed"]
+
     logger.info("")
-    logger.info(f"Canara Robeco:")
-    logger.info(f"  ✓ Successful: {canara_success}")
-    if canara_failed > 0:
-        logger.info(f"  ⚠ Not available: {canara_failed} (file may not be published yet)")
-    logger.info("")
-    logger.info(f"Mirae Asset:")
-    logger.info(f"  ⚠ Manual download required")
-    logger.info("")
-    logger.info(f"Data Extraction: {'✓ Success' if extraction_success else '✗ Failed'}")
-    logger.info(f"Data Verification: {'✓ Success' if verification_success else '✗ Failed'}")
-    logger.info("")
-    logger.info(f"Completed at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-    logger.info(f"Log saved to: {log_file}")
-    logger.info("")
-    
-    # Exit code
-    if not extraction_success:
-        logger.error("⚠ Sync completed with errors (extraction failed)")
+    logger.info(f"  Total: {total_success} succeeded, {total_failed} failed")
+    logger.info(f"  Extraction:  {'OK' if extraction_ok else 'FAILED'}")
+    logger.info(f"  Verification: {'OK' if verification_ok else 'FAILED'}")
+    logger.info(f"  Completed: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    logger.info("=" * 70)
+
+    if not extraction_ok:
         sys.exit(1)
-    elif canara_failed > 0:
-        logger.warning("⚠ Sync completed - some files not yet available")
-        logger.info("  Tip: Run again after the 5th of the month when files are published")
-        sys.exit(0)  # Not an error, just not published yet
+    elif total_failed > 0 and total_success == 0:
+        logger.warning("All downloads failed — files may not be published yet")
+        sys.exit(0)
     else:
-        logger.info("✓ Sync completed successfully")
         sys.exit(0)
 
 

@@ -14,17 +14,26 @@
         <p id="currentFundName">
           Track and compare mutual fund holdings over time
         </p>
-        <p class="subtitle">
-          Mirae Asset Large & Midcap Fund - Monthly Holdings Analysis
-        </p>
       </header>
+
+      <div class="search-action-bar">
+        <button
+          id="fundSearchBtn"
+          class="btn-primary-search"
+          title="Search all mutual funds (Ctrl+K)"
+        >
+          <span class="search-icon">🔍</span> Search Funds
+        </button>
+      </div>
 
       <div class="controls">
         <div class="control-group">
           <label for="fundSelect">🏦 Select Fund:</label>
-          <select id="fundSelect">
-            <option value="">Loading...</option>
-          </select>
+          <div class="fund-select-wrapper">
+            <select id="fundSelect">
+              <option value="">Loading...</option>
+            </select>
+          </div>
         </div>
         <div class="control-group">
           <label for="monthSelect">📅 Current Month:</label>
@@ -60,21 +69,6 @@
         <div class="stat-card">
           <span class="stat-label">Top 10 Concentration</span>
           <span class="stat-value" id="top10Concentration">-</span>
-        </div>
-      </div>
-
-      <div class="charts-container">
-        <div class="chart-card">
-          <h2>Portfolio Allocation (Top 15)</h2>
-          <div class="chart-wrapper">
-            <canvas id="allocationChart"></canvas>
-          </div>
-        </div>
-        <div class="chart-card">
-          <h2>Sector/Holdings Distribution</h2>
-          <div class="chart-wrapper">
-            <canvas id="pieChart"></canvas>
-          </div>
         </div>
       </div>
 
@@ -137,9 +131,30 @@
         </div>
       </div>
 
+      <div class="charts-container">
+        <div class="chart-card">
+          <h2>Portfolio Allocation (Top 15)</h2>
+          <div class="chart-wrapper">
+            <canvas id="allocationChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <h2>Sector/Holdings Distribution</h2>
+          <div class="chart-wrapper">
+            <canvas id="pieChart"></canvas>
+          </div>
+        </div>
+      </div>
+
       <!-- Yearly Trend Section -->
       <div class="yearly-section" id="yearlySection">
         <h2>Yearly Trend Analysis</h2>
+        <div class="chart-card full-width">
+          <h3>Top 5 Holdings - Monthly Comparison</h3>
+          <div class="chart-wrapper-wide">
+            <canvas id="top5TrendChart"></canvas>
+          </div>
+        </div>
         <div class="control-group" style="margin-bottom: 16px">
           <label for="stockSelect">Select Stock to Track:</label>
           <select id="stockSelect">
@@ -150,12 +165,6 @@
           <h3>% of NAV Trend Across Months</h3>
           <div class="chart-wrapper-wide">
             <canvas id="yearlyChart"></canvas>
-          </div>
-        </div>
-        <div class="chart-card full-width">
-          <h3>Top 5 Holdings - Monthly Comparison</h3>
-          <div class="chart-wrapper-wide">
-            <canvas id="top5TrendChart"></canvas>
           </div>
         </div>
       </div>
@@ -216,6 +225,32 @@
     <div id="loadingOverlay" class="loading-overlay">
       <div class="spinner"></div>
       <p>Loading data...</p>
+    </div>
+
+    <!-- Fund Search Modal -->
+    <div id="fundSearchModal" class="modal-overlay" style="display: none">
+      <div class="modal-content fund-search-modal">
+        <div class="modal-header">
+          <h3>🔍 Search Funds</h3>
+          <button class="modal-close" id="fundSearchClose">✕</button>
+        </div>
+        <div class="fund-search-input-wrap">
+          <input
+            type="text"
+            id="fundSearchInput"
+            placeholder="Type to search mutual funds..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="fund-search-clear" id="fundSearchClear" title="Clear">
+            ✕
+          </button>
+        </div>
+        <div class="fund-search-results" id="fundSearchResults"></div>
+        <div class="fund-search-hint">
+          ↑↓ to navigate · Enter to select · Esc to close
+        </div>
+      </div>
     </div>
 
     <script src="js/app-multi-fund.js"></script>

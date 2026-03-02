@@ -5,13 +5,93 @@
 
 // Fund configurations
 const FUNDS = {
+  CanaraRobecoLargeAndMidCapFund: {
+    name: "Canara Robeco Large and Mid Cap Fund",
+    displayName: "Canara Robeco",
+  },
   MiraeAssetLargeAndMidcapFund: {
     name: "Mirae Asset Large & Midcap Fund",
     displayName: "Mirae Asset",
   },
-  CanaraRobecoLargeAndMidCapFund: {
-    name: "Canara Robeco Large and Mid Cap Fund",
-    displayName: "Canara Robeco",
+  SBILargeAndMidcapFund: {
+    name: "SBI Large & Midcap Fund",
+    displayName: "SBI",
+  },
+  HDFCLargeAndMidCapFund: {
+    name: "HDFC Large and Mid Cap Fund",
+    displayName: "HDFC",
+  },
+  ICICIPrudentialLargeAndMidCapFund: {
+    name: "ICICI Prudential Large & Mid Cap Fund",
+    displayName: "ICICI Prudential",
+  },
+  KotakLargeAndMidcapFund: {
+    name: "Kotak Large & Midcap Fund",
+    displayName: "Kotak",
+  },
+  NipponIndiaVisionFund: {
+    name: "Nippon India Vision Fund",
+    displayName: "Nippon India",
+  },
+  AxisLargeAndMidCapFund: {
+    name: "Axis Large & Mid Cap Fund",
+    displayName: "Axis",
+  },
+  QuantLargeAndMidCapFund: {
+    name: "Quant Large and Mid Cap Fund",
+    displayName: "Quant",
+  },
+  UTILargeAndMidCapFund: {
+    name: "UTI Large & Mid Cap Fund",
+    displayName: "UTI",
+  },
+  DSPLargeAndMidCapFund: {
+    name: "DSP Large & Mid Cap Fund",
+    displayName: "DSP",
+  },
+  TataLargeAndMidCapFund: {
+    name: "Tata Large & Mid Cap Fund",
+    displayName: "Tata",
+  },
+  InvescoIndiaLargeAndMidCapFund: {
+    name: "Invesco India Large & Mid Cap Fund",
+    displayName: "Invesco",
+  },
+  MotilalOswalLargeAndMidcapFund: {
+    name: "Motilal Oswal Large and Midcap Fund",
+    displayName: "Motilal Oswal",
+  },
+  BandhanLargeAndMidCapFund: {
+    name: "Bandhan Large & Mid Cap Fund",
+    displayName: "Bandhan",
+  },
+  AdityaBirlaSunLifeLargeAndMidCapFund: {
+    name: "Aditya Birla Sun Life Large & Mid Cap Fund",
+    displayName: "Aditya Birla",
+  },
+  FranklinIndiaLargeAndMidCapFund: {
+    name: "Franklin India Large & Mid Cap Fund",
+    displayName: "Franklin",
+  },
+  WhiteOakCapitalLargeAndMidCapFund: {
+    name: "WhiteOak Capital Large & Mid Cap Fund",
+    displayName: "WhiteOak",
+  },
+  EdelweissLargeAndMidCapFund: {
+    name: "Edelweiss Large & Mid Cap Fund",
+    displayName: "Edelweiss",
+  },
+  SundaramLargeAndMidCapFund: {
+    name: "Sundaram Large and Mid Cap Fund",
+    displayName: "Sundaram",
+  },
+  MahindraManulifeLargeAndMidCapFund: {
+    name: "Mahindra Manulife Large & Mid Cap Fund",
+    displayName: "Mahindra Manulife",
+  },
+  HSBCLargeAndMidCapFund: {
+    name: "HSBC Large and Mid Cap Fund",
+    displayName: "HSBC",
   },
 };
 
@@ -43,29 +123,74 @@ let top5TrendChart = null;
 let availableMonths = [];
 
 async function loadAvailableMonths() {
-  const years = [2025, 2026]; // Support multiple years
   const available = {};
-
-  for (const [fundKey, fundConfig] of Object.entries(FUNDS)) {
+  for (const fundKey of Object.keys(FUNDS)) {
     available[fundKey] = [];
+    if (!allData[fundKey]) allData[fundKey] = {};
+  }
 
-    for (const year of years) {
-      for (const month of MONTHS_ORDER) {
-        const filename = `data/${fundKey}-${month}-${year}.json`;
-        try {
-          const response = await fetch(filename);
-          if (response.ok) {
-            const data = await response.json();
-            const key = `${month}-${year}`;
-            if (!allData[fundKey]) allData[fundKey] = {};
-            allData[fundKey][key] = data;
-            available[fundKey].push({ month, year, key });
-          }
-        } catch (e) {
-          // Silently skip missing files
-        }
-      }
+  let fileNames = [];
+
+  // Authoritative local source: directory listing avoids guessing filenames (and avoids 404 spam)
+  try {
+    const listingResponse = await fetch("data/");
+    if (listingResponse.ok) {
+      const listingHtml = await listingResponse.text();
+      const matches = listingHtml.matchAll(/href="([^"]+\.json)"/gi);
+      fileNames = Array.from(matches, (m) => decodeURIComponent(m[1])).filter(
+        (name) => name !== "manifest.json",
+      );
     }
+  } catch (e) {
+    console.warn("Unable to read data directory listing.", e);
+  }
+
+  // Fallback for hosts without directory listing support
+  if (fileNames.length === 0) {
+    try {
+      const manifestResponse = await fetch("data/manifest.json");
+      if (manifestResponse.ok) {
+        const manifest = await manifestResponse.json();
+        fileNames = Object.values(manifest)
+          .flat()
+          .map((entry) => entry.filename)
+          .filter(Boolean);
+      }
+    } catch (e) {
+      console.warn("No manifest available for data discovery.", e);
+    }
+  }
+
+  const uniqueFiles = [...new Set(fileNames)];
+  const filePattern = /^([A-Za-z0-9]+)-([A-Za-z]+)-(\d{4})\.json$/;
+
+  for (const filename of uniqueFiles) {
+    const match = filename.match(filePattern);
+    if (!match) continue;
+
+    const [, fundKey, month, yearText] = match;
+    if (!FUNDS[fundKey]) continue;
+
+    const year = Number(yearText);
+    const key = `${month}-${year}`;
+
+    try {
+      const response = await fetch(`data/${filename}`);
+      if (!response.ok) continue;
+
+      const data = await response.json();
+      allData[fundKey][key] = data;
+      available[fundKey].push({ month, year, key });
+    } catch (e) {
+      console.error(`Failed to load ${filename}`, e);
+    }
+  }
+
+  for (const fundKey of Object.keys(available)) {
+    available[fundKey].sort((a, b) => {
+      if (a.year !== b.year) return a.year - b.year;
+      return MONTHS_ORDER.indexOf(a.month) - MONTHS_ORDER.indexOf(b.month);
+    });
   }
 
   return available;
@@ -143,6 +268,19 @@ function populateStockDropdown() {
       option.textContent = stock;
       stockSelect.appendChild(option);
     });
+
+  // Auto-select the stock with highest percentage in the latest month
+  const fundMonths = availableMonths[currentFund] || [];
+  if (fundMonths.length > 0) {
+    const latestKey = fundMonths[fundMonths.length - 1].key;
+    const latestData = fundData[latestKey];
+    if (latestData && latestData.holdings && latestData.holdings.length > 0) {
+      const topStock = latestData.holdings[0].company;
+      stockSelect.value = topStock;
+      // Trigger the chart rendering
+      renderStockTrend(topStock);
+    }
+  }
 }
 
 function formatNumber(num) {
@@ -818,6 +956,7 @@ async function reloadData() {
   populateFundSelector(availableMonths);
   populateDropdowns(availableMonths);
   populateStockDropdown();
+  initFundSearch(availableMonths);
 
   // Display latest month for current fund
   const fundMonths = availableMonths[currentFund] || [];
@@ -867,6 +1006,240 @@ function switchFund(fundKey) {
   renderTop5Trend();
 }
 
+// ---------------------------------------------------------------------------
+// Fuzzy Fund Search
+// ---------------------------------------------------------------------------
+
+/**
+ * Lightweight fuzzy scorer.
+ * Returns a score >= 0 (higher = better match), or -1 if no match.
+ * Strategy: consecutive run bonus + position bonus + acronym bonus.
+ */
+function fuzzyScore(query, target) {
+  const q = query.toLowerCase();
+  const t = target.toLowerCase();
+
+  // Exact substring → highest priority
+  if (t.includes(q)) {
+    return 1000 - t.indexOf(q);
+  }
+
+  // Acronym match: "sbi" matches "SBI Large & Midcap Fund"
+  const words = t.split(/[\s&]+/);
+  const acronym = words.map((w) => w[0] || "").join("");
+  if (acronym.includes(q)) {
+    return 800;
+  }
+
+  // Character-by-character fuzzy match
+  let qi = 0;
+  let score = 0;
+  let consecutive = 0;
+  for (let ti = 0; ti < t.length && qi < q.length; ti++) {
+    if (t[ti] === q[qi]) {
+      score += 10 + consecutive * 5;
+      consecutive++;
+      qi++;
+    } else {
+      consecutive = 0;
+    }
+  }
+
+  if (qi < q.length) return -1; // not all chars matched
+  return score;
+}
+
+/**
+ * Highlight matched characters in the fund name.
+ * For substring matches, wraps the matched portion in <mark>.
+ */
+function highlightMatch(query, text) {
+  const q = query.toLowerCase();
+  const t = text.toLowerCase();
+  const idx = t.indexOf(q);
+  if (idx !== -1) {
+    return (
+      escapeHtml(text.slice(0, idx)) +
+      "<mark>" +
+      escapeHtml(text.slice(idx, idx + q.length)) +
+      "</mark>" +
+      escapeHtml(text.slice(idx + q.length))
+    );
+  }
+  // Fuzzy: highlight individual matched chars
+  let result = "";
+  let qi = 0;
+  const qLow = q;
+  for (let ti = 0; ti < text.length; ti++) {
+    if (qi < qLow.length && text[ti].toLowerCase() === qLow[qi]) {
+      result += "<mark>" + escapeHtml(text[ti]) + "</mark>";
+      qi++;
+    } else {
+      result += escapeHtml(text[ti]);
+    }
+  }
+  return result;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+/** Return initials badge text (up to 3 chars) */
+function fundBadgeText(displayName) {
+  const words = displayName.split(/\s+/);
+  if (words.length === 1) return words[0].slice(0, 3).toUpperCase();
+  return words
+    .slice(0, 3)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+}
+
+let _searchHighlightIdx = -1;
+
+function initFundSearch(available) {
+  const modal = document.getElementById("fundSearchModal");
+  const searchBtn = document.getElementById("fundSearchBtn");
+  const closeBtn = document.getElementById("fundSearchClose");
+  const input = document.getElementById("fundSearchInput");
+  const results = document.getElementById("fundSearchResults");
+  const clearBtn = document.getElementById("fundSearchClear");
+  const fundSelect = document.getElementById("fundSelect");
+
+  function openModal() {
+    modal.style.display = "flex";
+    input.value = "";
+    clearBtn.classList.remove("visible");
+    renderResults("");
+    setTimeout(() => input.focus(), 100);
+  }
+
+  function closeModal() {
+    modal.style.display = "none";
+    _searchHighlightIdx = -1;
+  }
+
+  function getResults(query) {
+    const resultList = [];
+    for (const [key, config] of Object.entries(FUNDS)) {
+      if (!available[key] || available[key].length === 0) continue;
+      const score = query ? fuzzyScore(query, config.name) : 100;
+      if (score >= 0) {
+        resultList.push({ key, config, score, months: available[key].length });
+      }
+    }
+    resultList.sort((a, b) => b.score - a.score);
+    return resultList.slice(0, 10);
+  }
+
+  function renderResults(query) {
+    const items = getResults(query);
+    _searchHighlightIdx = -1;
+    results.innerHTML = "";
+
+    if (items.length === 0) {
+      results.innerHTML = `<div class="fund-search-no-results">No funds found for "${escapeHtml(query)}"</div>`;
+      return;
+    }
+
+    items.forEach(({ key, config, months }) => {
+      const item = document.createElement("div");
+      item.className = "fund-search-item";
+      item.dataset.fundKey = key;
+
+      const badge = fundBadgeText(config.displayName);
+      const highlighted = query
+        ? highlightMatch(query, config.name)
+        : escapeHtml(config.name);
+
+      item.innerHTML = `
+        <div class="fund-search-badge">${escapeHtml(badge)}</div>
+        <div class="fund-search-item-info">
+          <div class="fund-search-item-name">${highlighted}</div>
+          <div class="fund-search-item-meta">${months} month${months !== 1 ? "s" : ""} of data available</div>
+        </div>
+      `;
+
+      item.addEventListener("click", () => {
+        selectFund(key);
+      });
+
+      results.appendChild(item);
+    });
+  }
+
+  function selectFund(key) {
+    fundSelect.value = key;
+    switchFund(key);
+    closeModal();
+  }
+
+  function moveHighlight(dir) {
+    const items = results.querySelectorAll(".fund-search-item");
+    if (!items.length) return;
+    items.forEach((el) => el.classList.remove("highlighted"));
+    _searchHighlightIdx = Math.max(
+      0,
+      Math.min(items.length - 1, _searchHighlightIdx + dir),
+    );
+    items[_searchHighlightIdx].classList.add("highlighted");
+    items[_searchHighlightIdx].scrollIntoView({ block: "nearest" });
+  }
+
+  // Event listeners
+  searchBtn.addEventListener("click", openModal);
+  closeBtn.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  input.addEventListener("input", () => {
+    const q = input.value.trim();
+    clearBtn.classList.toggle("visible", q.length > 0);
+    renderResults(q);
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      moveHighlight(1);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      moveHighlight(-1);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const highlighted = results.querySelector(
+        ".fund-search-item.highlighted",
+      );
+      if (highlighted) {
+        selectFund(highlighted.dataset.fundKey);
+      } else {
+        const first = results.querySelector(".fund-search-item");
+        if (first) selectFund(first.dataset.fundKey);
+      }
+    } else if (e.key === "Escape") {
+      closeModal();
+    }
+  });
+
+  clearBtn.addEventListener("click", () => {
+    input.value = "";
+    clearBtn.classList.remove("visible");
+    renderResults("");
+    input.focus();
+  });
+
+  // Keyboard shortcut to open search (Ctrl+K or Cmd+K)
+  document.addEventListener("keydown", (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === "k") {
+      e.preventDefault();
+      openModal();
+    }
+  });
+}
+
 async function init() {
   const loading = document.getElementById("loadingOverlay");
 
@@ -905,6 +1278,7 @@ async function init() {
     populateFundSelector(availableMonths);
     populateDropdowns(availableMonths);
     populateStockDropdown();
+    initFundSearch(availableMonths);
 
     const fundMonths = availableMonths[currentFund] || [];
     if (fundMonths.length > 0) {
@@ -916,10 +1290,6 @@ async function init() {
     renderTop5Trend();
 
     // Event listeners
-    document.getElementById("fundSelect").addEventListener("change", (e) => {
-      switchFund(e.target.value);
-    });
-
     document.getElementById("monthSelect").addEventListener("change", (e) => {
       displayMonth(e.target.value);
     });
@@ -956,6 +1326,12 @@ async function init() {
     document.getElementById("stockSelect").addEventListener("change", (e) => {
       if (e.target.value) {
         renderStockTrend(e.target.value);
+      } else {
+        // Clear the chart when no stock is selected
+        if (yearlyChart) {
+          yearlyChart.destroy();
+          yearlyChart = null;
+        }
       }
     });
 

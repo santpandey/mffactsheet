@@ -27,6 +27,10 @@ logs/
 # Excel source files (too large for git/Netlify)
 excel-data/
 
+# PDF archives (too large for git)
+data/pdf_archive
+pdf_archive
+
 # OS
 .DS_Store
 Thumbs.db
