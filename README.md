@@ -104,8 +104,8 @@ You need a local web server to serve the files (due to browser security restrict
 **Option A: Python HTTP Server (Recommended)**
 
 ```powershell
-cd d:\mffactsheet
-python -m http.server 8000
+# From project root (d:\mffactsheet)
+venv\Scripts\python.exe -m http.server 8000
 ```
 
 **Option B: Node.js (if installed)**

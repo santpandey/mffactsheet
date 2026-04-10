@@ -30,6 +30,17 @@ The scheduled task runs automatically on the 5th of each month and:
 
 ## 📋 Command Reference
 
+### Start Development Server
+
+```powershell
+# Start local web server (run from project root)
+venv\Scripts\python.exe -m http.server 8000
+
+# Then open: http://localhost:8000
+```
+
+**Note:** Server must be running to view the dashboard (browser security restrictions on local JSON files).
+
 ### Download Specific Month
 
 ```powershell

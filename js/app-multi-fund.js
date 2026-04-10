@@ -979,7 +979,6 @@ function switchFund(fundKey) {
   const fundMonths = availableMonths[currentFund] || [];
   if (fundMonths.length > 0) {
     const latestKey = fundMonths[fundMonths.length - 1].key;
-    // Update the month selector to show the latest month
     const monthSelect = document.getElementById("monthSelect");
     monthSelect.value = latestKey;
     displayMonth(latestKey);
@@ -1290,6 +1289,10 @@ async function init() {
     renderTop5Trend();
 
     // Event listeners
+    document.getElementById("fundSelect").addEventListener("change", (e) => {
+      switchFund(e.target.value);
+    });
+
     document.getElementById("monthSelect").addEventListener("change", (e) => {
       displayMonth(e.target.value);
     });
