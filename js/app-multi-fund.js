@@ -13,86 +13,6 @@ const FUNDS = {
     name: "Mirae Asset Large & Midcap Fund",
     displayName: "Mirae Asset",
   },
-  SBILargeAndMidcapFund: {
-    name: "SBI Large & Midcap Fund",
-    displayName: "SBI",
-  },
-  HDFCLargeAndMidCapFund: {
-    name: "HDFC Large and Mid Cap Fund",
-    displayName: "HDFC",
-  },
-  ICICIPrudentialLargeAndMidCapFund: {
-    name: "ICICI Prudential Large & Mid Cap Fund",
-    displayName: "ICICI Prudential",
-  },
-  KotakLargeAndMidcapFund: {
-    name: "Kotak Large & Midcap Fund",
-    displayName: "Kotak",
-  },
-  NipponIndiaVisionFund: {
-    name: "Nippon India Vision Fund",
-    displayName: "Nippon India",
-  },
-  AxisLargeAndMidCapFund: {
-    name: "Axis Large & Mid Cap Fund",
-    displayName: "Axis",
-  },
-  QuantLargeAndMidCapFund: {
-    name: "Quant Large and Mid Cap Fund",
-    displayName: "Quant",
-  },
-  UTILargeAndMidCapFund: {
-    name: "UTI Large & Mid Cap Fund",
-    displayName: "UTI",
-  },
-  DSPLargeAndMidCapFund: {
-    name: "DSP Large & Mid Cap Fund",
-    displayName: "DSP",
-  },
-  TataLargeAndMidCapFund: {
-    name: "Tata Large & Mid Cap Fund",
-    displayName: "Tata",
-  },
-  InvescoIndiaLargeAndMidCapFund: {
-    name: "Invesco India Large & Mid Cap Fund",
-    displayName: "Invesco",
-  },
-  MotilalOswalLargeAndMidcapFund: {
-    name: "Motilal Oswal Large and Midcap Fund",
-    displayName: "Motilal Oswal",
-  },
-  BandhanLargeAndMidCapFund: {
-    name: "Bandhan Large & Mid Cap Fund",
-    displayName: "Bandhan",
-  },
-  AdityaBirlaSunLifeLargeAndMidCapFund: {
-    name: "Aditya Birla Sun Life Large & Mid Cap Fund",
-    displayName: "Aditya Birla",
-  },
-  FranklinIndiaLargeAndMidCapFund: {
-    name: "Franklin India Large & Mid Cap Fund",
-    displayName: "Franklin",
-  },
-  WhiteOakCapitalLargeAndMidCapFund: {
-    name: "WhiteOak Capital Large & Mid Cap Fund",
-    displayName: "WhiteOak",
-  },
-  EdelweissLargeAndMidCapFund: {
-    name: "Edelweiss Large & Mid Cap Fund",
-    displayName: "Edelweiss",
-  },
-  SundaramLargeAndMidCapFund: {
-    name: "Sundaram Large and Mid Cap Fund",
-    displayName: "Sundaram",
-  },
-  MahindraManulifeLargeAndMidCapFund: {
-    name: "Mahindra Manulife Large & Mid Cap Fund",
-    displayName: "Mahindra Manulife",
-  },
-  HSBCLargeAndMidCapFund: {
-    name: "HSBC Large and Mid Cap Fund",
-    displayName: "HSBC",
-  },
 };
 
 const MONTHS_ORDER = [
@@ -118,8 +38,6 @@ let currentFilter = "all";
 let allocationChart = null;
 let pieChart = null;
 let deltaChart = null;
-let yearlyChart = null;
-let top5TrendChart = null;
 let availableMonths = [];
 
 async function loadAvailableMonths() {
@@ -246,40 +164,6 @@ function populateDropdowns(available) {
 
   if (fundMonths.length > 0) {
     monthSelect.value = fundMonths[fundMonths.length - 1].key;
-  }
-}
-
-function populateStockDropdown() {
-  const stockSelect = document.getElementById("stockSelect");
-  const allStocks = new Set();
-
-  const fundData = allData[currentFund] || {};
-  Object.values(fundData).forEach((data) => {
-    data.holdings.forEach((h) => allStocks.add(h.company));
-  });
-
-  stockSelect.innerHTML =
-    '<option value="">Select a stock to track...</option>';
-  Array.from(allStocks)
-    .sort()
-    .forEach((stock) => {
-      const option = document.createElement("option");
-      option.value = stock;
-      option.textContent = stock;
-      stockSelect.appendChild(option);
-    });
-
-  // Auto-select the stock with highest percentage in the latest month
-  const fundMonths = availableMonths[currentFund] || [];
-  if (fundMonths.length > 0) {
-    const latestKey = fundMonths[fundMonths.length - 1].key;
-    const latestData = fundData[latestKey];
-    if (latestData && latestData.holdings && latestData.holdings.length > 0) {
-      const topStock = latestData.holdings[0].company;
-      stockSelect.value = topStock;
-      // Trigger the chart rendering
-      renderStockTrend(topStock);
-    }
   }
 }
 
@@ -753,142 +637,6 @@ function displayMonth(key) {
   document.getElementById("deltaSection").style.display = "none";
 }
 
-function renderStockTrend(stockName) {
-  const ctx = document.getElementById("yearlyChart").getContext("2d");
-  if (yearlyChart) yearlyChart.destroy();
-
-  const fundData = allData[currentFund] || {};
-  const fundMonths = availableMonths[currentFund] || [];
-
-  const labels = [];
-  const values = [];
-
-  fundMonths.forEach((item) => {
-    const data = fundData[item.key];
-    if (data && data.holdings) {
-      const holding = data.holdings.find((h) => h.company === stockName);
-      labels.push(`${item.month.substring(0, 3)} ${item.year}`);
-      values.push(holding ? holding.percentOfNAV : 0);
-    }
-  });
-
-  yearlyChart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels,
-      datasets: [
-        {
-          label: `${stockName} - % of NAV`,
-          data: values,
-          borderColor: "#2563eb",
-          backgroundColor: "rgba(37, 99, 235, 0.1)",
-          borderWidth: 2,
-          tension: 0.3,
-          fill: true,
-          pointRadius: 4,
-          pointHoverRadius: 6,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: { display: true },
-        tooltip: {
-          callbacks: {
-            label: (ctx) => `${ctx.parsed.y.toFixed(2)}% of NAV`,
-          },
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: "% of NAV" },
-        },
-        x: {
-          title: { display: true, text: "Month" },
-        },
-      },
-    },
-  });
-}
-
-function renderTop5Trend() {
-  const ctx = document.getElementById("top5TrendChart").getContext("2d");
-  if (top5TrendChart) top5TrendChart.destroy();
-
-  const fundData = allData[currentFund] || {};
-  const fundMonths = availableMonths[currentFund] || [];
-
-  if (fundMonths.length === 0) return;
-
-  const latestKey = fundMonths[fundMonths.length - 1].key;
-  const latestData = fundData[latestKey];
-  if (!latestData || !latestData.holdings) return;
-
-  const top5Stocks = latestData.holdings.slice(0, 5).map((h) => h.company);
-  const labels = fundMonths.map(
-    (item) => `${item.month.substring(0, 3)} ${item.year}`,
-  );
-
-  const datasets = top5Stocks.map((stock, index) => {
-    const values = fundMonths.map((item) => {
-      const data = fundData[item.key];
-      if (data && data.holdings) {
-        const holding = data.holdings.find((h) => h.company === stock);
-        return holding ? holding.percentOfNAV : 0;
-      }
-      return 0;
-    });
-
-    const colors = ["#2563eb", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
-
-    return {
-      label: stock.length > 25 ? stock.substring(0, 25) + "..." : stock,
-      data: values,
-      borderColor: colors[index],
-      backgroundColor: colors[index] + "20",
-      borderWidth: 2,
-      tension: 0.3,
-      fill: false,
-      pointRadius: 4,
-      pointHoverRadius: 6,
-    };
-  });
-
-  top5TrendChart = new Chart(ctx, {
-    type: "line",
-    data: { labels, datasets },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          display: true,
-          position: "bottom",
-          labels: { boxWidth: 12, padding: 10 },
-        },
-        tooltip: {
-          callbacks: {
-            label: (ctx) =>
-              `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}% of NAV`,
-          },
-        },
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          title: { display: true, text: "% of NAV" },
-        },
-        x: {
-          title: { display: true, text: "Month" },
-        },
-      },
-    },
-  });
-}
-
 async function handleSync() {
   const syncBtn = document.getElementById("syncBtn");
   const originalText = syncBtn.textContent;
@@ -955,7 +703,6 @@ async function reloadData() {
   // Update UI
   populateFundSelector(availableMonths);
   populateDropdowns(availableMonths);
-  populateStockDropdown();
   initFundSearch(availableMonths);
 
   // Display latest month for current fund
@@ -966,15 +713,11 @@ async function reloadData() {
     monthSelect.value = latestKey;
     displayMonth(latestKey);
   }
-
-  // Refresh charts
-  renderTop5Trend();
 }
 
 function switchFund(fundKey) {
   currentFund = fundKey;
   populateDropdowns(availableMonths);
-  populateStockDropdown();
 
   const fundMonths = availableMonths[currentFund] || [];
   if (fundMonths.length > 0) {
@@ -991,18 +734,6 @@ function switchFund(fundKey) {
   }
 
   document.getElementById("deltaSection").style.display = "none";
-
-  if (yearlyChart) {
-    yearlyChart.destroy();
-    yearlyChart = null;
-  }
-  if (top5TrendChart) {
-    top5TrendChart.destroy();
-    top5TrendChart = null;
-  }
-  document.getElementById("stockSelect").value = "";
-
-  renderTop5Trend();
 }
 
 // ---------------------------------------------------------------------------
@@ -1276,7 +1007,6 @@ async function init() {
 
     populateFundSelector(availableMonths);
     populateDropdowns(availableMonths);
-    populateStockDropdown();
     initFundSearch(availableMonths);
 
     const fundMonths = availableMonths[currentFund] || [];
@@ -1284,9 +1014,6 @@ async function init() {
       const latestKey = fundMonths[fundMonths.length - 1].key;
       displayMonth(latestKey);
     }
-
-    // Render top 5 trend chart
-    renderTop5Trend();
 
     // Event listeners
     document.getElementById("fundSelect").addEventListener("change", (e) => {
@@ -1325,18 +1052,6 @@ async function init() {
     document
       .getElementById("filterAll")
       .addEventListener("click", () => setActiveFilter("all"));
-
-    document.getElementById("stockSelect").addEventListener("change", (e) => {
-      if (e.target.value) {
-        renderStockTrend(e.target.value);
-      } else {
-        // Clear the chart when no stock is selected
-        if (yearlyChart) {
-          yearlyChart.destroy();
-          yearlyChart = null;
-        }
-      }
-    });
 
     loading.classList.add("hidden");
   } catch (error) {

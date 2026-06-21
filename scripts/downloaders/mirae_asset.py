@@ -13,10 +13,7 @@ from typing import Optional
 
 import requests
 
-from .base_downloader import (
-    BaseFundDownloader, MONTH_NAMES,
-    fetch_page, excel_links_from_soup, make_absolute,
-)
+from .base_downloader import BaseFundDownloader, MONTH_NAMES
 
 ROOT_DIR = Path(__file__).parent.parent.parent
 EXCEL_DIR = ROOT_DIR / "excel-data" / "mirae-asset"
@@ -42,9 +39,38 @@ class MiraeAssetDownloader(BaseFundDownloader):
     ) -> Optional[str]:
         if page > 1:
             return None
-        
+
         month_abbr = MONTH_NAMES[month - 1][:3].lower()
-        direct_url = f"{self.BASE_DOMAIN}/docs/default-source/portfolios/maebf-{month_abbr}{year}.xlsx"
-        
-        self.logger.info(f"  Trying direct URL: {direct_url}")
-        return direct_url
+        month_full = MONTH_NAMES[month - 1].lower()
+        candidate_names = [
+            f"maebf-{month_abbr}{year}.xlsx",
+            f"maebf_{month_full}{year}.xlsx",
+            f"maebf-{month_full}{year}.xlsx",
+            f"maebf_{month_abbr}{year}.xlsx",
+            f"maebf-{month_full}-{year}.xlsx",
+        ]
+
+        for filename in candidate_names:
+            direct_url = f"{self.BASE_DOMAIN}/docs/default-source/portfolios/{filename}"
+            self.logger.info(f"  Trying direct URL: {direct_url}")
+
+            try:
+                response = session.get(direct_url, timeout=30)
+                response.raise_for_status()
+                content_type = response.headers.get("Content-Type", "").lower()
+
+                if any(
+                    token in content_type
+                    for token in ("excel", "spreadsheet", "octet-stream", "zip")
+                ):
+                    self.logger.info(f"  [MATCH] {direct_url}")
+                    return direct_url
+
+                self.logger.info(
+                    f"  [SKIP] Non-Excel Content-Type at {filename}: {content_type}"
+                )
+            except requests.exceptions.RequestException as exc:
+                self.logger.info(f"  [MISS] {filename}: {exc}")
+
+        self.logger.error("  No valid portfolio Excel URL found")
+        return None

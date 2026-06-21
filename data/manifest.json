@@ -61,6 +61,11 @@
       "filename": "CanaraRobecoLargeAndMidCapFund-May-2025.json"
     },
     {
+      "month": "May",
+      "year": 2026,
+      "filename": "CanaraRobecoLargeAndMidCapFund-May-2026.json"
+    },
+    {
       "month": "November",
       "year": 2025,
       "filename": "CanaraRobecoLargeAndMidCapFund-November-2025.json"
@@ -74,43 +79,6 @@
       "month": "September",
       "year": 2025,
       "filename": "CanaraRobecoLargeAndMidCapFund-September-2025.json"
-    }
-  ],
-  "HDFCLargeAndMidCapFund": [
-    {
-      "month": "August",
-      "year": 2025,
-      "filename": "HDFCLargeAndMidCapFund-August-2025.json"
-    },
-    {
-      "month": "December",
-      "year": 2025,
-      "filename": "HDFCLargeAndMidCapFund-December-2025.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "HDFCLargeAndMidCapFund-January-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2025,
-      "filename": "HDFCLargeAndMidCapFund-July-2025.json"
-    },
-    {
-      "month": "November",
-      "year": 2025,
-      "filename": "HDFCLargeAndMidCapFund-November-2025.json"
-    },
-    {
-      "month": "October",
-      "year": 2025,
-      "filename": "HDFCLargeAndMidCapFund-October-2025.json"
-    },
-    {
-      "month": "September",
-      "year": 2025,
-      "filename": "HDFCLargeAndMidCapFund-September-2025.json"
     }
   ],
   "MiraeAssetLargeAndMidcapFund": [
@@ -148,6 +116,11 @@
       "month": "March",
       "year": 2026,
       "filename": "MiraeAssetLargeAndMidcapFund-March-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "MiraeAssetLargeAndMidcapFund-May-2026.json"
     },
     {
       "month": "November",
