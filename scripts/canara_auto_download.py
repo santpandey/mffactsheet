@@ -144,8 +144,15 @@ def find_download_link(session: requests.Session, year: int, month: int, paginat
             href = link.get('href', '')
             text = link.get_text(strip=True)
             
-            # Check for any "canara" or "large" or "mid cap" mentions
-            if any(keyword in text.lower() for keyword in ['canara', 'large', 'mid cap', 'midcap']):
+            # Log only links that look like our target fund (or old name)
+            combined = (text + ' ' + href).lower()
+            is_canara = 'canara' in combined and 'robeco' in combined
+            is_target = (
+                is_canara and 'large' in combined and ('mid' in combined or 'midcap' in combined)
+            ) or (
+                'emerging' in combined and 'equities' in combined
+            )
+            if is_target:
                 fund_related.append(f"    - Text: '{text[:60]}...' | Href: {href[:80]}...")
         
         if fund_related:
@@ -181,9 +188,10 @@ def find_download_link(session: requests.Session, year: int, month: int, paginat
             href = link.get('href', '').lower()
             combined = text + ' ' + href
             
-            # Match either the new name or the old name
+            # Match only the Large and Mid Cap fund (or old Emerging Equities)
             is_match = False
-            if 'large' in combined and ('mid' in combined or 'midcap' in combined):
+            has_canara = 'canara' in combined and 'robeco' in combined
+            if has_canara and 'large' in combined and ('mid' in combined or 'midcap' in combined):
                 is_match = True
             elif 'emerging' in combined and 'equities' in combined:
                 is_match = True
@@ -261,8 +269,8 @@ def download_file(session: requests.Session, url: str, output_path: Path) -> boo
             
             logger.info(f"Downloaded {file_size:,} bytes")
             
-            # Rename to final name
-            temp_path.rename(output_path)
+            # Replace any existing file (force overwrites stale/wrong downloads)
+            os.replace(temp_path, output_path)
             return True
             
         except requests.exceptions.RequestException as e:

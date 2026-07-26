@@ -5,6 +5,7 @@ Each fund-specific downloader inherits from BaseFundDownloader and only
 needs to implement `find_download_link()` with its own navigation logic.
 """
 
+import os
 import sys
 import time
 import logging
@@ -123,7 +124,7 @@ def download_file(
                 temp_path.unlink(missing_ok=True)
                 return False
 
-            temp_path.rename(output_path)
+            os.replace(temp_path, output_path)
             logger.info(f"Saved {size:,} bytes -> {output_path.name}")
             return True
 
