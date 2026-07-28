@@ -184,9 +184,23 @@ def find_holdings_in_dataframe(df):
             continue
         
         # Stop at debt or other sections
-        if equity_section and any(keyword in row_str for keyword in ['debt', 'total', 'net assets', 'grand total']):
-            if 'total' in row_str and len(holdings) > 0:
+        if equity_section:
+            if 'grand total' in row_str or 'net assets' in row_str:
                 break
+            if 'debt instruments' in row_str or 'debt securities' in row_str:
+                break
+            # Sub-total rows: only stop if no further foreign/overseas equity follows
+            if 'total' in row_str and len(holdings) > 0:
+                has_more_equity = False
+                for next_idx in range(idx + 1, min(idx + 8, len(df))):
+                    next_row = df.iloc[next_idx]
+                    next_str = ' '.join([str(cell) for cell in next_row if pd.notna(cell)]).lower()
+                    if any(k in next_str for k in ['foreign securities', 'overseas', 'equity', 'unlisted']):
+                        has_more_equity = True
+                        break
+                if not has_more_equity:
+                    break
+                continue
         
         if not equity_section:
             continue
@@ -204,9 +218,10 @@ def find_holdings_in_dataframe(df):
             continue
         
         # Skip section headers and noise
-        skip_words = ['equity', 'listed', 'awaiting', 'unlisted', 'total', 'fund', 
-                     'benchmark', 'index', 'plan', 'regular', 'direct', 'growth', 
-                     'others', 'cash', 'debt', 'portfolio', 'grand']
+        skip_words = ['equity', 'listed', 'awaiting', 'unlisted', 'total', 'fund',
+                     'benchmark', 'index', 'plan', 'regular', 'direct', 'growth',
+                     'others', 'cash', 'debt', 'portfolio', 'grand', 'foreign',
+                     'overseas', 'securities']
         if any(s in company.lower() for s in skip_words):
             continue
         

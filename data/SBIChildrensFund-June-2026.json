@@ -2,12 +2,18 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "June",
   "year": 2026,
-  "extractedAt": "2026-07-28T14:50:52.915277",
-  "holdingsCount": 34,
+  "extractedAt": "2026-07-28T17:58:32.671913",
+  "holdingsCount": 38,
   "holdings": [
     {
       "company": "Thangamayil Jewellery Ltd.",
       "percentOfNAV": 6.45,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Alphabet Inc.",
+      "percentOfNAV": 6.33,
       "shares": null,
       "value": null
     },
@@ -26,6 +32,12 @@
     {
       "company": "Kotak Mahindra Bank Ltd.",
       "percentOfNAV": 3.95,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Renew Energy Global",
+      "percentOfNAV": 3.88,
       "shares": null,
       "value": null
     },
@@ -86,6 +98,12 @@
     {
       "company": "Powerica Ltd.",
       "percentOfNAV": 2.78,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Epam Systems Inc",
+      "percentOfNAV": 2.49,
       "shares": null,
       "value": null
     },
@@ -206,6 +224,12 @@
     {
       "company": "The Ramco Cements Ltd.",
       "percentOfNAV": 0.24,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Fairfax India Holdings Corporation",
+      "percentOfNAV": 0.08,
       "shares": null,
       "value": null
     }

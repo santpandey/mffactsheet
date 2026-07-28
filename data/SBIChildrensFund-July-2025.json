@@ -2,12 +2,18 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "July",
   "year": 2025,
-  "extractedAt": "2026-07-28T14:50:52.765658",
-  "holdingsCount": 31,
+  "extractedAt": "2026-07-28T17:58:32.502594",
+  "holdingsCount": 32,
   "holdings": [
     {
       "company": "Muthoot Finance Ltd.",
       "percentOfNAV": 4.53,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Renew Energy Global",
+      "percentOfNAV": 4.21,
       "shares": null,
       "value": null
     },

@@ -2,8 +2,8 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "October",
   "year": 2025,
-  "extractedAt": "2026-07-28T14:50:53.630442",
-  "holdingsCount": 31,
+  "extractedAt": "2026-07-28T17:58:33.354821",
+  "holdingsCount": 32,
   "holdings": [
     {
       "company": "Hatsun Agro Product Ltd.",
@@ -38,6 +38,12 @@
     {
       "company": "Privi Speciality Chemicals Ltd.",
       "percentOfNAV": 3.75,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Renew Energy Global",
+      "percentOfNAV": 3.61,
       "shares": null,
       "value": null
     },

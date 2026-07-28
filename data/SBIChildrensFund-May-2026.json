@@ -2,9 +2,15 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "May",
   "year": 2026,
-  "extractedAt": "2026-07-28T14:50:53.318575",
-  "holdingsCount": 31,
+  "extractedAt": "2026-07-28T17:58:33.046795",
+  "holdingsCount": 34,
   "holdings": [
+    {
+      "company": "Alphabet Inc.",
+      "percentOfNAV": 7.38,
+      "shares": null,
+      "value": null
+    },
     {
       "company": "State Bank of India",
       "percentOfNAV": 5.44,
@@ -24,6 +30,12 @@
       "value": null
     },
     {
+      "company": "Renew Energy Global",
+      "percentOfNAV": 4.35,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Kotak Mahindra Bank Ltd.",
       "percentOfNAV": 4.21,
       "shares": null,
@@ -38,6 +50,12 @@
     {
       "company": "Hatsun Agro Product Ltd.",
       "percentOfNAV": 3.9,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Epam Systems Inc",
+      "percentOfNAV": 3.52,
       "shares": null,
       "value": null
     },

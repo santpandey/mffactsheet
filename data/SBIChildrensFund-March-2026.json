@@ -2,9 +2,15 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "March",
   "year": 2026,
-  "extractedAt": "2026-07-28T14:50:53.113636",
-  "holdingsCount": 34,
+  "extractedAt": "2026-07-28T17:58:32.842732",
+  "holdingsCount": 36,
   "holdings": [
+    {
+      "company": "Alphabet Inc.",
+      "percentOfNAV": 6.86,
+      "shares": null,
+      "value": null
+    },
     {
       "company": "State Bank of India",
       "percentOfNAV": 6.84,
@@ -56,6 +62,12 @@
     {
       "company": "Sona Blw Precision Forgings Ltd.",
       "percentOfNAV": 3.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Renew Energy Global",
+      "percentOfNAV": 2.77,
       "shares": null,
       "value": null
     },

@@ -2,9 +2,15 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "January",
   "year": 2026,
-  "extractedAt": "2026-07-28T14:50:52.636401",
-  "holdingsCount": 36,
+  "extractedAt": "2026-07-28T17:58:32.364572",
+  "holdingsCount": 38,
   "holdings": [
+    {
+      "company": "Alphabet Inc.",
+      "percentOfNAV": 7.8,
+      "shares": null,
+      "value": null
+    },
     {
       "company": "Muthoot Finance Ltd.",
       "percentOfNAV": 5.18,
@@ -38,6 +44,12 @@
     {
       "company": "Privi Speciality Chemicals Ltd.",
       "percentOfNAV": 3.32,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Renew Energy Global",
+      "percentOfNAV": 3.18,
       "shares": null,
       "value": null
     },

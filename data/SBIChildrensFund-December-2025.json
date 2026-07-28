@@ -2,9 +2,15 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "December",
   "year": 2025,
-  "extractedAt": "2026-07-28T14:50:52.307379",
-  "holdingsCount": 36,
+  "extractedAt": "2026-07-28T17:58:32.036221",
+  "holdingsCount": 38,
   "holdings": [
+    {
+      "company": "Alphabet Inc.",
+      "percentOfNAV": 7.22,
+      "shares": null,
+      "value": null
+    },
     {
       "company": "Muthoot Finance Ltd.",
       "percentOfNAV": 5.27,
@@ -74,6 +80,12 @@
     {
       "company": "Aequs Ltd.",
       "percentOfNAV": 2.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Renew Energy Global",
+      "percentOfNAV": 2.84,
       "shares": null,
       "value": null
     },

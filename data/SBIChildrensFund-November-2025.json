@@ -2,8 +2,8 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "November",
   "year": 2025,
-  "extractedAt": "2026-07-28T14:50:53.466065",
-  "holdingsCount": 33,
+  "extractedAt": "2026-07-28T17:58:33.213566",
+  "holdingsCount": 34,
   "holdings": [
     {
       "company": "Hatsun Agro Product Ltd.",
@@ -38,6 +38,12 @@
     {
       "company": "Le Travenues Technology Ltd.",
       "percentOfNAV": 3.7,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Renew Energy Global",
+      "percentOfNAV": 3.44,
       "shares": null,
       "value": null
     },
