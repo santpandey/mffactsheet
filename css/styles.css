@@ -919,6 +919,334 @@ th.sticky-col {
   z-index: 2;
 }
 
+/* Export Bar */
+.export-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 16px;
+  justify-content: flex-end;
+}
+
+.export-label {
+  font-size: 0.8rem;
+  color: var(--gray-500);
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.btn-export {
+  padding: 8px 16px;
+  background: white;
+  color: var(--gray-700);
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.btn-export:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.04);
+}
+
+.btn-export.copied {
+  border-color: var(--success);
+  color: var(--success);
+  background: rgba(16, 185, 129, 0.06);
+}
+
+/* Budget Input */
+.budget-input-wrap {
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+  background: white;
+  transition: border-color 0.15s;
+}
+
+.budget-input-wrap:focus-within {
+  border-color: var(--primary);
+}
+
+.budget-prefix {
+  padding: 0 8px 0 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--gray-500);
+  background: var(--gray-50);
+  border-right: 1px solid var(--gray-200);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+}
+
+.budget-input {
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  font-size: 0.875rem;
+  width: 160px;
+  color: var(--gray-800);
+  background: white;
+}
+
+.btn-export-primary {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-export-primary:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: white;
+}
+
+/* Min Investment Section */
+#minInvestSection {
+  margin-top: 20px;
+  border-top: 1px solid var(--gray-200);
+  padding-top: 16px;
+}
+
+.export-meta {
+  font-size: 0.78rem;
+  color: var(--gray-400);
+  margin-bottom: 10px;
+}
+
+.export-total {
+  font-size: 1rem;
+  color: var(--gray-700);
+  margin-bottom: 14px;
+  padding: 12px 16px;
+  background: var(--gray-50);
+  border-radius: 10px;
+  border: 1px solid var(--gray-200);
+}
+
+.export-total strong {
+  color: var(--success);
+  font-size: 1.15rem;
+}
+
+.export-table-wrap {
+  overflow-x: auto;
+}
+
+.export-price-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.export-price-table th {
+  background: var(--gray-50);
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--gray-200);
+  white-space: nowrap;
+}
+
+.export-price-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--gray-100);
+  vertical-align: middle;
+}
+
+.export-price-table tr:hover td {
+  background: var(--gray-50);
+}
+
+.invest-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.lot-multiplier {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mult-ctrl {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 2px solid var(--gray-300);
+  background: white;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  color: var(--gray-700);
+  line-height: 1;
+}
+
+.mult-ctrl:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: rgba(37, 99, 235, 0.06);
+}
+
+#lotMultValue {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--gray-800);
+  min-width: 36px;
+  text-align: center;
+}
+
+.export-ticker {
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: var(--gray-100);
+  color: var(--gray-600);
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-family: "SF Mono", Monaco, monospace;
+  letter-spacing: 0.03em;
+}
+
+.running-total {
+  font-weight: 700;
+  color: var(--primary);
+  font-family: "SF Mono", Monaco, monospace;
+  font-size: 0.82rem;
+}
+
+.na-cell {
+  color: var(--gray-300);
+  font-size: 0.8rem;
+}
+
+.export-positive {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.export-negative {
+  color: var(--danger);
+  font-weight: 600;
+}
+
+/* Top Movers Section */
+.top-movers-section {
+  margin-top: 32px;
+  padding: 24px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.top-movers-section h2 {
+  margin: 0 0 16px 0;
+  font-size: 1.25rem;
+  color: var(--gray-800);
+}
+
+.movers-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.mover-tab {
+  padding: 8px 16px;
+  border: 2px solid var(--gray-200);
+  background: white;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mover-tab:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.mover-tab.active {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+.movers-content {
+  min-height: 200px;
+}
+
+.movers-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.movers-table th {
+  text-align: left;
+  padding: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gray-500);
+  border-bottom: 2px solid var(--gray-100);
+}
+
+.movers-table td {
+  padding: 12px;
+  font-size: 0.9rem;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.movers-table tr:last-child td {
+  border-bottom: none;
+}
+
+.mover-symbol {
+  font-weight: 700;
+  color: var(--gray-800);
+}
+
+.mover-change {
+  font-weight: 700;
+  color: var(--success);
+}
+
+.mover-change.negative {
+  color: var(--danger);
+}
+
+.mover-price {
+  font-family: "SF Mono", Monaco, monospace;
+  color: var(--gray-600);
+}
+
+.loading-text {
+  color: var(--gray-400);
+  font-style: italic;
+  text-align: center;
+  padding: 40px 0;
+}
+
 .loading-overlay {
   position: fixed;
   top: 0;

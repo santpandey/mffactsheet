@@ -72,6 +72,17 @@
         </div>
       </div>
 
+      <div class="top-movers-section" id="topMoversSection">
+        <h2>📈 Top Up Movers (NIFTY Midcap 100)</h2>
+        <div class="movers-tabs">
+          <button class="mover-tab active" data-period="daily">Daily</button>
+          <button class="mover-tab" data-period="weekly">Weekly</button>
+        </div>
+        <div class="movers-content" id="moversContent">
+          <p class="loading-text">Loading top movers...</p>
+        </div>
+      </div>
+
       <div class="delta-section" id="deltaSection" style="display: none">
         <h2>Monthly Changes: <span id="deltaTitle"></span></h2>
         <p class="delta-hint">
@@ -128,6 +139,30 @@
           <div class="chart-wrapper-wide">
             <canvas id="deltaChart"></canvas>
           </div>
+        </div>
+        <div class="export-bar">
+          <div class="budget-input-wrap">
+            <span class="budget-prefix">₹</span>
+            <input
+              type="text"
+              id="budgetInput"
+              class="budget-input"
+              placeholder="Budget (e.g. 1,00,000)"
+              inputmode="numeric"
+            />
+          </div>
+          <button id="showMinInvestBtn" class="btn-export btn-export-primary">
+            📊 Show Min Investment
+          </button>
+          <span class="export-label">Export:</span>
+          <button id="exportCsvBtn" class="btn-export">⬇ CSV</button>
+          <button id="exportJsonBtn" class="btn-export">⬇ JSON</button>
+          <button id="exportCopyBtn" class="btn-export">📋 Copy</button>
+        </div>
+
+        <!-- Minimum Investment Summary (shown after fetching prices) -->
+        <div id="minInvestSection" style="display: none">
+          <div id="minInvestTable"></div>
         </div>
       </div>
 
