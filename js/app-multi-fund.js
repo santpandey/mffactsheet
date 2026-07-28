@@ -13,6 +13,10 @@ const FUNDS = {
     name: "Mirae Asset Large & Midcap Fund",
     displayName: "Mirae Asset",
   },
+  SBIChildrensFund: {
+    name: "SBI Children's Fund - Investment Plan",
+    displayName: "SBI Children's",
+  },
 };
 
 const MONTHS_ORDER = [
@@ -590,6 +594,7 @@ function showDelta() {
   }
 
   document.getElementById("deltaSection").style.display = "block";
+  document.getElementById("minInvestSection").style.display = "none";
 
   currentDelta = calculateDelta(current, previous);
   currentFilter = "all";
@@ -635,6 +640,587 @@ function displayMonth(key) {
   renderPieChart(data);
 
   document.getElementById("deltaSection").style.display = "none";
+}
+
+// ---------------------------------------------------------------------------
+// Diff Export + Minimum Investment Summary
+// ---------------------------------------------------------------------------
+
+// Cache: symbol -> last closing price (₹)
+const _priceCache = new Map();
+
+// Cache: normalizedName -> NSE symbol (populated from EQUITY_L.csv)
+const _nseSymbolMap = new Map();
+let _nseMapLoaded = false;
+
+/**
+ * Normalise a company name for fuzzy matching:
+ * lowercase, strip legal suffixes, remove punctuation.
+ */
+function _normName(s) {
+  return s
+    .toLowerCase()
+    .replace(/\b(limited|ltd\.?|pvt\.?|private|corporation|corp\.?)\b/gi, "")
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Load NSE EQUITY_L.csv (Symbol, Name_of_Company, ...) from NSE archives.
+ * Falls back silently — hardcoded overrides still apply.
+ * CSV URL via corsproxy.io to bypass CORS.
+ */
+async function _loadNseSymbolMap() {
+  if (_nseMapLoaded) return;
+  _nseMapLoaded = true; // mark early to prevent parallel loads
+  const csvUrl =
+    "https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv";
+  const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(csvUrl)}`;
+  try {
+    const res = await fetch(proxyUrl);
+    if (!res.ok) return;
+    const text = await res.text();
+    const lines = text.split("\n").slice(1); // skip header
+    for (const line of lines) {
+      if (!line.trim()) continue;
+      // Format: SYMBOL,"NAME OF COMPANY",SERIES,...
+      const parts = line.split(",");
+      if (parts.length < 2) continue;
+      const symbol = parts[0].trim().replace(/"/g, "");
+      const rawName = parts[1].trim().replace(/"/g, "");
+      if (!symbol || !rawName) continue;
+      const key = _normName(rawName);
+      if (key) _nseSymbolMap.set(key, symbol);
+    }
+  } catch {
+    // silently fall back to hardcoded overrides
+  }
+}
+
+/**
+ * Find NSE symbol for a company name using the loaded CSV map.
+ * Uses substring matching on normalised names.
+ */
+function _lookupInNseMap(name) {
+  if (_nseSymbolMap.size === 0) return null;
+  const query = _normName(name);
+  // Exact match first
+  if (_nseSymbolMap.has(query)) return _nseSymbolMap.get(query);
+  // Substring: find the CSV entry whose name contains our query (or vice versa)
+  let best = null;
+  let bestLen = 0;
+  for (const [key, symbol] of _nseSymbolMap) {
+    if (key.includes(query) || query.includes(key)) {
+      // prefer the longer (more specific) key match
+      if (key.length > bestLen) {
+        bestLen = key.length;
+        best = symbol;
+      }
+    }
+  }
+  return best;
+}
+
+/**
+ * Derive NSE ticker symbol from fund holding company name.
+ * Priority: 1) hardcoded overrides  2) EQUITY_L.csv lookup  3) generic fallback
+ * Yahoo Finance uses ".NS" suffix for NSE symbols.
+ */
+function _toNseTicker(name) {
+  const overrides = {
+    // Large caps
+    "reliance industries": "RELIANCE",
+    "hdfc bank": "HDFCBANK",
+    infosys: "INFY",
+    "tata consultancy services": "TCS",
+    "icici bank": "ICICIBANK",
+    "kotak mahindra bank": "KOTAKBANK",
+    "axis bank": "AXISBANK",
+    "larsen & toubro": "LT",
+    "larsen and toubro": "LT",
+    "bharti airtel": "BHARTIARTL",
+    "state bank of india": "SBIN",
+    "hindustan unilever": "HINDUNILVR",
+    itc: "ITC",
+    "bajaj finance": "BAJFINANCE",
+    "maruti suzuki": "MARUTI",
+    "sun pharmaceutical": "SUNPHARMA",
+    wipro: "WIPRO",
+    "hcl technologies": "HCLTECH",
+    "titan co": "TITAN",
+    "titan company": "TITAN",
+    "asian paints": "ASIANPAINT",
+    "ultratech cement": "ULTRACEMCO",
+    "tata motors": "TATAMOTORS",
+    "power grid corporation": "POWERGRID",
+    "power grid corp": "POWERGRID",
+    ntpc: "NTPC",
+    ongc: "ONGC",
+    "oil & natural gas": "ONGC",
+    "mahindra & mahindra": "M&M",
+    "adani enterprises": "ADANIENT",
+    "adani ports": "ADANIPORTS",
+    "adani green": "ADANIGREEN",
+    "adani total gas": "ATGL",
+    "adani transmission": "ADANITRANS",
+    "jsw steel": "JSWSTEEL",
+    "tata steel": "TATASTEEL",
+    "dr. reddy": "DRREDDY",
+    "dr reddy": "DRREDDY",
+    cipla: "CIPLA",
+    "divis laboratories": "DIVISLAB",
+    "divi's laboratories": "DIVISLAB",
+    "eicher motors": "EICHERMOT",
+    "hero motocorp": "HEROMOTOCO",
+    "bajaj auto": "BAJAJ-AUTO",
+    "sbi life insurance": "SBILIFE",
+    "hdfc life insurance": "HDFCLIFE",
+    "apollo hospitals": "APOLLOHOSP",
+    "britannia industries": "BRITANNIA",
+    "nestle india": "NESTLEIND",
+    "pidilite industries": "PIDILITIND",
+    "havells india": "HAVELLS",
+    dmart: "DMART",
+    "avenue supermarts": "DMART",
+    zomato: "ZOMATO",
+    nykaa: "NYKAA",
+    "fsl beauty": "NYKAA",
+    paytm: "PAYTM",
+    "one 97": "PAYTM",
+    // Mid caps
+    "billionbrains garage": "HONASA",
+    honasa: "HONASA",
+    mamaearth: "HONASA",
+    "premier energies": "PREMIENRG",
+    biocon: "BIOCON",
+    "hindustan aeronautics": "HAL",
+    hal: "HAL",
+    "balkrishna industries": "BALKRISIND",
+    "hindustan petroleum": "HINDPETRO",
+    "pb fintech": "PBFINTECH",
+    policybazaar: "PBFINTECH",
+    "jubilant foodworks": "JUBLFOOD",
+    "jubilant food": "JUBLFOOD",
+    "persistent systems": "PERSISTENT",
+    mphasis: "MPHASIS",
+    ltimindtree: "LTIM",
+    "lti mindtree": "LTIM",
+    "l&t technology": "LTTS",
+    "l&t finance": "LTF",
+    "shriram finance": "SHRIRAMFIN",
+    "cholamandalam investment": "CHOLAFIN",
+    cholamandalam: "CHOLAFIN",
+    "max financial": "MFSL",
+    "muthoot finance": "MUTHOOTFIN",
+    "bajaj finserv": "BAJAJFINSV",
+    "icici prudential": "ICICIPRULI",
+    "sbi cards": "SBICARD",
+    "indusind bank": "INDUSINDBK",
+    "yes bank": "YESBANK",
+    "bank of baroda": "BANKBARODA",
+    "canara bank": "CANARABANK",
+    "punjab national bank": "PNB",
+    "union bank": "UNIONBANK",
+    "indian bank": "INDIANB",
+    "federal bank": "FEDERALBNK",
+    "idfc first bank": "IDFCFIRSTB",
+    "bandhan bank": "BANDHANBNK",
+    "tata power": "TATAPOWER",
+    "tata chemicals": "TATACHEM",
+    "tata consumer": "TATACONSUM",
+    "tata elxsi": "TATAELXSI",
+    "tata communications": "TATACOMM",
+    voltas: "VOLTAS",
+    "cummins india": "CUMMINSIND",
+    "polycab india": "POLYCAB",
+    "dixon technologies": "DIXON",
+    "blue star": "BLUESTARCO",
+    "crompton greaves consumer": "CROMPTON",
+    "bata india": "BATAIND",
+    "page industries": "PAGEIND",
+    "metro brands": "METROBRAND",
+    "dalmia bharat": "DALMIA",
+    "shree cement": "SHREECEM",
+    acc: "ACC",
+    "ambuja cements": "AMBUJACEM",
+    birlasoft: "BSOFT",
+    "kpit technologies": "KPITTECH",
+    "tata technologies": "TATATECH",
+    cyient: "CYIENT",
+    coforge: "COFORGE",
+    "happiest minds": "HAPPSTMNDS",
+    "solar industries": "SOLARINDS",
+    "hindustan zinc": "HINDZINC",
+    vedanta: "VEDL",
+    "national aluminium": "NALCO",
+    hindalco: "HINDALCO",
+    nmdc: "NMDC",
+    "coal india": "COALINDIA",
+    "oil india": "OIL",
+    "petronet lng": "PETRONET",
+    gail: "GAIL",
+    "indraprastha gas": "IGL",
+    "mahanagar gas": "MGL",
+    "gujarat gas": "GUJGASLTD",
+    "torrent power": "TORNTPOWER",
+    "jsw energy": "JSWENERGY",
+    "suzlon energy": "SUZLON",
+    "kalpataru projects": "KPIL",
+    "abb india": "ABB",
+    siemens: "SIEMENS",
+    "bharat heavy electricals": "BHEL",
+    bhel: "BHEL",
+    "bharat electronics": "BEL",
+    bel: "BEL",
+    rites: "RITES",
+    rvnl: "RVNL",
+    "rail vikas nigam": "RVNL",
+    "indian hotels": "INDHOTEL",
+    ihcl: "INDHOTEL",
+    "lemon tree": "LEMONTREE",
+    irctc: "IRCTC",
+    "indian railway catering": "IRCTC",
+    "container corporation": "CONCOR",
+    delhivery: "DELHIVERY",
+    "interglobe aviation": "INDIGO",
+    indigo: "INDIGO",
+    "gland pharma": "GLAND",
+    "alkem laboratories": "ALKEM",
+    "ipca laboratories": "IPCALAB",
+    "aarti industries": "AARTIIND",
+    "navin fluorine": "NAVINFLUOR",
+    srf: "SRF",
+    "deepak nitrite": "DEEPAKNTR",
+    "pi industries": "PIIND",
+    upl: "UPL",
+    "coromandel international": "COROMANDEL",
+    "chambal fertilisers": "CHAMBLFERT",
+  };
+  const lower = name
+    .toLowerCase()
+    .replace(/\s+ltd\.?$/i, "")
+    .replace(/\s+limited$/i, "")
+    .trim();
+  // 1) Hardcoded overrides
+  for (const [key, ticker] of Object.entries(overrides)) {
+    if (lower.includes(key)) return ticker + ".NS";
+  }
+  // 2) Dynamic NSE EQUITY_L.csv map (loaded async before this is called)
+  const fromCsv = _lookupInNseMap(name);
+  if (fromCsv) return fromCsv + ".NS";
+  // 3) Generic string-munge fallback
+  const generic = lower
+    .replace(
+      /\s+(ltd|limited|pvt|private|india|industries|corporation|company|enterprises|technologies|solutions|services|group)$/i,
+      "",
+    )
+    .replace(/[^a-z0-9&]/gi, "")
+    .toUpperCase()
+    .slice(0, 10);
+  return generic + ".NS";
+}
+
+/**
+ * Fetch last closing price for a single Yahoo Finance ticker.
+ * Yahoo Finance blocks direct browser fetches (CORS), so we route through
+ * corsproxy.io which adds the required CORS headers transparently.
+ */
+async function _fetchOneTicker(ticker) {
+  if (_priceCache.has(ticker)) return;
+  const yhUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d`;
+  // Try direct first (works in some environments), fallback to CORS proxy
+  const urls = [
+    yhUrl,
+    `https://corsproxy.io/?url=${encodeURIComponent(yhUrl)}`,
+  ];
+  for (const url of urls) {
+    try {
+      const res = await fetch(url);
+      if (!res.ok) continue;
+      const json = await res.json();
+      const meta = json?.chart?.result?.[0]?.meta;
+      const closes = json?.chart?.result?.[0]?.indicators?.quote?.[0]?.close;
+      const price =
+        meta?.chartPreviousClose ??
+        meta?.regularMarketPrice ??
+        (closes ? closes.filter(Boolean).at(-1) : null);
+      if (price) {
+        _priceCache.set(ticker, +price.toFixed(2));
+        return; // success
+      }
+    } catch {
+      // try next url
+    }
+  }
+}
+
+/**
+ * Fetch prices for all tickers in parallel (capped at 8 concurrent).
+ */
+async function _fetchPrices(tickers) {
+  const missing = tickers.filter((t) => !_priceCache.has(t));
+  if (missing.length === 0) return;
+
+  const CONCURRENCY = 8;
+  for (let i = 0; i < missing.length; i += CONCURRENCY) {
+    const batch = missing.slice(i, i + CONCURRENCY);
+    await Promise.all(batch.map((t) => _fetchOneTicker(t)));
+  }
+}
+
+/**
+ * Parse Indian rupee budget string — handles 1,00,000 / 100000 / ₹50000
+ */
+function _parseBudget(str) {
+  if (!str || !str.trim()) return null;
+  const clean = str.replace(/[,\s₹]/g, "");
+  const n = parseFloat(clean);
+  return isNaN(n) || n <= 0 ? null : n;
+}
+
+/**
+ * Build enriched diff rows with prices and budget-aware quantities.
+ *
+ * Base qty logic (no budget):
+ *   - Use the 10th-percentile |navDelta| as base unit to avoid exploding
+ *     ratios when one stock barely moved.
+ *   - qty = round(delta / baseDelta), capped at 20.
+ *   - Smallest movers get qty 1.
+ *
+ * Budget logic (budget provided):
+ *   - Compute base total cost at qty above.
+ *   - Find integer multiplier M = floor(budget / baseTotal).
+ *   - Apply M to all qtys so total fits within budget.
+ */
+async function _buildEnrichedRows() {
+  if (!currentDelta) return [];
+
+  // Load NSE master CSV first (no-op if already loaded)
+  await _loadNseSymbolMap();
+
+  const actionable = currentDelta.all.filter((d) => d.status !== "unchanged");
+  const tickers = actionable.map((d) => _toNseTicker(d.company));
+  await _fetchPrices(tickers);
+
+  const deltas = actionable.map((d) => Math.abs(d.navDelta));
+  const maxDelta = Math.max(...deltas, 0.0001);
+
+  // Normalize: largest mover gets qty 10, all others scale proportionally.
+  // This avoids any arbitrary cap while keeping numbers meaningful.
+  // e.g. a stock with 50% of max delta → qty 5, 20% → qty 2, etc.
+  const REF_QTY = 10;
+  const baseQtys = deltas.map((d) =>
+    Math.max(1, Math.round((d / maxDelta) * REF_QTY)),
+  );
+
+  // Budget scaling
+  const budget = _parseBudget(document.getElementById("budgetInput").value);
+  let multiplier = 1;
+  if (budget) {
+    const baseTotal = actionable.reduce((s, d, i) => {
+      const price = _priceCache.get(tickers[i]) ?? null;
+      return s + (price ? price * baseQtys[i] : 0);
+    }, 0);
+    if (baseTotal > 0) {
+      multiplier = Math.max(1, Math.floor(budget / baseTotal));
+    }
+  }
+
+  return actionable.map((d, i) => {
+    const ticker = tickers[i];
+    const price = _priceCache.get(ticker) ?? null;
+    const absDelta = Math.abs(d.navDelta);
+    const weight = absDelta / maxDelta;
+    const qty = baseQtys[i] * multiplier;
+    return {
+      company: d.company,
+      ticker: ticker.replace(".NS", ""),
+      status: d.status,
+      change_pct: +d.navDelta.toFixed(4),
+      weight: +(weight * 100).toFixed(1),
+      price,
+      qty,
+      min_investment: price ? +(price * qty).toFixed(2) : null,
+    };
+  });
+}
+
+// Cached rows from last fetch — used to re-render on multiplier change
+let _lastEnrichedRows = [];
+let _lotMultiplier = 1;
+
+function _inr(n) {
+  return "₹" + n.toLocaleString("en-IN", { maximumFractionDigits: 2 });
+}
+
+function _renderInvestTable() {
+  const rows = _lastEnrichedRows;
+  if (!rows.length) return;
+  const m = _lotMultiplier;
+  let running = 0;
+  const priced = rows.filter((r) => r.price !== null).length;
+
+  const rowsHtml = rows
+    .map((r) => {
+      const cls = r.change_pct >= 0 ? "export-positive" : "export-negative";
+      const sign = r.change_pct >= 0 ? "+" : "";
+      const qty = r.qty * m;
+      const inv = r.price != null ? r.price * qty : null;
+      if (inv != null) running += inv;
+      return `<tr>
+          <td>${r.company}</td>
+          <td><span class="export-ticker">${r.ticker}</span></td>
+          <td class="${cls}">${sign}${r.change_pct}%</td>
+          <td>${r.weight}%</td>
+          <td>${r.price != null ? _inr(r.price) : "<span class='na-cell'>N/A</span>"}</td>
+          <td>${qty}</td>
+          <td>${inv != null ? _inr(inv) : "<span class='na-cell'>N/A</span>"}</td>
+          <td class="running-total">${inv != null ? _inr(running) : "—"}</td>
+        </tr>`;
+    })
+    .join("");
+
+  const total = rows.reduce(
+    (s, r) => s + (r.price ? r.price * r.qty * m : 0),
+    0,
+  );
+
+  document.getElementById("minInvestMeta").textContent =
+    `Prices from NSE via Yahoo Finance · ${priced}/${rows.length} fetched`;
+  document.getElementById("minInvestTotal").innerHTML =
+    `Total (${m}× lot): <strong>${_inr(total)}</strong>`;
+  document.getElementById("lotMultValue").textContent = `${m}×`;
+  document.getElementById("minInvestTbody").innerHTML = rowsHtml;
+}
+
+async function showMinInvestment() {
+  const btn = document.getElementById("showMinInvestBtn");
+  const orig = btn.textContent;
+  btn.textContent = "⏳ Fetching prices…";
+  btn.disabled = true;
+
+  _lotMultiplier = 1;
+  _lastEnrichedRows = await _buildEnrichedRows();
+
+  btn.textContent = orig;
+  btn.disabled = false;
+
+  if (!_lastEnrichedRows.length) return;
+
+  const priced = _lastEnrichedRows.filter((r) => r.price !== null).length;
+
+  document.getElementById("minInvestTable").innerHTML = `
+    <p class="export-meta" id="minInvestMeta"></p>
+    <div class="invest-toolbar">
+      <div class="export-total" id="minInvestTotal"></div>
+      <div class="lot-multiplier">
+        <span class="export-label">Lot size:</span>
+        <button class="mult-ctrl" id="lotMinus">−</button>
+        <span id="lotMultValue">1×</span>
+        <button class="mult-ctrl" id="lotPlus">+</button>
+      </div>
+    </div>
+    <div class="export-table-wrap">
+      <table class="export-price-table">
+        <thead><tr>
+          <th>Company</th><th>Ticker</th><th>Change</th>
+          <th>Rel. Weight</th><th>Last Close</th>
+          <th>Qty</th><th>Investment</th><th>Running Total</th>
+        </tr></thead>
+        <tbody id="minInvestTbody"></tbody>
+      </table>
+    </div>`;
+
+  document.getElementById("lotPlus").addEventListener("click", () => {
+    _lotMultiplier = Math.min(_lotMultiplier * 2, 1024);
+    _renderInvestTable();
+  });
+  document.getElementById("lotMinus").addEventListener("click", () => {
+    _lotMultiplier = Math.max(1, Math.floor(_lotMultiplier / 2));
+    _renderInvestTable();
+  });
+
+  _renderInvestTable();
+  document.getElementById("minInvestSection").style.display = "block";
+}
+
+async function exportDiffCsv() {
+  const btn = document.getElementById("exportCsvBtn");
+  btn.textContent = "⏳ Fetching…";
+  btn.disabled = true;
+  const rows = await _buildEnrichedRows();
+  btn.textContent = "⬇ CSV";
+  btn.disabled = false;
+  if (!rows.length) return;
+  const header =
+    "Company,Ticker,Status,Change %,Rel. Weight %,Last Close (₹),Min Qty,Min Investment (₹)";
+  const lines = rows.map(
+    (r) =>
+      `"${r.company.replace(/"/g, '""')}",${r.ticker},${r.status},${r.change_pct},${r.weight},${r.price ?? ""},${r.qty},${r.min_investment ?? ""}`,
+  );
+  const csv = [header, ...lines].join("\n");
+  const fileTitle = document
+    .getElementById("deltaTitle")
+    .textContent.trim()
+    .replace(/\s+/g, "_");
+  _downloadFile(`diff_${fileTitle}.csv`, csv, "text/csv");
+}
+
+async function exportDiffJson() {
+  const btn = document.getElementById("exportJsonBtn");
+  btn.textContent = "⏳ Fetching…";
+  btn.disabled = true;
+  const rows = await _buildEnrichedRows();
+  btn.textContent = "⬇ JSON";
+  btn.disabled = false;
+  if (!rows.length) return;
+  const title = document.getElementById("deltaTitle").textContent.trim();
+  const total = rows.reduce((s, r) => s + (r.min_investment ?? 0), 0);
+  const payload = {
+    fund: document.getElementById("currentFundName").textContent.trim(),
+    comparison: title,
+    exported_at: new Date().toISOString(),
+    minimum_total_investment: +total.toFixed(2),
+    diff: rows,
+  };
+  _downloadFile(
+    `diff_${title.replace(/\s+/g, "_")}.json`,
+    JSON.stringify(payload, null, 2),
+    "application/json",
+  );
+}
+
+async function exportDiffCopy() {
+  const btn = document.getElementById("exportCopyBtn");
+  btn.textContent = "⏳ Fetching…";
+  btn.disabled = true;
+  const rows = await _buildEnrichedRows();
+  btn.disabled = false;
+  if (!rows.length) return;
+  const header =
+    "Company\tTicker\tStatus\tChange %\tRel. Weight %\tLast Close (₹)\tMin Qty\tMin Investment (₹)";
+  const lines = rows.map(
+    (r) =>
+      `${r.company}\t${r.ticker}\t${r.status}\t${r.change_pct}\t${r.weight}\t${r.price ?? "N/A"}\t${r.qty}\t${r.min_investment ?? "N/A"}`,
+  );
+  await navigator.clipboard.writeText([header, ...lines].join("\n"));
+  btn.textContent = "✓ Copied!";
+  btn.classList.add("copied");
+  setTimeout(() => {
+    btn.textContent = "📋 Copy";
+    btn.classList.remove("copied");
+  }, 2000);
+}
+
+function _downloadFile(filename, content, mime) {
+  const blob = new Blob([content], { type: mime });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(url);
 }
 
 async function handleSync() {
@@ -970,6 +1556,92 @@ function initFundSearch(available) {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Top Movers (NIFTY 50)
+// ---------------------------------------------------------------------------
+
+let currentMoversPeriod = "daily";
+
+async function loadTopMovers(period = "daily") {
+  try {
+    const response = await fetch(`data/top_movers_${period}.json`);
+    if (!response.ok) {
+      throw new Error(`Failed to load top movers: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error("Error loading top movers:", error);
+    return null;
+  }
+}
+
+function renderTopMovers(data) {
+  const content = document.getElementById("moversContent");
+
+  if (!data || !data.top_movers || data.top_movers.length === 0) {
+    content.innerHTML =
+      '<p class="loading-text">No top movers data available</p>';
+    return;
+  }
+
+  const changeKey =
+    data.period === "daily" ? "daily_change_pct" : "weekly_change_pct";
+  const priceKey = data.period === "daily" ? "prev_close" : "week_ago_close";
+
+  const rows = data.top_movers
+    .map((mover) => {
+      const change = mover[changeKey];
+      const changeClass =
+        change >= 0 ? "mover-change" : "mover-change negative";
+      const changeSign = change >= 0 ? "+" : "";
+      return `
+      <tr>
+        <td class="mover-symbol">${mover.symbol}</td>
+        <td class="mover-price">₹${mover.last_price.toLocaleString("en-IN", { maximumFractionDigits: 2 })}</td>
+        <td class="${changeClass}">${changeSign}${change.toFixed(2)}%</td>
+        <td class="mover-price">₹${mover[priceKey].toLocaleString("en-IN", { maximumFractionDigits: 2 })}</td>
+      </tr>
+    `;
+    })
+    .join("");
+
+  content.innerHTML = `
+    <table class="movers-table">
+      <thead>
+        <tr>
+          <th>Symbol</th>
+          <th>Last Price</th>
+          <th>${data.period === "daily" ? "Daily Change" : "Weekly Change"}</th>
+          <th>${data.period === "daily" ? "Prev Close" : "Week Ago Close"}</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+    <p style="margin-top: 12px; font-size: 0.8rem; color: var(--gray-400);">
+      Updated: ${new Date(data.generated_at).toLocaleString()}
+    </p>
+  `;
+}
+
+async function initTopMovers() {
+  const data = await loadTopMovers(currentMoversPeriod);
+  renderTopMovers(data);
+
+  // Tab switching
+  document.querySelectorAll(".mover-tab").forEach((tab) => {
+    tab.addEventListener("click", async () => {
+      document
+        .querySelectorAll(".mover-tab")
+        .forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      currentMoversPeriod = tab.dataset.period;
+      const newData = await loadTopMovers(currentMoversPeriod);
+      renderTopMovers(newData);
+    });
+  });
+}
+
 async function init() {
   const loading = document.getElementById("loadingOverlay");
 
@@ -1008,6 +1680,7 @@ async function init() {
     populateFundSelector(availableMonths);
     populateDropdowns(availableMonths);
     initFundSearch(availableMonths);
+    initTopMovers();
 
     const fundMonths = availableMonths[currentFund] || [];
     if (fundMonths.length > 0) {
@@ -1052,6 +1725,19 @@ async function init() {
     document
       .getElementById("filterAll")
       .addEventListener("click", () => setActiveFilter("all"));
+
+    document
+      .getElementById("showMinInvestBtn")
+      .addEventListener("click", showMinInvestment);
+    document
+      .getElementById("exportCsvBtn")
+      .addEventListener("click", exportDiffCsv);
+    document
+      .getElementById("exportJsonBtn")
+      .addEventListener("click", exportDiffJson);
+    document
+      .getElementById("exportCopyBtn")
+      .addEventListener("click", exportDiffCopy);
 
     loading.classList.add("hidden");
   } catch (error) {
