@@ -1,0 +1,225 @@
+{
+  "fundName": "SBI Children's Fund - Investment Plan",
+  "month": "December",
+  "year": 2025,
+  "extractedAt": "2026-07-28T14:50:52.307379",
+  "holdingsCount": 36,
+  "holdings": [
+    {
+      "company": "Muthoot Finance Ltd.",
+      "percentOfNAV": 5.27,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hatsun Agro Product Ltd.",
+      "percentOfNAV": 4.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Thangamayil Jewellery Ltd.",
+      "percentOfNAV": 4.72,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "State Bank of India",
+      "percentOfNAV": 4.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Le Travenues Technology Ltd.",
+      "percentOfNAV": 3.52,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Privi Speciality Chemicals Ltd.",
+      "percentOfNAV": 3.38,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ather Energy Ltd.",
+      "percentOfNAV": 3.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aether Industries Ltd.",
+      "percentOfNAV": 3.23,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Power Ltd.",
+      "percentOfNAV": 3.19,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Ltd.",
+      "percentOfNAV": 3.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Asahi India Glass Ltd.",
+      "percentOfNAV": 3.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aequs Ltd.",
+      "percentOfNAV": 2.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finserv Ltd.",
+      "percentOfNAV": 2.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ajax Engineering Ltd.",
+      "percentOfNAV": 2.61,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Honeywell Automation India Ltd.",
+      "percentOfNAV": 2.59,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sanathan Textiles Ltd.",
+      "percentOfNAV": 2.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "K.P.R. Mill Ltd.",
+      "percentOfNAV": 2.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dodla Dairy Ltd.",
+      "percentOfNAV": 2.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Mahindra Bank Ltd.",
+      "percentOfNAV": 2.17,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kalpataru Ltd.",
+      "percentOfNAV": 1.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "E.I.D-Parry Ltd.",
+      "percentOfNAV": 1.84,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Relaxo Footwears Ltd.",
+      "percentOfNAV": 1.45,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gokaldas Exports Ltd.",
+      "percentOfNAV": 1.32,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Brainbees Solutions Ltd.",
+      "percentOfNAV": 1.27,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Wonderla Holidays Ltd.",
+      "percentOfNAV": 1.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Brigade Hotel Ventures Ltd.",
+      "percentOfNAV": 0.8,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Pakka Ltd.",
+      "percentOfNAV": 0.7,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hawkins Cookers Ltd.",
+      "percentOfNAV": 0.56,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sona Blw Precision Forgings Ltd.",
+      "percentOfNAV": 0.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Elin Electronics Ltd.",
+      "percentOfNAV": 0.38,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Nephrocare Health Service Ltd.",
+      "percentOfNAV": 0.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Lenskart Solutions Ltd.",
+      "percentOfNAV": 0.3,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Meesho Ltd.",
+      "percentOfNAV": 0.19,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Capillary Technologies India Ltd.",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Prudential Asset Management Company Ltd.",
+      "percentOfNAV": 0.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tenneco Clean Air India Ltd.",
+      "percentOfNAV": 0.1,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "fundName": "SBI Children's Fund - Investment Plan",
+  "month": "May",
+  "year": 2026,
+  "extractedAt": "2026-07-28T14:50:53.318575",
+  "holdingsCount": 31,
+  "holdings": [
+    {
+      "company": "State Bank of India",
+      "percentOfNAV": 5.44,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Thangamayil Jewellery Ltd.",
+      "percentOfNAV": 4.61,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Enterprises Ltd.",
+      "percentOfNAV": 4.6,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Mahindra Bank Ltd.",
+      "percentOfNAV": 4.21,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Muthoot Finance Ltd.",
+      "percentOfNAV": 4.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hatsun Agro Product Ltd.",
+      "percentOfNAV": 3.9,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sona Blw Precision Forgings Ltd.",
+      "percentOfNAV": 3.14,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Privi Speciality Chemicals Ltd.",
+      "percentOfNAV": 3.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aequs Ltd.",
+      "percentOfNAV": 3.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Bank Ltd.",
+      "percentOfNAV": 2.95,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Powerica Ltd.",
+      "percentOfNAV": 2.7,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Honeywell Automation India Ltd.",
+      "percentOfNAV": 2.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "JSW Steel Ltd.",
+      "percentOfNAV": 2.2,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Amagi Media Labs Ltd.",
+      "percentOfNAV": 2.19,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Asahi India Glass Ltd.",
+      "percentOfNAV": 2.17,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ajax Engineering Ltd.",
+      "percentOfNAV": 2.06,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "K.P.R. Mill Ltd.",
+      "percentOfNAV": 1.97,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Le Travenues Technology Ltd.",
+      "percentOfNAV": 1.85,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sanathan Textiles Ltd.",
+      "percentOfNAV": 1.81,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kalpataru Ltd.",
+      "percentOfNAV": 1.55,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dodla Dairy Ltd.",
+      "percentOfNAV": 1.52,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aether Industries Ltd.",
+      "percentOfNAV": 1.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Navin Fluorine International Ltd.",
+      "percentOfNAV": 1.32,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "E.I.D-Parry Ltd.",
+      "percentOfNAV": 1.06,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Relaxo Footwears Ltd.",
+      "percentOfNAV": 0.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Wonderla Holidays Ltd.",
+      "percentOfNAV": 0.74,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Brigade Hotel Ventures Ltd.",
+      "percentOfNAV": 0.57,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Pakka Ltd.",
+      "percentOfNAV": 0.45,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hawkins Cookers Ltd.",
+      "percentOfNAV": 0.41,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Nephrocare Health Service Ltd.",
+      "percentOfNAV": 0.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Elin Electronics Ltd.",
+      "percentOfNAV": 0.02,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

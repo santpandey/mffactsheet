@@ -1,0 +1,201 @@
+{
+  "fundName": "SBI Children's Fund - Investment Plan",
+  "month": "August",
+  "year": 2025,
+  "extractedAt": "2026-07-28T14:50:52.149561",
+  "holdingsCount": 32,
+  "holdings": [
+    {
+      "company": "Le Travenues Technology Ltd.",
+      "percentOfNAV": 4.53,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Muthoot Finance Ltd.",
+      "percentOfNAV": 4.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "State Bank of India",
+      "percentOfNAV": 4.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Thangamayil Jewellery Ltd.",
+      "percentOfNAV": 4.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ajax Engineering Ltd.",
+      "percentOfNAV": 3.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hatsun Agro Product Ltd.",
+      "percentOfNAV": 3.63,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Ltd.",
+      "percentOfNAV": 3.6,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Siemens Energy India Ltd.",
+      "percentOfNAV": 3.56,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sanathan Textiles Ltd.",
+      "percentOfNAV": 3.44,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aether Industries Ltd.",
+      "percentOfNAV": 3.35,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Privi Speciality Chemicals Ltd.",
+      "percentOfNAV": 3.24,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ITC Ltd.",
+      "percentOfNAV": 3.24,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finserv Ltd.",
+      "percentOfNAV": 3.21,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "K.P.R. Mill Ltd.",
+      "percentOfNAV": 3.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dodla Dairy Ltd.",
+      "percentOfNAV": 2.94,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kalpataru Ltd.",
+      "percentOfNAV": 2.74,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "E.I.D-Parry Ltd.",
+      "percentOfNAV": 2.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ather Energy Ltd.",
+      "percentOfNAV": 2.35,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Mahindra Bank Ltd.",
+      "percentOfNAV": 2.35,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Relaxo Footwears Ltd.",
+      "percentOfNAV": 2.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Brainbees Solutions Ltd.",
+      "percentOfNAV": 1.94,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Honeywell Automation India Ltd.",
+      "percentOfNAV": 1.48,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Wonderla Holidays Ltd.",
+      "percentOfNAV": 1.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gokaldas Exports Ltd.",
+      "percentOfNAV": 1.45,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Shakti Pumps Ltd.",
+      "percentOfNAV": 1.35,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Brigade Hotel Ventures Ltd.",
+      "percentOfNAV": 1.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Pakka Ltd.",
+      "percentOfNAV": 1.17,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hawkins Cookers Ltd.",
+      "percentOfNAV": 0.75,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Elin Electronics Ltd.",
+      "percentOfNAV": 0.52,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sona Blw Precision Forgings Ltd.",
+      "percentOfNAV": 0.48,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "One Mobikwik Systems Ltd.",
+      "percentOfNAV": 0.4,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aditya Infotech Ltd.",
+      "percentOfNAV": 0.17,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

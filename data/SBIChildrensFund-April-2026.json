@@ -1,0 +1,201 @@
+{
+  "fundName": "SBI Children's Fund - Investment Plan",
+  "month": "April",
+  "year": 2026,
+  "extractedAt": "2026-07-28T14:50:51.962846",
+  "holdingsCount": 32,
+  "holdings": [
+    {
+      "company": "State Bank of India",
+      "percentOfNAV": 6.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Thangamayil Jewellery Ltd.",
+      "percentOfNAV": 4.8,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hatsun Agro Product Ltd.",
+      "percentOfNAV": 4.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Power Ltd.",
+      "percentOfNAV": 4.1,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Muthoot Finance Ltd.",
+      "percentOfNAV": 3.92,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aether Industries Ltd.",
+      "percentOfNAV": 3.64,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aequs Ltd.",
+      "percentOfNAV": 3.38,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Privi Speciality Chemicals Ltd.",
+      "percentOfNAV": 3.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ather Energy Ltd.",
+      "percentOfNAV": 3.33,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sona Blw Precision Forgings Ltd.",
+      "percentOfNAV": 3.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Powerica Ltd.",
+      "percentOfNAV": 2.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Amagi Media Labs Ltd.",
+      "percentOfNAV": 2.34,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Asahi India Glass Ltd.",
+      "percentOfNAV": 2.1,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sanathan Textiles Ltd.",
+      "percentOfNAV": 2.1,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Honeywell Automation India Ltd.",
+      "percentOfNAV": 2.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "K.P.R. Mill Ltd.",
+      "percentOfNAV": 1.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Le Travenues Technology Ltd.",
+      "percentOfNAV": 1.92,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ajax Engineering Ltd.",
+      "percentOfNAV": 1.91,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dodla Dairy Ltd.",
+      "percentOfNAV": 1.62,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kalpataru Ltd.",
+      "percentOfNAV": 1.6,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Mahindra Bank Ltd.",
+      "percentOfNAV": 1.57,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "E.I.D-Parry Ltd.",
+      "percentOfNAV": 1.24,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gokaldas Exports Ltd.",
+      "percentOfNAV": 1.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Relaxo Footwears Ltd.",
+      "percentOfNAV": 0.88,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Wonderla Holidays Ltd.",
+      "percentOfNAV": 0.86,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Navin Fluorine International Ltd.",
+      "percentOfNAV": 0.73,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Brigade Hotel Ventures Ltd.",
+      "percentOfNAV": 0.66,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Pakka Ltd.",
+      "percentOfNAV": 0.52,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hawkins Cookers Ltd.",
+      "percentOfNAV": 0.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Nephrocare Health Service Ltd.",
+      "percentOfNAV": 0.34,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finserv Ltd.",
+      "percentOfNAV": 0.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Elin Electronics Ltd.",
+      "percentOfNAV": 0.04,
+      "shares": null,
+      "value": null
+    }
+  ]
+}
