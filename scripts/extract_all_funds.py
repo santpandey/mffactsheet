@@ -33,6 +33,12 @@ FUNDS = {
         "excel_folder": "excel-data/mirae-asset",
         "data_folder": "data",
     },
+    "sbi_childrens": {
+        "name": "SBI Children's Fund - Investment Plan",
+        "normalized_name": "SBIChildrensFund",
+        "excel_folder": "excel-data/sbi-childrens",
+        "data_folder": "data",
+    },
 }
 
 
@@ -111,7 +117,7 @@ def find_holdings_in_dataframe(df):
         row_str = ' '.join([str(cell) for cell in row if pd.notna(cell)]).lower()
         # Check for header indicators
         has_instrument = 'name of the instrument' in row_str or 'instrument' in row_str
-        has_percent = '% to net' in row_str or '% to nav' in row_str or '% of nav' in row_str
+        has_percent = '% to net' in row_str or '% to nav' in row_str or '% of nav' in row_str or '% to aum' in row_str or '% of aum' in row_str
         
         if has_instrument and has_percent:
             header_row_idx = idx
@@ -133,7 +139,7 @@ def find_holdings_in_dataframe(df):
             cell_str = str(cell).lower().strip()
             if 'name of the instrument' in cell_str:
                 company_col_idx = i
-            elif '% to net' in cell_str or '% to nav' in cell_str:
+            elif '% to net' in cell_str or '% to nav' in cell_str or '% to aum' in cell_str or '% of aum' in cell_str:
                 percent_col_idx = i
     
     if company_col_idx is None or percent_col_idx is None:

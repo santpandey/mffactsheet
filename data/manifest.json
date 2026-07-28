@@ -147,5 +147,67 @@
       "year": 2025,
       "filename": "MiraeAssetLargeAndMidcapFund-September-2025.json"
     }
+  ],
+  "SBIChildrensFund": [
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "SBIChildrensFund-April-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2025,
+      "filename": "SBIChildrensFund-August-2025.json"
+    },
+    {
+      "month": "December",
+      "year": 2025,
+      "filename": "SBIChildrensFund-December-2025.json"
+    },
+    {
+      "month": "February",
+      "year": 2026,
+      "filename": "SBIChildrensFund-February-2026.json"
+    },
+    {
+      "month": "January",
+      "year": 2026,
+      "filename": "SBIChildrensFund-January-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2025,
+      "filename": "SBIChildrensFund-July-2025.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "SBIChildrensFund-June-2026.json"
+    },
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "SBIChildrensFund-March-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "SBIChildrensFund-May-2026.json"
+    },
+    {
+      "month": "November",
+      "year": 2025,
+      "filename": "SBIChildrensFund-November-2025.json"
+    },
+    {
+      "month": "October",
+      "year": 2025,
+      "filename": "SBIChildrensFund-October-2025.json"
+    },
+    {
+      "month": "September",
+      "year": 2025,
+      "filename": "SBIChildrensFund-September-2025.json"
+    }
   ]
 }
