@@ -2,7 +2,7 @@
   "fundName": "Invesco India Multicap Fund",
   "month": "June",
   "year": 2026,
-  "extractedAt": "2026-07-30T15:00:52.771588",
+  "extractedAt": "2026-07-30T15:18:29.187305",
   "holdingsCount": 70,
   "holdings": [
     {
@@ -126,7 +126,7 @@
       "value": null
     },
     {
-      "company": "Coforge Limited ‡",
+      "company": "Coforge Ltd.",
       "percentOfNAV": 1.84,
       "shares": null,
       "value": null
@@ -168,7 +168,7 @@
       "value": null
     },
     {
-      "company": "IndusInd Bank Limited ^^^",
+      "company": "IndusInd Bank Ltd.",
       "percentOfNAV": 1.53,
       "shares": null,
       "value": null
@@ -360,7 +360,7 @@
       "value": null
     },
     {
-      "company": "L&T Finance Limited ‡",
+      "company": "L&T Finance Ltd.",
       "percentOfNAV": 0.51,
       "shares": null,
       "value": null

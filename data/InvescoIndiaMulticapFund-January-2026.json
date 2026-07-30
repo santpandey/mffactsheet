@@ -2,7 +2,7 @@
   "fundName": "Invesco India Multicap Fund",
   "month": "January",
   "year": 2026,
-  "extractedAt": "2026-07-30T15:00:52.690074",
+  "extractedAt": "2026-07-30T15:18:29.129604",
   "holdingsCount": 59,
   "holdings": [
     {
@@ -204,7 +204,7 @@
       "value": null
     },
     {
-      "company": "Amber Enterprises India Limited ‡",
+      "company": "Amber Enterprises India Ltd.",
       "percentOfNAV": 1.49,
       "shares": null,
       "value": null
@@ -252,7 +252,7 @@
       "value": null
     },
     {
-      "company": "KEI Industries Limited ‡",
+      "company": "KEI Industries Ltd.",
       "percentOfNAV": 1.08,
       "shares": null,
       "value": null

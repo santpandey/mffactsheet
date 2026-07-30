@@ -2,7 +2,7 @@
   "fundName": "Invesco India Multicap Fund",
   "month": "February",
   "year": 2026,
-  "extractedAt": "2026-07-30T15:00:52.606956",
+  "extractedAt": "2026-07-30T15:18:29.054992",
   "holdingsCount": 59,
   "holdings": [
     {
@@ -120,7 +120,7 @@
       "value": null
     },
     {
-      "company": "Amber Enterprises India Limited ‡",
+      "company": "Amber Enterprises India Ltd.",
       "percentOfNAV": 2.05,
       "shares": null,
       "value": null
@@ -150,7 +150,7 @@
       "value": null
     },
     {
-      "company": "Swiggy Limited ‡",
+      "company": "Swiggy Ltd.",
       "percentOfNAV": 1.94,
       "shares": null,
       "value": null
@@ -216,7 +216,7 @@
       "value": null
     },
     {
-      "company": "KEI Industries Limited ‡",
+      "company": "KEI Industries Ltd.",
       "percentOfNAV": 1.34,
       "shares": null,
       "value": null
@@ -324,7 +324,7 @@
       "value": null
     },
     {
-      "company": "IndusInd Bank Limited ^^^",
+      "company": "IndusInd Bank Ltd.",
       "percentOfNAV": 0.76,
       "shares": null,
       "value": null
@@ -354,7 +354,7 @@
       "value": null
     },
     {
-      "company": "L&T Finance Limited ‡",
+      "company": "L&T Finance Ltd.",
       "percentOfNAV": 0.5,
       "shares": null,
       "value": null

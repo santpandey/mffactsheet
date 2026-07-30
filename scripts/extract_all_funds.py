@@ -70,7 +70,10 @@ def normalize_company_name(name):
     # e.g., "SKF India (Industrial) Ltd." -> "SKF India Ltd."
     # e.g., "Tata Motors (DVR)" -> "Tata Motors"
     name = re.sub(r'\s*\([^)]+\)\s*', ' ', name)
-    
+
+    # Remove trailing footnote markers (e.g., "KEI Industries Limited ‡")
+    name = re.sub(r'[\s‡±†§\*#@^~$]+$', '', name)
+
     # Standardize common suffixes
     replacements = [
         (r'\s+Limited$', ' Ltd.'),

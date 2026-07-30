@@ -2,11 +2,11 @@
   "fundName": "Invesco India Multicap Fund",
   "month": "December",
   "year": 2025,
-  "extractedAt": "2026-07-30T15:00:52.532527",
+  "extractedAt": "2026-07-30T15:18:28.999869",
   "holdingsCount": 57,
   "holdings": [
     {
-      "company": "Cholamandalam Investment and Finance Company Limited ‡",
+      "company": "Cholamandalam Investment and Finance Company Ltd.",
       "percentOfNAV": 3.85,
       "shares": null,
       "value": null
@@ -192,13 +192,13 @@
       "value": null
     },
     {
-      "company": "Amber Enterprises India Limited ‡",
+      "company": "Amber Enterprises India Ltd.",
       "percentOfNAV": 1.59,
       "shares": null,
       "value": null
     },
     {
-      "company": "FSN E-Commerce Ventures Limited ‡",
+      "company": "FSN E-Commerce Ventures Ltd.",
       "percentOfNAV": 1.58,
       "shares": null,
       "value": null

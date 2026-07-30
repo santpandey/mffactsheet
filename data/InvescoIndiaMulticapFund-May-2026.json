@@ -2,7 +2,7 @@
   "fundName": "Invesco India Multicap Fund",
   "month": "May",
   "year": 2026,
-  "extractedAt": "2026-07-30T15:00:52.923162",
+  "extractedAt": "2026-07-30T15:18:29.299849",
   "holdingsCount": 65,
   "holdings": [
     {
@@ -126,7 +126,7 @@
       "value": null
     },
     {
-      "company": "Persistent Systems Ltd ‡",
+      "company": "Persistent Systems Ltd.",
       "percentOfNAV": 1.91,
       "shares": null,
       "value": null
@@ -162,7 +162,7 @@
       "value": null
     },
     {
-      "company": "IndusInd Bank Limited ^^^",
+      "company": "IndusInd Bank Ltd.",
       "percentOfNAV": 1.6,
       "shares": null,
       "value": null
@@ -180,7 +180,7 @@
       "value": null
     },
     {
-      "company": "KEI Industries Limited ‡",
+      "company": "KEI Industries Ltd.",
       "percentOfNAV": 1.51,
       "shares": null,
       "value": null
