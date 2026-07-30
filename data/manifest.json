@@ -86,6 +86,120 @@
       "filename": "CanaraRobecoLargeAndMidCapFund-September-2025.json"
     }
   ],
+  "CanaraRobecoSmallCapFund": [
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-April-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2025,
+      "filename": "CanaraRobecoSmallCapFund-August-2025.json"
+    },
+    {
+      "month": "December",
+      "year": 2025,
+      "filename": "CanaraRobecoSmallCapFund-December-2025.json"
+    },
+    {
+      "month": "February",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-February-2026.json"
+    },
+    {
+      "month": "January",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-January-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-June-2026.json"
+    },
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-March-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-May-2026.json"
+    },
+    {
+      "month": "November",
+      "year": 2025,
+      "filename": "CanaraRobecoSmallCapFund-November-2025.json"
+    },
+    {
+      "month": "October",
+      "year": 2025,
+      "filename": "CanaraRobecoSmallCapFund-October-2025.json"
+    },
+    {
+      "month": "September",
+      "year": 2025,
+      "filename": "CanaraRobecoSmallCapFund-September-2025.json"
+    }
+  ],
+  "InvescoIndiaMulticapFund": [
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-April-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2025,
+      "filename": "InvescoIndiaMulticapFund-August-2025.json"
+    },
+    {
+      "month": "December",
+      "year": 2025,
+      "filename": "InvescoIndiaMulticapFund-December-2025.json"
+    },
+    {
+      "month": "February",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-February-2026.json"
+    },
+    {
+      "month": "January",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-January-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-June-2026.json"
+    },
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-March-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-May-2026.json"
+    },
+    {
+      "month": "November",
+      "year": 2025,
+      "filename": "InvescoIndiaMulticapFund-November-2025.json"
+    },
+    {
+      "month": "October",
+      "year": 2025,
+      "filename": "InvescoIndiaMulticapFund-October-2025.json"
+    },
+    {
+      "month": "September",
+      "year": 2025,
+      "filename": "InvescoIndiaMulticapFund-September-2025.json"
+    }
+  ],
   "MiraeAssetLargeAndMidcapFund": [
     {
       "month": "April",

@@ -1,0 +1,561 @@
+{
+  "fundName": "Canara Robeco Small Cap Fund",
+  "month": "November",
+  "year": 2025,
+  "extractedAt": "2026-07-30T15:00:56.295288",
+  "holdingsCount": 92,
+  "holdings": [
+    {
+      "company": "Multi Commodity Exchange Of India Ltd.",
+      "percentOfNAV": 3.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "KEI Industries Ltd.",
+      "percentOfNAV": 2.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "City Union Bank Ltd.",
+      "percentOfNAV": 2.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Karur Vysya Bank Ltd.",
+      "percentOfNAV": 2.34,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ge Vernova T&D India Ltd.",
+      "percentOfNAV": 1.97,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "TBO Tek Ltd.",
+      "percentOfNAV": 1.89,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "J.B. Chemicals & Pharmaceuticals Ltd.",
+      "percentOfNAV": 1.84,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Blue Star Ltd.",
+      "percentOfNAV": 1.72,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "PNB Housing Finance Ltd.",
+      "percentOfNAV": 1.64,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Amber Enterprises India Ltd.",
+      "percentOfNAV": 1.63,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Cholamandalam Financial Holdings Ltd.",
+      "percentOfNAV": 1.63,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aditya Birla Real Estate Ltd.",
+      "percentOfNAV": 1.59,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Radico Khaitan Ltd.",
+      "percentOfNAV": 1.52,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "EID Parry India Ltd.",
+      "percentOfNAV": 1.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Computer Age Management Services Ltd.",
+      "percentOfNAV": 1.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Bank",
+      "percentOfNAV": 1.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharat Electronics Ltd.",
+      "percentOfNAV": 1.48,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Anand Rathi Wealth Ltd.",
+      "percentOfNAV": 1.41,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "V-Guard Industries Ltd.",
+      "percentOfNAV": 1.4,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Equitas Small Finance Bank Ltd.",
+      "percentOfNAV": 1.39,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Eternal Ltd.",
+      "percentOfNAV": 1.38,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ujjivan Small Finance Bank Ltd.",
+      "percentOfNAV": 1.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Creditaccess Grameen Ltd.",
+      "percentOfNAV": 1.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sobha Ltd.",
+      "percentOfNAV": 1.3,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Cera Sanitaryware Ltd.",
+      "percentOfNAV": 1.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Affle 3i Ltd.",
+      "percentOfNAV": 1.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Aluminium Co Ltd.",
+      "percentOfNAV": 1.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finance Ltd.",
+      "percentOfNAV": 1.19,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sagility Ltd.",
+      "percentOfNAV": 1.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Can Fin Homes Ltd.",
+      "percentOfNAV": 1.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Global Health Ltd.",
+      "percentOfNAV": 1.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Hotels Co Ltd.",
+      "percentOfNAV": 1.14,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ajanta Pharma Ltd.",
+      "percentOfNAV": 1.14,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "CESC Ltd.",
+      "percentOfNAV": 1.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bikaji Foods International Ltd.",
+      "percentOfNAV": 1.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "JK Lakshmi Cement Ltd.",
+      "percentOfNAV": 1.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Schaeffler India Ltd.",
+      "percentOfNAV": 1.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Safari Industries Ltd.",
+      "percentOfNAV": 1.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Interglobe Aviation Ltd.",
+      "percentOfNAV": 1.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gland Pharma Ltd.",
+      "percentOfNAV": 1.1,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Metropolis Healthcare Ltd.",
+      "percentOfNAV": 1.06,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Awfis Space Solutions Ltd.",
+      "percentOfNAV": 1.05,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Max Healthcare Institute Ltd.",
+      "percentOfNAV": 1.05,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICRA Ltd.",
+      "percentOfNAV": 1.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "KEC International Ltd.",
+      "percentOfNAV": 1.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ITC Ltd.",
+      "percentOfNAV": 1.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tech Mahindra Ltd.",
+      "percentOfNAV": 1.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Home First Finance Co India Ltd.",
+      "percentOfNAV": 0.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Cohance Lifesciences Ltd.",
+      "percentOfNAV": 0.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "EPL Ltd.",
+      "percentOfNAV": 0.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Piramal Pharma Ltd.",
+      "percentOfNAV": 0.96,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Energy Exchange Ltd.",
+      "percentOfNAV": 0.96,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Exide Industries Ltd.",
+      "percentOfNAV": 0.94,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Triveni Turbine Ltd.",
+      "percentOfNAV": 0.93,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "V-Mart Retail Ltd.",
+      "percentOfNAV": 0.92,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "The Ramco Cements Ltd.",
+      "percentOfNAV": 0.92,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Innova Captab Ltd.",
+      "percentOfNAV": 0.9,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Birlasoft Ltd.",
+      "percentOfNAV": 0.89,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ratnamani Metals & Tubes Ltd.",
+      "percentOfNAV": 0.85,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Great Eastern Shipping Co Ltd.",
+      "percentOfNAV": 0.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Jyoti CNC Automation Ltd.",
+      "percentOfNAV": 0.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Apar Industries Ltd.",
+      "percentOfNAV": 0.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mrs Bectors Food Specialities Ltd.",
+      "percentOfNAV": 0.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Cyient Ltd.",
+      "percentOfNAV": 0.78,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Brigade Enterprises Ltd.",
+      "percentOfNAV": 0.78,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Westlife Foodworld Ltd.",
+      "percentOfNAV": 0.77,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sumitomo Chemical India Ltd.",
+      "percentOfNAV": 0.73,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Jyothy Labs Ltd.",
+      "percentOfNAV": 0.72,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "UTI Asset Management Co Ltd.",
+      "percentOfNAV": 0.7,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mahanagar Gas Ltd.",
+      "percentOfNAV": 0.69,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sun Pharmaceutical Industries Ltd.",
+      "percentOfNAV": 0.67,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Subros Ltd.",
+      "percentOfNAV": 0.67,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Greenply Industries Ltd.",
+      "percentOfNAV": 0.66,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ahluwalia Contracts Ltd.",
+      "percentOfNAV": 0.66,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "CIE Automotive India Ltd.",
+      "percentOfNAV": 0.59,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Timken India Ltd.",
+      "percentOfNAV": 0.59,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "VRL Logistics Ltd.",
+      "percentOfNAV": 0.57,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Thangamayil Jewellery Ltd.",
+      "percentOfNAV": 0.54,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mold Tek Packaging Ltd.",
+      "percentOfNAV": 0.53,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Latent View Analytics Ltd.",
+      "percentOfNAV": 0.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Rossari Biotech Ltd.",
+      "percentOfNAV": 0.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Rhi Magnesita India Ltd.",
+      "percentOfNAV": 0.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Doms Industries Ltd.",
+      "percentOfNAV": 0.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Devyani International Ltd.",
+      "percentOfNAV": 0.46,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Vedant Fashions Ltd.",
+      "percentOfNAV": 0.4,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Rolex Rings Ltd.",
+      "percentOfNAV": 0.33,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Praj Industries Ltd.",
+      "percentOfNAV": 0.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "PNC Infratech Ltd.",
+      "percentOfNAV": 0.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "K.P.R. Mill Ltd.",
+      "percentOfNAV": 0.17,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Go Fashion India Ltd.",
+      "percentOfNAV": 0.14,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Fine Organic Industries Ltd.",
+      "percentOfNAV": 0.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ask Automotive Ltd.",
+      "percentOfNAV": 0.11,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

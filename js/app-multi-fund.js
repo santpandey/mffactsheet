@@ -17,6 +17,14 @@ const FUNDS = {
     name: "SBI Children's Fund - Investment Plan",
     displayName: "SBI Children's",
   },
+  InvescoIndiaMulticapFund: {
+    name: "Invesco India Multicap Fund",
+    displayName: "Invesco Multicap",
+  },
+  CanaraRobecoSmallCapFund: {
+    name: "Canara Robeco Small Cap Fund",
+    displayName: "Canara Small Cap",
+  },
 };
 
 const MONTHS_ORDER = [

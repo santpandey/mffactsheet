@@ -39,6 +39,18 @@ FUNDS = {
         "excel_folder": "excel-data/sbi-childrens",
         "data_folder": "data",
     },
+    "invesco_india_multicap": {
+        "name": "Invesco India Multicap Fund",
+        "normalized_name": "InvescoIndiaMulticapFund",
+        "excel_folder": "excel-data/invesco-india-multicap",
+        "data_folder": "data",
+    },
+    "canara_robeco_small_cap": {
+        "name": "Canara Robeco Small Cap Fund",
+        "normalized_name": "CanaraRobecoSmallCapFund",
+        "excel_folder": "excel-data/canara-robeco-small-cap",
+        "data_folder": "data",
+    },
 }
 
 

@@ -37,12 +37,17 @@ logger = logging.getLogger(__name__)
 
 
 def get_recent_months(count: int = 1) -> List[Tuple[int, int]]:
-    """Return list of (year, month) for the last `count` months."""
+    """Return list of (year, month) for the last `count` calendar months."""
     months = []
     current = datetime.now()
+    year, month = current.year, current.month
     for i in range(count):
-        target = current - timedelta(days=30 * i)
-        months.append((target.year, target.month))
+        m = month - i
+        y = year
+        while m <= 0:
+            m += 12
+            y -= 1
+        months.append((y, m))
     return months
 
 
