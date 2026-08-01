@@ -18,6 +18,7 @@ from typing import Optional, Tuple
 import requests
 from bs4 import BeautifulSoup
 import openpyxl
+import pandas as pd
 
 # Shared constants
 MAX_RETRIES = 3
@@ -148,20 +149,23 @@ def validate_excel_generic(
     - At least one of fund_name_keywords appears in the first 10 rows (case-insensitive)
     """
     try:
-        wb = openpyxl.load_workbook(file_path, data_only=True)
-        logger.info(f"Sheets found: {wb.sheetnames}")
+        # pandas sniffs the actual format (xlsx zip vs xls OLE2) regardless of extension
+        xl = pd.ExcelFile(file_path)
+        logger.info(f"Sheets found: {xl.sheet_names}")
 
         # Check fund name in any sheet's first 10 rows
         name_found = False
-        for sheet_name in wb.sheetnames:
-            ws = wb[sheet_name]
-            for row in ws.iter_rows(max_row=10, values_only=True):
-                row_text = " ".join(str(c) for c in row if c).lower()
-                if any(kw.lower() in row_text for kw in fund_name_keywords):
-                    logger.info(f"Fund name confirmed in sheet '{sheet_name}'")
-                    name_found = True
-                    break
-            if name_found:
+        for sheet_name in xl.sheet_names:
+            try:
+                df = pd.read_excel(xl, sheet_name=sheet_name, header=None, nrows=10)
+            except Exception:
+                continue
+            row_text = " ".join(
+                str(c) for c in df.values.flatten() if pd.notna(c)
+            ).lower()
+            if any(kw.lower() in row_text for kw in fund_name_keywords):
+                logger.info(f"Fund name confirmed in sheet '{sheet_name}'")
+                name_found = True
                 break
 
         if not name_found:
@@ -171,19 +175,17 @@ def validate_excel_generic(
             )
 
         # Check data volume
-        for sheet_name in wb.sheetnames:
-            ws = wb[sheet_name]
-            data_rows = sum(
-                1 for row in ws.iter_rows(min_row=5, max_row=300, values_only=True)
-                if any(c for c in row)
-            )
+        for sheet_name in xl.sheet_names:
+            try:
+                df = pd.read_excel(xl, sheet_name=sheet_name, header=None, nrows=300)
+            except Exception:
+                continue
+            data_rows = df.iloc[4:].dropna(how="all").shape[0] if len(df) > 4 else 0
             if data_rows >= MIN_HOLDINGS:
                 logger.info(f"[OK] Sheet '{sheet_name}' has {data_rows} data rows — validation passed")
-                wb.close()
                 return True
 
         logger.error(f"No sheet has >= {MIN_HOLDINGS} data rows")
-        wb.close()
         return False
 
     except Exception as e:

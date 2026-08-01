@@ -323,5 +323,67 @@
       "year": 2025,
       "filename": "SBIChildrensFund-September-2025.json"
     }
+  ],
+  "TrustMFSmallCapFund": [
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-April-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2025,
+      "filename": "TrustMFSmallCapFund-August-2025.json"
+    },
+    {
+      "month": "December",
+      "year": 2025,
+      "filename": "TrustMFSmallCapFund-December-2025.json"
+    },
+    {
+      "month": "February",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-February-2026.json"
+    },
+    {
+      "month": "January",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-January-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2025,
+      "filename": "TrustMFSmallCapFund-July-2025.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-June-2026.json"
+    },
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-March-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-May-2026.json"
+    },
+    {
+      "month": "November",
+      "year": 2025,
+      "filename": "TrustMFSmallCapFund-November-2025.json"
+    },
+    {
+      "month": "October",
+      "year": 2025,
+      "filename": "TrustMFSmallCapFund-October-2025.json"
+    },
+    {
+      "month": "September",
+      "year": 2025,
+      "filename": "TrustMFSmallCapFund-September-2025.json"
+    }
   ]
 }

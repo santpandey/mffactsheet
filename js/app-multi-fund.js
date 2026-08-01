@@ -25,6 +25,10 @@ const FUNDS = {
     name: "Canara Robeco Small Cap Fund",
     displayName: "Canara Small Cap",
   },
+  TrustMFSmallCapFund: {
+    name: "TrustMF Small Cap Fund",
+    displayName: "TrustMF Small Cap",
+  },
 };
 
 const MONTHS_ORDER = [

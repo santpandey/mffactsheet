@@ -51,6 +51,13 @@ FUNDS = {
         "excel_folder": "excel-data/canara-robeco-small-cap",
         "data_folder": "data",
     },
+    "trustmf_small_cap": {
+        "name": "TrustMF Small Cap Fund",
+        "normalized_name": "TrustMFSmallCapFund",
+        "excel_folder": "excel-data/trustmf-small-cap",
+        "data_folder": "data",
+        "sheet_match": "trustmf small cap fund",
+    },
 }
 
 
@@ -152,7 +159,7 @@ def find_holdings_in_dataframe(df):
     for i, cell in enumerate(header_row):
         if pd.notna(cell):
             cell_str = str(cell).lower().strip()
-            if 'name of the instrument' in cell_str:
+            if 'name of the instrument' in cell_str or 'name of instrument' in cell_str:
                 company_col_idx = i
             elif '% to net' in cell_str or '% to nav' in cell_str or '% to aum' in cell_str or '% of aum' in cell_str:
                 percent_col_idx = i
@@ -305,12 +312,22 @@ def process_excel_file(filepath, fund_config):
         print(f"  Sheets: {excel_file.sheet_names}")
         
         holdings = None
+        sheet_match = fund_config.get("sheet_match", "").lower()
         
         # Try each sheet
         for sheet_name in excel_file.sheet_names:
             print(f"  Checking sheet: {sheet_name}")
             
             try:
+                if sheet_match:
+                    head = pd.read_excel(filepath, sheet_name=sheet_name, header=None, nrows=12)
+                    head_text = ' '.join(
+                        str(c) for c in head.values.flatten() if pd.notna(c)
+                    ).lower()
+                    if sheet_match not in head_text:
+                        continue
+                    print(f"  [MATCH] Sheet '{sheet_name}' matches '{sheet_match}'")
+                
                 df = pd.read_excel(filepath, sheet_name=sheet_name)
                 
                 if df.empty:

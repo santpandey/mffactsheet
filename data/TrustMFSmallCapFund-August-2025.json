@@ -1,0 +1,387 @@
+{
+  "fundName": "TrustMF Small Cap Fund",
+  "month": "August",
+  "year": 2025,
+  "extractedAt": "2026-08-02T00:28:51.210111",
+  "holdingsCount": 63,
+  "holdings": [
+    {
+      "company": "Karur Vysya Bank Ltd.",
+      "percentOfNAV": 2.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Apollo Micro Systems Ltd.",
+      "percentOfNAV": 2.7,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Shaily Engineering Plastics Ltd.",
+      "percentOfNAV": 2.46,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "GE Vernova T&D India Ltd.",
+      "percentOfNAV": 2.44,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Multi Commodity Exchange of India Ltd.",
+      "percentOfNAV": 2.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Radico Khaitan Ltd.",
+      "percentOfNAV": 2.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gabriel India Ltd.",
+      "percentOfNAV": 2.34,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "eClerx Services Ltd.",
+      "percentOfNAV": 2.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aster DM Healthcare Ltd.",
+      "percentOfNAV": 2.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Delhivery Ltd.",
+      "percentOfNAV": 2.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Welspun Corp Ltd.",
+      "percentOfNAV": 2.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Navin Fluorine International Ltd.",
+      "percentOfNAV": 2.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sagility India Ltd.",
+      "percentOfNAV": 2.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Acutaas Chemicals Ltd.",
+      "percentOfNAV": 2.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Krishna Institute of Medical Sciences Ltd.",
+      "percentOfNAV": 1.95,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Lumax Auto Technologies Ltd.",
+      "percentOfNAV": 1.94,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Cartrade Tech Ltd.",
+      "percentOfNAV": 1.94,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "S.J.S. Enterprises Ltd.",
+      "percentOfNAV": 1.85,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Vishal Mega Mart Ltd.",
+      "percentOfNAV": 1.85,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Transformers And Rectifiers Ltd.",
+      "percentOfNAV": 1.8,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Laurus Labs Ltd.",
+      "percentOfNAV": 1.75,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Syrma SGS Technology Ltd.",
+      "percentOfNAV": 1.62,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Prudent Corporate Advisory Services Ltd.",
+      "percentOfNAV": 1.61,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Coforge Ltd.",
+      "percentOfNAV": 1.59,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Allied Blenders and Distillers Ltd.",
+      "percentOfNAV": 1.56,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Eris Lifesciences Ltd.",
+      "percentOfNAV": 1.53,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kaynes Technology India Ltd.",
+      "percentOfNAV": 1.46,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "City Union Bank Ltd.",
+      "percentOfNAV": 1.44,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "JK Cement Ltd.",
+      "percentOfNAV": 1.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Amber Enterprises India Ltd.",
+      "percentOfNAV": 1.41,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "India Shelter Finance Corporation Ltd.",
+      "percentOfNAV": 1.39,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Privi Speciality Chemicals Ltd.",
+      "percentOfNAV": 1.34,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Firstsource Solutions Ltd.",
+      "percentOfNAV": 1.34,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Zinka Logistics Solutions Ltd.",
+      "percentOfNAV": 1.33,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Persistent Systems Ltd.",
+      "percentOfNAV": 1.3,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kfin Technologies Ltd.",
+      "percentOfNAV": 1.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Creditaccess Grameen Ltd.",
+      "percentOfNAV": 1.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kalpataru Projects International Ltd.",
+      "percentOfNAV": 1.21,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Onesource Specialty Pharma Ltd.",
+      "percentOfNAV": 1.19,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sumitomo Chemical India Ltd.",
+      "percentOfNAV": 1.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Interarch Building Solutions Ltd.",
+      "percentOfNAV": 1.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Cholamandalam Financial Holdings Ltd.",
+      "percentOfNAV": 1.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ASK Automotive Ltd.",
+      "percentOfNAV": 1.05,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Le Travenues Technology Ltd.",
+      "percentOfNAV": 1.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Wockhardt Ltd.",
+      "percentOfNAV": 1.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "PTC Industries Ltd.",
+      "percentOfNAV": 1.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Awfis Space Solutions Ltd.",
+      "percentOfNAV": 0.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "V2 Retail Ltd.",
+      "percentOfNAV": 0.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Data Patterns Ltd.",
+      "percentOfNAV": 0.97,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "PNB Housing Finance Ltd.",
+      "percentOfNAV": 0.93,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Central Depository Services Ltd.",
+      "percentOfNAV": 0.93,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Veranda Learning Solutions Ltd.",
+      "percentOfNAV": 0.92,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "The Ramco Cements Ltd.",
+      "percentOfNAV": 0.91,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sai Life Sciences Ltd.",
+      "percentOfNAV": 0.9,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Apar Industries Ltd.",
+      "percentOfNAV": 0.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Smartworks Coworking Spaces Ltd.",
+      "percentOfNAV": 0.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Craftsman Automation Ltd.",
+      "percentOfNAV": 0.74,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Laxmi Dental Ltd.",
+      "percentOfNAV": 0.74,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Home First Finance Company India Ltd.",
+      "percentOfNAV": 0.72,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Techno Electric & Engineering Company Ltd.",
+      "percentOfNAV": 0.66,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Glenmark Pharmaceuticals Ltd.",
+      "percentOfNAV": 0.65,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gravita India Ltd.",
+      "percentOfNAV": 0.65,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Safari Industries Ltd.",
+      "percentOfNAV": 0.38,
+      "shares": null,
+      "value": null
+    }
+  ]
+}
