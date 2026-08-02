@@ -1,0 +1,561 @@
+{
+  "fundName": "Quant Small Cap Fund",
+  "month": "September",
+  "year": 2025,
+  "extractedAt": "2026-08-03T01:09:34.011339",
+  "holdingsCount": 92,
+  "holdings": [
+    {
+      "company": "Reliance Industries Ltd.",
+      "percentOfNAV": 9.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Jio Financial Services Ltd.",
+      "percentOfNAV": 6.06,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "RBL Bank Ltd.",
+      "percentOfNAV": 3.59,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aegis Logistics Ltd.",
+      "percentOfNAV": 3.45,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Power Ltd.",
+      "percentOfNAV": 2.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Anand Rathi Wealth Ltd.",
+      "percentOfNAV": 2.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aster DM Healthcare Ltd.",
+      "percentOfNAV": 2.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bikaji Foods International Ltd.",
+      "percentOfNAV": 2.33,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Poly Medicure Ltd.",
+      "percentOfNAV": 2.19,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Enterprises Ltd.",
+      "percentOfNAV": 2.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ventive Hospitality Ltd.",
+      "percentOfNAV": 1.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HFCL Ltd.",
+      "percentOfNAV": 1.88,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SUN TV Network Ltd.",
+      "percentOfNAV": 1.84,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Capri Global Capital Ltd.",
+      "percentOfNAV": 1.8,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Usha Martin Ltd.",
+      "percentOfNAV": 1.68,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Piramal Finance Ltd.",
+      "percentOfNAV": 1.66,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bayer Cropscience Ltd.",
+      "percentOfNAV": 1.62,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Building Construction Corp",
+      "percentOfNAV": 1.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Pfizer Ltd.",
+      "percentOfNAV": 1.5,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Oil and Natural Gas Corporation Ltd.",
+      "percentOfNAV": 1.5,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Arvind Ltd.",
+      "percentOfNAV": 1.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aditya Birla Lifestyle Brands Ltd.",
+      "percentOfNAV": 1.46,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sequent Scientific Ltd.",
+      "percentOfNAV": 1.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Minda Corporation Ltd.",
+      "percentOfNAV": 1.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Zydus Wellness Ltd.",
+      "percentOfNAV": 1.41,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Welspun Corp Ltd.",
+      "percentOfNAV": 1.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "KEYSTONE REALTORS Ltd.",
+      "percentOfNAV": 1.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Welspun Enterprises Ltd.",
+      "percentOfNAV": 1.14,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "NCC Ltd.",
+      "percentOfNAV": 1.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Marathon Nextgen Realty Ltd.",
+      "percentOfNAV": 1.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Jubilant Pharmova Ltd.",
+      "percentOfNAV": 1.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Just Dial Ltd.",
+      "percentOfNAV": 1.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bata India Ltd.",
+      "percentOfNAV": 1.05,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Afcons Infrastructure Ltd.",
+      "percentOfNAV": 1.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "EID Parry Ltd.",
+      "percentOfNAV": 0.96,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ANTHEM BIOSCIENCES Ltd.",
+      "percentOfNAV": 0.96,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Strides Pharma Science Ltd.",
+      "percentOfNAV": 0.94,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gland Pharma Ltd.",
+      "percentOfNAV": 0.94,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "JM FINANCIAL Ltd.",
+      "percentOfNAV": 0.91,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Karnataka Bank Ltd.",
+      "percentOfNAV": 0.87,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Orchid Pharma Ltd.",
+      "percentOfNAV": 0.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Juniper Hotels Ltd.",
+      "percentOfNAV": 0.58,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "EPL Ltd.",
+      "percentOfNAV": 0.56,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Apeejay Surrendra Park Hotels Ltd.",
+      "percentOfNAV": 0.52,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aditya Birla Fashion And Retail Ltd.",
+      "percentOfNAV": 0.52,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Gujarat State Fert & Chemicals Ltd.",
+      "percentOfNAV": 0.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Delhivery Ltd.",
+      "percentOfNAV": 0.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "K.P.R. Mill Ltd.",
+      "percentOfNAV": 0.48,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Welspun Living Ltd.",
+      "percentOfNAV": 0.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aarti Industries Ltd.",
+      "percentOfNAV": 0.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "INDOCO REMEDIES Ltd.",
+      "percentOfNAV": 0.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Thyrocare Technologies Ltd.",
+      "percentOfNAV": 0.41,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "TVS Srichakra Ltd.",
+      "percentOfNAV": 0.41,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aptus Value Housing Finance India Ltd.",
+      "percentOfNAV": 0.4,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Alivus Life Sciences",
+      "percentOfNAV": 0.4,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Anupam Rasayan India Ltd.",
+      "percentOfNAV": 0.39,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sula Vineyards Ltd.",
+      "percentOfNAV": 0.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indraprastha Medical Corporation Ltd.",
+      "percentOfNAV": 0.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "OSWAL PUMPS Ltd.",
+      "percentOfNAV": 0.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Suven Life Sciences Ltd.",
+      "percentOfNAV": 0.33,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "INDIA SHELTER FIN CORP Ltd.",
+      "percentOfNAV": 0.31,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Nitin Spinners Ltd.",
+      "percentOfNAV": 0.3,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Man Infraconstruction Ltd.",
+      "percentOfNAV": 0.3,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Balrampur Chini Mills Ltd.",
+      "percentOfNAV": 0.3,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Maharashtra Seamless Ltd.",
+      "percentOfNAV": 0.27,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Jana Small Finance Bank Ltd.",
+      "percentOfNAV": 0.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "RISHABH INSTRUMENTS Ltd.",
+      "percentOfNAV": 0.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "BASF India Ltd.",
+      "percentOfNAV": 0.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Embassy Developments Ltd.",
+      "percentOfNAV": 0.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "One Source Specialty Pharma Ltd.",
+      "percentOfNAV": 0.24,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Life Insurance Corporation Of India",
+      "percentOfNAV": 0.23,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Vinati Organics Ltd.",
+      "percentOfNAV": 0.21,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Exicom Tele-Systems Ltd.",
+      "percentOfNAV": 0.21,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Castrol India Ltd.",
+      "percentOfNAV": 0.21,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Capacite Infraprojects Ltd.",
+      "percentOfNAV": 0.2,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "The Orissa Minerals Development Co Ltd.",
+      "percentOfNAV": 0.17,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Intellect Design Arena Ltd.",
+      "percentOfNAV": 0.17,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Vishnu Prakash R Punglia Ltd.",
+      "percentOfNAV": 0.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SMS Pharmaceuticals Ltd.",
+      "percentOfNAV": 0.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Oriental Hotels Ltd.",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Newgen Software Technologies Ltd.",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Vardhman Textiles Ltd.",
+      "percentOfNAV": 0.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mahindra Holidays & Resorts Ind Ltd.",
+      "percentOfNAV": 0.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sai Silks Ltd.",
+      "percentOfNAV": 0.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SANOFI INDIA Ltd.",
+      "percentOfNAV": 0.1,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Himadri Speciality Chemical Ltd.",
+      "percentOfNAV": 0.1,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "INDIAN HUME PIPE COMPANY Ltd.",
+      "percentOfNAV": 0.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Digitide Solutions Ltd.",
+      "percentOfNAV": 0.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ETHOS Ltd.",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Stanley Lifestyles Ltd.",
+      "percentOfNAV": 0.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Best Agrolife Ltd.",
+      "percentOfNAV": 0.06,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "PUNJAB ALKALIES AND CHEMICALS Ltd.",
+      "percentOfNAV": 0.04,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

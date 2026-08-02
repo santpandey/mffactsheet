@@ -262,6 +262,68 @@
       "filename": "MiraeAssetLargeAndMidcapFund-September-2025.json"
     }
   ],
+  "QuantSmallCapFund": [
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-April-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2025,
+      "filename": "QuantSmallCapFund-August-2025.json"
+    },
+    {
+      "month": "December",
+      "year": 2025,
+      "filename": "QuantSmallCapFund-December-2025.json"
+    },
+    {
+      "month": "February",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-February-2026.json"
+    },
+    {
+      "month": "January",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-January-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2025,
+      "filename": "QuantSmallCapFund-July-2025.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-June-2026.json"
+    },
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-March-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-May-2026.json"
+    },
+    {
+      "month": "November",
+      "year": 2025,
+      "filename": "QuantSmallCapFund-November-2025.json"
+    },
+    {
+      "month": "October",
+      "year": 2025,
+      "filename": "QuantSmallCapFund-October-2025.json"
+    },
+    {
+      "month": "September",
+      "year": 2025,
+      "filename": "QuantSmallCapFund-September-2025.json"
+    }
+  ],
   "SBIChildrensFund": [
     {
       "month": "April",

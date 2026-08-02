@@ -58,6 +58,12 @@ FUNDS = {
         "data_folder": "data",
         "sheet_match": "trustmf small cap fund",
     },
+    "quant_small_cap": {
+        "name": "Quant Small Cap Fund",
+        "normalized_name": "QuantSmallCapFund",
+        "excel_folder": "excel-data/quant-small-cap",
+        "data_folder": "data",
+    },
 }
 
 

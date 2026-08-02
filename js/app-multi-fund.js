@@ -29,6 +29,10 @@ const FUNDS = {
     name: "TrustMF Small Cap Fund",
     displayName: "TrustMF Small Cap",
   },
+  QuantSmallCapFund: {
+    name: "Quant Small Cap Fund",
+    displayName: "Quant Small Cap",
+  },
 };
 
 const MONTHS_ORDER = [
