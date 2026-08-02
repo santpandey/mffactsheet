@@ -98,6 +98,9 @@ async function loadAvailableMonths() {
   const uniqueFiles = [...new Set(fileNames)];
   const filePattern = /^([A-Za-z0-9]+)-([A-Za-z]+)-(\d{4})\.json$/;
 
+  // Build the list of files to load, then fetch them concurrently.
+  // Sequential `await` per file was the main load-time bottleneck (75+ files).
+  const tasks = [];
   for (const filename of uniqueFiles) {
     const match = filename.match(filePattern);
     if (!match) continue;
@@ -105,20 +108,37 @@ async function loadAvailableMonths() {
     const [, fundKey, month, yearText] = match;
     if (!FUNDS[fundKey]) continue;
 
-    const year = Number(yearText);
-    const key = `${month}-${year}`;
+    tasks.push({
+      filename,
+      fundKey,
+      month,
+      year: Number(yearText),
+      key: `${month}-${yearText}`,
+    });
+  }
 
-    try {
-      const response = await fetch(`data/${filename}`);
-      if (!response.ok) continue;
+  // Bounded concurrency pool: fast on HTTP/2 (Netlify multiplexes), without
+  // firing hundreds of simultaneous requests on larger datasets.
+  const CONCURRENCY = 12;
+  let cursor = 0;
+  async function worker() {
+    while (cursor < tasks.length) {
+      const t = tasks[cursor++];
+      try {
+        const response = await fetch(`data/${t.filename}`);
+        if (!response.ok) continue;
 
-      const data = await response.json();
-      allData[fundKey][key] = data;
-      available[fundKey].push({ month, year, key });
-    } catch (e) {
-      console.error(`Failed to load ${filename}`, e);
+        const data = await response.json();
+        allData[t.fundKey][t.key] = data;
+        available[t.fundKey].push({ month: t.month, year: t.year, key: t.key });
+      } catch (e) {
+        console.error(`Failed to load ${t.filename}`, e);
+      }
     }
   }
+  await Promise.all(
+    Array.from({ length: Math.min(CONCURRENCY, tasks.length) }, () => worker()),
+  );
 
   for (const fundKey of Object.keys(available)) {
     available[fundKey].sort((a, b) => {
