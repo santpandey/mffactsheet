@@ -61,8 +61,7 @@ Replace:
 
 ```powershell
 cd d:\mffactsheet
-.\venv\Scripts\activate
-pip install requests
+uv sync
 ```
 
 ## Step 4: Test the Script
@@ -70,7 +69,7 @@ pip install requests
 Run the script manually to test:
 
 ```powershell
-.\venv\Scripts\python.exe scripts\auto_top_movers.py
+uv run python scripts\auto_top_movers.py
 ```
 
 Or use the batch file:
@@ -147,8 +146,7 @@ Register-ScheduledTask -TaskName "Top Movers Notifier" -Action $action -Trigger 
 ### "requests module not found"
 
 ```powershell
-.\venv\Scripts\activate
-pip install requests
+uv sync
 ```
 
 ### Time zone issues

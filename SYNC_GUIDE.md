@@ -13,7 +13,7 @@ This is your **starter script** that syncs data from both funds automatically.
 ### **Basic Sync (Recommended)**
 ```powershell
 # Sync latest month for all funds
-.\venv\Scripts\python.exe scripts/sync_all_funds.py
+uv run python scripts/sync_all_funds.py
 ```
 
 This single command will:
@@ -29,27 +29,27 @@ This single command will:
 
 ### **Sync Last 3 Months**
 ```powershell
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --months 3
+uv run python scripts/sync_all_funds.py --months 3
 ```
 
 ### **Sync Specific Month**
 ```powershell
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --year 2026 --month 2
+uv run python scripts/sync_all_funds.py --year 2026 --month 2
 ```
 
 ### **Force Re-download**
 ```powershell
 # Re-download even if files exist
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --force
+uv run python scripts/sync_all_funds.py --force
 ```
 
 ### **Skip Steps**
 ```powershell
 # Skip extraction (if you only want to download)
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --skip-extraction
+uv run python scripts/sync_all_funds.py --skip-extraction
 
 # Skip verification
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --skip-verification
+uv run python scripts/sync_all_funds.py --skip-verification
 ```
 
 ---
@@ -148,7 +148,7 @@ Log saved to: logs/sync_all_funds_20260216_160730.log
 
 ```powershell
 # Step 1: Run sync script
-.\venv\Scripts\python.exe scripts/sync_all_funds.py
+uv run python scripts/sync_all_funds.py
 
 # Step 2: Download Mirae Asset manually (when prompted)
 # - Visit website
@@ -156,7 +156,7 @@ Log saved to: logs/sync_all_funds_20260216_160730.log
 # - Save to excel-data/mirae-asset/
 
 # Step 3: Run sync again to extract Mirae Asset
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --skip-verification
+uv run python scripts/sync_all_funds.py --skip-verification
 
 # Step 4: Refresh browser to see new data
 ```
@@ -165,11 +165,11 @@ Log saved to: logs/sync_all_funds_20260216_160730.log
 
 ```powershell
 # Download last 3 months
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --months 3
+uv run python scripts/sync_all_funds.py --months 3
 
 # Then manually download Mirae Asset for those months
 # Run extraction
-.\venv\Scripts\python.exe scripts/extract_all_funds.py
+uv run python scripts/extract_all_funds.py
 ```
 
 ---
@@ -193,17 +193,17 @@ Check logs if:
 ### **Dry Run (Check without downloading)**
 ```powershell
 # Canara Robeco script supports dry-run
-.\venv\Scripts\python.exe scripts/canara_auto_download.py --year 2026 --month 2 --dry-run
+uv run python scripts/canara_auto_download.py --year 2026 --month 2 --dry-run
 ```
 
 ### **Only Extract (No download)**
 ```powershell
-.\venv\Scripts\python.exe scripts/extract_all_funds.py
+uv run python scripts/extract_all_funds.py
 ```
 
 ### **Only Verify (No download/extract)**
 ```powershell
-.\venv\Scripts\python.exe scripts/verify_data.py
+uv run python scripts/verify_data.py
 ```
 
 ---
@@ -213,27 +213,27 @@ Check logs if:
 ### **Before (Multiple Commands)**
 ```powershell
 # Download Canara Robeco
-.\venv\Scripts\python.exe scripts/canara_auto_download.py --year 2026 --month 1
+uv run python scripts/canara_auto_download.py --year 2026 --month 1
 
 # Download Canara Robeco for another month
-.\venv\Scripts\python.exe scripts/canara_auto_download.py --year 2026 --month 2
+uv run python scripts/canara_auto_download.py --year 2026 --month 2
 
 # Download Canara Robeco for yet another month
-.\venv\Scripts\python.exe scripts/canara_auto_download.py --year 2026 --month 3
+uv run python scripts/canara_auto_download.py --year 2026 --month 3
 
 # Manually download Mirae Asset...
 
 # Extract all
-.\venv\Scripts\python.exe scripts/extract_all_funds.py
+uv run python scripts/extract_all_funds.py
 
 # Verify
-.\venv\Scripts\python.exe scripts/verify_data.py
+uv run python scripts/verify_data.py
 ```
 
 ### **After (One Command)**
 ```powershell
 # Sync last 3 months for all funds
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --months 3
+uv run python scripts/sync_all_funds.py --months 3
 
 # Done! (except manual Mirae Asset download)
 ```
@@ -261,9 +261,9 @@ cd d:\mffactsheet
 ```
 
 ### **"Module not found"**
-Activate virtual environment:
+Ensure the uv environment is synced:
 ```powershell
-.\venv\Scripts\activate
+uv sync
 ```
 
 ### **Download fails**
@@ -301,19 +301,19 @@ Activate virtual environment:
 
 ```powershell
 # Most common usage
-.\venv\Scripts\python.exe scripts/sync_all_funds.py
+uv run python scripts/sync_all_funds.py
 
 # Sync multiple months
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --months 3
+uv run python scripts/sync_all_funds.py --months 3
 
 # Specific month
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --year 2026 --month 2
+uv run python scripts/sync_all_funds.py --year 2026 --month 2
 
 # Force re-download
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --force
+uv run python scripts/sync_all_funds.py --force
 
 # Help
-.\venv\Scripts\python.exe scripts/sync_all_funds.py --help
+uv run python scripts/sync_all_funds.py --help
 ```
 
 **Save this command to a shortcut for even faster access!**

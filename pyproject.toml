@@ -1,0 +1,15 @@
+[project]
+name = "mffactsheet"
+version = "0.1.0"
+description = "Mutual fund portfolio tracker — factsheet download, extraction, and dashboard"
+requires-python = ">=3.11"
+# Pinned to the exact versions previously installed in venv/ — no version drift.
+dependencies = [
+    "pandas==2.3.3",
+    "openpyxl==3.1.5",
+    "xlrd==2.0.2",
+    "requests==2.32.5",
+    "beautifulsoup4==4.14.3",
+    "pdfplumber==0.11.9",
+    "apscheduler==3.11.2",
+]

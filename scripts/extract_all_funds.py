@@ -11,7 +11,7 @@ from datetime import datetime
 try:
     import pandas as pd
 except ImportError:
-    print("ERROR: pandas not installed. Please run: pip install pandas openpyxl")
+    print("ERROR: pandas not installed. Please run: uv sync")
     exit(1)
 
 # Fund configurations — one entry per fund.

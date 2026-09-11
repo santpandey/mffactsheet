@@ -6,7 +6,7 @@
 
 ```powershell
 # Download for a specific month - extraction happens automatically!
-.\venv\Scripts\python.exe scripts/canara_auto_download.py --year 2025 --month 4
+uv run python scripts/canara_auto_download.py --year 2025 --month 4
 
 # That's it! The script will:
 # 1. Download the Excel file
@@ -34,7 +34,7 @@ The scheduled task runs automatically on the 5th of each month and:
 
 ```powershell
 # Start local web server (run from project root)
-venv\Scripts\python.exe -m http.server 8000
+uv run python -m http.server 8000
 
 # Then open: http://localhost:8000
 ```
@@ -45,21 +45,21 @@ venv\Scripts\python.exe -m http.server 8000
 
 ```powershell
 # Download and extract April 2025
-.\venv\Scripts\python.exe scripts/canara_auto_download.py --year 2025 --month 4
+uv run python scripts/canara_auto_download.py --year 2025 --month 4
 ```
 
 ### Force Re-download
 
 ```powershell
 # Re-download even if file exists
-.\venv\Scripts\python.exe scripts/canara_auto_download.py --year 2025 --month 4 --force
+uv run python scripts/canara_auto_download.py --year 2025 --month 4 --force
 ```
 
 ### Manual Extraction Only
 
 ```powershell
 # If you only want to re-extract existing Excel files
-.\venv\Scripts\python.exe scripts/extract_all_funds.py
+uv run python scripts/extract_all_funds.py
 ```
 
 ---
@@ -103,7 +103,7 @@ venv\Scripts\python.exe -m http.server 8000
 **A:** The download still succeeds. You'll see a warning and can run extraction manually:
 
 ```powershell
-.\venv\Scripts\python.exe scripts/extract_all_funds.py
+uv run python scripts/extract_all_funds.py
 ```
 
 ### Q: Does extraction skip already-processed files?
@@ -126,7 +126,7 @@ venv\Scripts\python.exe -m http.server 8000
 
 ```powershell
 # Step 1: Run download (extraction happens automatically)
-.\venv\Scripts\python.exe scripts/canara_auto_download.py --year 2025 --month 3
+uv run python scripts/canara_auto_download.py --year 2025 --month 3
 
 # Output:
 # ✅ Downloaded and validated
@@ -149,7 +149,7 @@ venv\Scripts\python.exe -m http.server 8000
 
 ```powershell
 # Manually run extraction
-.\venv\Scripts\python.exe scripts/extract_all_funds.py
+uv run python scripts/extract_all_funds.py
 ```
 
 ### Want to see extraction output
@@ -163,7 +163,7 @@ The output is captured but not shown. Check:
 
 ```powershell
 # This processes all Excel files and regenerates all JSON
-.\venv\Scripts\python.exe scripts/extract_all_funds.py
+uv run python scripts/extract_all_funds.py
 ```
 
 ---

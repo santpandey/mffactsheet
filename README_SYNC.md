@@ -22,10 +22,10 @@ This will:
 
 ```powershell
 # Terminal 1: Start Sync API Server
-.\venv\Scripts\python.exe scripts\sync_server.py
+uv run python scripts\sync_server.py
 
 # Terminal 2: Start Web Server
-.\venv\Scripts\python.exe -m http.server 8000
+uv run python-m http.server 8000
 ```
 
 ## 📊 How It Works
@@ -105,7 +105,7 @@ After successful sync:
 
 **Change Port**:
 ```powershell
-.\venv\Scripts\python.exe scripts\sync_server.py --port 8002
+uv run python scripts\sync_server.py --port 8002
 ```
 
 **Update UI** (if you change port):
@@ -132,7 +132,7 @@ timeout=600  # 10 minutes
 **Solution**:
 ```powershell
 # Start sync server
-.\venv\Scripts\python.exe scripts\sync_server.py
+uv run python scripts\sync_server.py
 ```
 
 ### **CORS Errors**
@@ -147,7 +147,7 @@ timeout=600  # 10 minutes
 
 **Solution**: Increase timeout in `sync_server.py` or run sync manually:
 ```powershell
-.\venv\Scripts\python.exe scripts\sync_all_funds.py
+uv run python scripts\sync_all_funds.py
 ```
 
 ### **Port Already in Use**
@@ -163,7 +163,7 @@ netstat -ano | findstr :8001
 taskkill /PID <PID> /F
 
 # Or use different port
-.\venv\Scripts\python.exe scripts\sync_server.py --port 8002
+uv run python scripts\sync_server.py --port 8002
 ```
 
 ## 📝 API Reference
@@ -229,7 +229,7 @@ type logs\sync_all_funds_*.log
 
 For scheduled syncs, use Windows Task Scheduler instead of the button:
 ```powershell
-.\venv\Scripts\python.exe scripts\setup_scheduler.py
+uv run python scripts\setup_scheduler.py
 ```
 
 ## 📚 Related Documentation

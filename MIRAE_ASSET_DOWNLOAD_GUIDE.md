@@ -46,7 +46,7 @@ d:\mffactsheet\excel-data\mirae-asset\
 After downloading, run the extraction script:
 
 ```powershell
-.\venv\Scripts\python.exe scripts\extract_all_funds.py
+uv run python scripts\extract_all_funds.py
 ```
 
 This will:
@@ -69,7 +69,7 @@ This will:
 2. **Auto-Extract** (one command)
 
    ```powershell
-   .\venv\Scripts\python.exe scripts\extract_all_funds.py
+   uv run python scripts\extract_all_funds.py
    ```
 
 3. **Refresh Browser**
@@ -182,7 +182,7 @@ Given the complexity and maintenance burden of browser automation, manual downlo
 1. Go to: https://www.miraeassetmf.co.in/downloads/portfolio
 2. Download: Mirae Asset Large & Midcap Fund - January 2026
 3. Save as: `excel-data/mirae-asset/maebf-jan2026.xlsx`
-4. Run: `.\venv\Scripts\python.exe scripts\extract_all_funds.py`
+4. Run: `uv run python scripts\extract_all_funds.py`
 5. Refresh browser ✅
 
 ### **Verify Extraction:**

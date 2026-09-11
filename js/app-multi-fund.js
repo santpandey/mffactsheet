@@ -1736,7 +1736,7 @@ async function init() {
           <p style="margin-top: 16px; color: #666;">
             Please run the extraction script first:<br><br>
             <code style="background: #f3f4f6; padding: 8px 16px; border-radius: 4px;">
-              .\\venv\\Scripts\\activate; python scripts/extract_all_funds.py
+              uv run python scripts/extract_all_funds.py
             </code>
           </p>
         </div>

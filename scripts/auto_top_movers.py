@@ -15,7 +15,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 try:
     import requests
 except ImportError:
-    print("ERROR: requests not installed. Run: pip install requests")
+    print("ERROR: requests not installed. Run: uv sync")
     sys.exit(1)
 
 # NIFTY Midcap 100 stock symbols (NSE)

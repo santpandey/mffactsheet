@@ -40,7 +40,7 @@ Since Netlify free tier only supports static sites, we'll deploy the **frontend 
 
 ```powershell
 # Remove files not needed for deployment
-Remove-Item -Recurse -Force venv/
+Remove-Item -Recurse -Force .venv/
 Remove-Item -Recurse -Force logs/
 Remove-Item -Recurse -Force excel-data/  # Too large, not needed
 Remove-Item start_server.bat
@@ -154,7 +154,7 @@ Excludes:
 - ✅ `netlify.toml` (configuration)
 
 ### **Excluded:**
-- ❌ `venv/` (Python environment)
+- ❌ `.venv/` (Python environment, managed by uv)
 - ❌ `scripts/` (Python scripts)
 - ❌ `excel-data/` (source files)
 - ❌ `logs/` (log files)
@@ -171,7 +171,7 @@ Since Python scripts won't run on Netlify, you'll update data locally and redepl
 1. **Download Latest Data (Local)**
    ```powershell
    # Canara Robeco (automatic)
-   .\venv\Scripts\python.exe scripts\sync_all_funds.py
+   uv run python scripts\sync_all_funds.py
    
    # Mirae Asset (manual download from website)
    # Save to excel-data/mirae-asset/
@@ -179,7 +179,7 @@ Since Python scripts won't run on Netlify, you'll update data locally and redepl
 
 2. **Extract to JSON (Local)**
    ```powershell
-   .\venv\Scripts\python.exe scripts\extract_all_funds.py
+   uv run python scripts\extract_all_funds.py
    ```
 
 3. **Commit and Push**
@@ -360,10 +360,10 @@ After deploying to Netlify:
 
 ```powershell
 # 1. Clean up
-Remove-Item -Recurse -Force venv/, logs/, excel-data/
+Remove-Item -Recurse -Force .venv/, logs/, excel-data/
 
 # 2. Ensure data is current
-.\venv\Scripts\python.exe scripts\extract_all_funds.py
+uv run python scripts\extract_all_funds.py
 
 # 3. Commit everything
 git add .

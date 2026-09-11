@@ -44,8 +44,7 @@ Automated system to download Canara Robeco monthly portfolio files with validati
 ### 1. Install Dependencies
 
 ```powershell
-.\venv\Scripts\activate
-pip install requests beautifulsoup4 openpyxl
+uv sync
 ```
 
 ### 2. Setup Scheduler
@@ -61,8 +60,8 @@ This creates a scheduled task that runs on the 5th of each month at 6 AM.
 **Option B: Python Scheduler (Cross-platform)**
 
 ```powershell
-pip install apscheduler
-python scripts/run_scheduler.py
+uv sync
+uv run python scripts/run_scheduler.py
 ```
 
 Keep this running in the background.
@@ -191,7 +190,7 @@ Get-ScheduledTask -TaskName CanaraRobecoAutoDownload | Get-ScheduledTaskInfo
 1. **Use browser automation** (Selenium/Playwright):
 
    ```python
-   # Install: pip install playwright
+   # Install: uv add playwright
    # Setup: playwright install chromium
    ```
 
@@ -251,7 +250,7 @@ if success:
 
 ### Email Notifications
 
-Install: `pip install yagmail`
+Install: `uv add yagmail`
 
 ```python
 import yagmail

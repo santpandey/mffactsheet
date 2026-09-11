@@ -18,7 +18,7 @@ A web application to track and visualize changes in mutual fund holdings over ti
 
 ```
 mffactsheet/
-├── venv/                              # Python virtual environment
+├── .venv/                             # Python virtual environment (managed by uv)
 ├── data/                              # Extracted JSON data files
 ├── excel-data/                        # Source Excel factsheets
 ├── pdfs/                              # PDF factsheets (legacy)
@@ -49,9 +49,8 @@ mffactsheet/
 ```powershell
 git clone <repository-url>
 cd mffactsheet
-.\venv\Scripts\activate
-pip install -r requirements.txt
-pip install -r requirements-download.txt
+# uv creates .venv and installs all pinned dependencies from pyproject.toml/uv.lock
+uv sync
 ```
 
 ### Step 2: Start Servers
@@ -67,10 +66,10 @@ pip install -r requirements-download.txt
 
 ```powershell
 # Terminal 1: Sync API Server
-.\venv\Scripts\python.exe scripts\sync_server.py
+uv run python scripts\sync_server.py
 
 # Terminal 2: Web Server
-.\venv\Scripts\python.exe -m http.server 8000
+uv run python -m http.server 8000
 ```
 
 Then open: http://localhost:8000
@@ -105,7 +104,7 @@ You need a local web server to serve the files (due to browser security restrict
 
 ```powershell
 # From project root (d:\mffactsheet)
-venv\Scripts\python.exe -m http.server 8000
+uv run python -m http.server 8000
 ```
 
 **Option B: Node.js (if installed)**
@@ -160,7 +159,7 @@ Each JSON file in `data/` follows this structure:
 
 ### "No Data Found" message
 
-- Run extraction: `.\venv\Scripts\python.exe scripts/extract_all_funds.py`
+- Run extraction: `uv run python scripts/extract_all_funds.py`
 - Check that JSON files exist in `data/` folder
 - Verify file naming: `{FundKey}-{Month}-{Year}.json`
 

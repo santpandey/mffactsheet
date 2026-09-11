@@ -207,12 +207,14 @@ if __name__ == "__main__":
     
     print(f"Created: {scheduler_script}")
     print("\nTo use Python scheduler:")
-    print("  1. Install: pip install apscheduler")
+    print("  1. Install: uv add apscheduler")
     print(f"  2. Run: python {scheduler_script}")
     print("  3. Keep it running in background or as a service")
 
 
 def main():
+    # Console may be cp1252 (piped/bat) — tolerate unicode symbols in prints
+    sys.stdout.reconfigure(errors="replace")
     print("="*70)
     print("Canara Robeco Auto-Download Scheduler Setup")
     print("="*70)

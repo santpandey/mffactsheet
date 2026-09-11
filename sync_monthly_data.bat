@@ -12,11 +12,10 @@ echo   Monthly Mutual Fund Data Sync
 echo ========================================
 echo.
 
-REM Step 1: Activate virtual environment and run sync
+REM Step 1: Run sync via uv (manages the project environment in .venv)
 echo [1/4] Syncing latest data from all fund websites...
 echo.
-call venv\Scripts\activate.bat
-python scripts\sync_all_funds.py
+uv run python scripts\sync_all_funds.py
 if %errorlevel% neq 0 (
     echo.
     echo ERROR: Sync failed! Check logs in logs\ directory
@@ -26,7 +25,7 @@ if %errorlevel% neq 0 (
 
 echo.
 echo [2/4] Running data extraction...
-python scripts\extract_all_funds.py
+uv run python scripts\extract_all_funds.py
 if %errorlevel% neq 0 (
     echo.
     echo ERROR: Extraction failed!
