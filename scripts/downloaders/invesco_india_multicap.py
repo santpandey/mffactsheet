@@ -76,7 +76,8 @@ class InvescoIndiaMulticapDownloader(BaseFundDownloader):
         month_key = MONTH_NAMES[month - 1][:3] + "Url"
         for item in items if isinstance(items, list) else []:
             name = (item.get("Name") or "").strip().lower()
-            if name == "invesco india multicap fund":
+            # AMC lists it as "Invesco India Multi Cap Fund" (with space)
+            if name.replace(" ", "") == "invescoindiamulticapfund":
                 download_url = (item.get(month_key) or "").strip()
                 if not download_url:
                     self.logger.info(f"  {MONTH_NAMES[month - 1]} {year} not yet published")

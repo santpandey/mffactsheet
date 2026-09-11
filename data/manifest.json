@@ -16,6 +16,11 @@
       "filename": "CanaraRobecoLargeAndMidCapFund-August-2025.json"
     },
     {
+      "month": "August",
+      "year": 2026,
+      "filename": "CanaraRobecoLargeAndMidCapFund-August-2026.json"
+    },
+    {
       "month": "December",
       "year": 2025,
       "filename": "CanaraRobecoLargeAndMidCapFund-December-2025.json"
@@ -103,6 +108,11 @@
       "filename": "CanaraRobecoSmallCapFund-August-2025.json"
     },
     {
+      "month": "August",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-August-2026.json"
+    },
+    {
       "month": "December",
       "year": 2025,
       "filename": "CanaraRobecoSmallCapFund-December-2025.json"
@@ -165,6 +175,11 @@
       "filename": "InvescoIndiaMulticapFund-August-2025.json"
     },
     {
+      "month": "August",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-August-2026.json"
+    },
+    {
       "month": "December",
       "year": 2025,
       "filename": "InvescoIndiaMulticapFund-December-2025.json"
@@ -225,6 +240,11 @@
       "month": "August",
       "year": 2025,
       "filename": "MiraeAssetLargeAndMidcapFund-August-2025.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "MiraeAssetLargeAndMidcapFund-August-2026.json"
     },
     {
       "month": "December",
@@ -294,6 +314,11 @@
       "filename": "QuantSmallCapFund-August-2025.json"
     },
     {
+      "month": "August",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-August-2026.json"
+    },
+    {
       "month": "December",
       "year": 2025,
       "filename": "QuantSmallCapFund-December-2025.json"
@@ -361,6 +386,11 @@
       "filename": "SBIChildrensFund-August-2025.json"
     },
     {
+      "month": "August",
+      "year": 2026,
+      "filename": "SBIChildrensFund-August-2026.json"
+    },
+    {
       "month": "December",
       "year": 2025,
       "filename": "SBIChildrensFund-December-2025.json"
@@ -426,6 +456,11 @@
       "month": "August",
       "year": 2025,
       "filename": "TrustMFSmallCapFund-August-2025.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-August-2026.json"
     },
     {
       "month": "December",

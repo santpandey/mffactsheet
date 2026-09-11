@@ -138,11 +138,19 @@ def extract_month_year_from_filename(filename):
 def find_holdings_in_dataframe(df):
     """Find holdings data in a dataframe"""
     holdings = []
-    
+
+    # Snapshot the frame as a plain 2-D array up front: df.iterrows()/df.iloc
+    # build a Series per row and were the dominant cost of this function.
+    data = df.values
+    n_rows = len(data)
+
+    def row_str_of(row):
+        return ' '.join([str(cell) for cell in row if pd.notna(cell)]).lower()
+
     # Find the header row
     header_row_idx = None
-    for idx, row in df.iterrows():
-        row_str = ' '.join([str(cell) for cell in row if pd.notna(cell)]).lower()
+    for idx in range(n_rows):
+        row_str = row_str_of(data[idx])
         # Check for header indicators
         has_instrument = 'name of the instrument' in row_str or 'instrument' in row_str
         has_percent = '% to net' in row_str or '% to nav' in row_str or '% of nav' in row_str or '% to aum' in row_str or '% of aum' in row_str
@@ -158,7 +166,7 @@ def find_holdings_in_dataframe(df):
     print(f"  Found header row at index {header_row_idx}")
     
     # Extract column indices from header row
-    header_row = df.iloc[header_row_idx]
+    header_row = data[header_row_idx]
     company_col_idx = None
     percent_col_idx = None
     
@@ -166,9 +174,11 @@ def find_holdings_in_dataframe(df):
         if pd.notna(cell):
             cell_str = str(cell).lower().strip()
             if 'name of the instrument' in cell_str or 'name of instrument' in cell_str:
-                company_col_idx = i
+                if company_col_idx is None:
+                    company_col_idx = i
             elif '% to net' in cell_str or '% to nav' in cell_str or '% to aum' in cell_str or '% of aum' in cell_str:
-                percent_col_idx = i
+                if percent_col_idx is None:
+                    percent_col_idx = i
     
     if company_col_idx is None or percent_col_idx is None:
         print(f"  ERROR: Could not find columns (company={company_col_idx}, percent={percent_col_idx})")
@@ -180,9 +190,9 @@ def find_holdings_in_dataframe(df):
     # If all are < 1, it's decimal format (0.06274 = 6.274%)
     # If any are >= 1, it's already percentage format (6.44 = 6.44%)
     sample_values = []
-    for idx in range(header_row_idx + 1, min(header_row_idx + 30, len(df))):
-        row = df.iloc[idx]
-        percent = row.iloc[percent_col_idx] if percent_col_idx < len(row) else None
+    for idx in range(header_row_idx + 1, min(header_row_idx + 30, n_rows)):
+        row = data[idx]
+        percent = row[percent_col_idx] if percent_col_idx < len(row) else None
         if pd.notna(percent):
             try:
                 val = float(percent)
@@ -198,14 +208,15 @@ def find_holdings_in_dataframe(df):
     print(f"  Format detection: {'Decimal (needs *100)' if needs_conversion else 'Percentage (no conversion)'}")
     
     # Extract data starting after header row
-    seen_companies = set()
+    # seen maps normalized_lower -> holding dict so duplicate merges are O(1)
+    seen = {}
     equity_section = False
-    
-    for idx in range(header_row_idx + 1, len(df)):
-        row = df.iloc[idx]
-        
+
+    for idx in range(header_row_idx + 1, n_rows):
+        row = data[idx]
+
         # Check if we're in equity section
-        row_str = ' '.join([str(cell) for cell in row if pd.notna(cell)]).lower()
+        row_str = row_str_of(row)
         
         if 'equity & equity related' in row_str or 'equity' in row_str:
             equity_section = True
@@ -220,9 +231,8 @@ def find_holdings_in_dataframe(df):
             # Sub-total rows: only stop if no further foreign/overseas equity follows
             if 'total' in row_str and len(holdings) > 0:
                 has_more_equity = False
-                for next_idx in range(idx + 1, min(idx + 8, len(df))):
-                    next_row = df.iloc[next_idx]
-                    next_str = ' '.join([str(cell) for cell in next_row if pd.notna(cell)]).lower()
+                for next_idx in range(idx + 1, min(idx + 8, n_rows)):
+                    next_str = row_str_of(data[next_idx])
                     if any(k in next_str for k in ['foreign securities', 'overseas', 'equity', 'unlisted']):
                         has_more_equity = True
                         break
@@ -234,8 +244,8 @@ def find_holdings_in_dataframe(df):
             continue
         
         # Get company name and percentage
-        company = row.iloc[company_col_idx] if company_col_idx < len(row) else None
-        percent = row.iloc[percent_col_idx] if percent_col_idx < len(row) else None
+        company = row[company_col_idx] if company_col_idx < len(row) else None
+        percent = row[percent_col_idx] if percent_col_idx < len(row) else None
         
         if pd.isna(company) or pd.isna(percent):
             continue
@@ -277,22 +287,19 @@ def find_holdings_in_dataframe(df):
         
         # Check for duplicates and merge if found
         normalized_lower = normalized_name.lower()
-        if normalized_lower in seen_companies:
-            # Find existing entry and add percentages
-            for holding in holdings:
-                if holding['company'].lower() == normalized_lower:
-                    holding['percentOfNAV'] = round(holding['percentOfNAV'] + pct_val, 2)
-                    break
+        existing = seen.get(normalized_lower)
+        if existing is not None:
+            existing['percentOfNAV'] = round(existing['percentOfNAV'] + pct_val, 2)
             continue
-        
-        seen_companies.add(normalized_lower)
-        
-        holdings.append({
+
+        holding = {
             "company": normalized_name,
             "percentOfNAV": round(pct_val, 2),
             "shares": None,
             "value": None
-        })
+        }
+        seen[normalized_lower] = holding
+        holdings.append(holding)
         
         # Debug: Print first few holdings
         if len(holdings) <= 3:
@@ -320,27 +327,30 @@ def process_excel_file(filepath, fund_config):
         holdings = None
         sheet_match = fund_config.get("sheet_match", "").lower()
         
-        # Try each sheet
+        # Try each sheet — all reads go through the open ExcelFile handle so
+        # the workbook zip is only opened once (pd.read_excel(filepath, ...)
+        # re-opens and re-parses the file on every call).
         for sheet_name in excel_file.sheet_names:
             print(f"  Checking sheet: {sheet_name}")
-            
+
             try:
                 if sheet_match:
-                    head = pd.read_excel(filepath, sheet_name=sheet_name, header=None, nrows=12)
+                    # Cheap 12-row pre-filter before paying for a full parse
+                    head = excel_file.parse(sheet_name, header=None, nrows=12)
                     head_text = ' '.join(
                         str(c) for c in head.values.flatten() if pd.notna(c)
                     ).lower()
                     if sheet_match not in head_text:
                         continue
                     print(f"  [MATCH] Sheet '{sheet_name}' matches '{sheet_match}'")
-                
-                df = pd.read_excel(filepath, sheet_name=sheet_name)
-                
+
+                df = excel_file.parse(sheet_name)
+
                 if df.empty:
                     continue
-                
+
                 sheet_holdings = find_holdings_in_dataframe(df)
-                
+
                 if sheet_holdings and len(sheet_holdings) >= 5:
                     holdings = sheet_holdings
                     print(f"  [OK] Found {len(holdings)} holdings in sheet '{sheet_name}'")

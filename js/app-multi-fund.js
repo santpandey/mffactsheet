@@ -207,9 +207,11 @@ function populateDropdowns(available) {
   }
 }
 
+const _numberFmt = new Intl.NumberFormat("en-IN");
+
 function formatNumber(num) {
   if (num === null || num === undefined) return "-";
-  return new Intl.NumberFormat("en-IN").format(Math.round(num));
+  return _numberFmt.format(Math.round(num));
 }
 
 function formatPercent(num) {
@@ -747,7 +749,8 @@ function _lookupInNseMap(name) {
   let best = null;
   let bestLen = 0;
   for (const [key, symbol] of _nseSymbolMap) {
-    if (key.includes(query) || query.includes(key)) {
+    // Only one direction can match: a shorter string can't contain a longer one
+    if (key.length > query.length ? key.includes(query) : query.includes(key)) {
       // prefer the longer (more specific) key match
       if (key.length > bestLen) {
         bestLen = key.length;
@@ -763,8 +766,9 @@ function _lookupInNseMap(name) {
  * Priority: 1) hardcoded overrides  2) EQUITY_L.csv lookup  3) generic fallback
  * Yahoo Finance uses ".NS" suffix for NSE symbols.
  */
-function _toNseTicker(name) {
-  const overrides = {
+// Hoisted out of _toNseTicker — this map was being rebuilt on every call
+// (~160 keys allocated per holding lookup).
+const TICKER_OVERRIDES = {
     // Large caps
     "reliance industries": "RELIANCE",
     "hdfc bank": "HDFCBANK",
@@ -932,29 +936,49 @@ function _toNseTicker(name) {
     upl: "UPL",
     "coromandel international": "COROMANDEL",
     "chambal fertilisers": "CHAMBLFERT",
-  };
+};
+
+// Pre-built once: entries array for the ordered override scan.
+const TICKER_OVERRIDE_ENTRIES = Object.entries(TICKER_OVERRIDES);
+
+// Memoizes resolved tickers by normalized name — holdings overlap heavily
+// month-over-month, so repeat export/min-investment clicks become O(1).
+const _tickerCache = new Map();
+
+function _toNseTicker(name) {
   const lower = name
     .toLowerCase()
     .replace(/\s+ltd\.?$/i, "")
     .replace(/\s+limited$/i, "")
     .trim();
+
+  const cached = _tickerCache.get(lower);
+  if (cached !== undefined) return cached;
+
+  let ticker = null;
   // 1) Hardcoded overrides
-  for (const [key, ticker] of Object.entries(overrides)) {
-    if (lower.includes(key)) return ticker + ".NS";
+  for (const [key, t] of TICKER_OVERRIDE_ENTRIES) {
+    if (lower.includes(key)) {
+      ticker = t;
+      break;
+    }
   }
   // 2) Dynamic NSE EQUITY_L.csv map (loaded async before this is called)
-  const fromCsv = _lookupInNseMap(name);
-  if (fromCsv) return fromCsv + ".NS";
+  if (!ticker) ticker = _lookupInNseMap(name);
   // 3) Generic string-munge fallback
-  const generic = lower
-    .replace(
-      /\s+(ltd|limited|pvt|private|india|industries|corporation|company|enterprises|technologies|solutions|services|group)$/i,
-      "",
-    )
-    .replace(/[^a-z0-9&]/gi, "")
-    .toUpperCase()
-    .slice(0, 10);
-  return generic + ".NS";
+  if (!ticker) {
+    ticker = lower
+      .replace(
+        /\s+(ltd|limited|pvt|private|india|industries|corporation|company|enterprises|technologies|solutions|services|group)$/i,
+        "",
+      )
+      .replace(/[^a-z0-9&]/gi, "")
+      .toUpperCase()
+      .slice(0, 10);
+  }
+  const result = ticker + ".NS";
+  _tickerCache.set(lower, result);
+  return result;
 }
 
 /**
@@ -1449,8 +1473,13 @@ function fundBadgeText(displayName) {
 }
 
 let _searchHighlightIdx = -1;
+let _fundSearchBound = false;
 
 function initFundSearch(available) {
+  // Bind listeners once — reloadData() calls this on every sync and each
+  // call used to stack duplicate listeners (incl. the document Ctrl+K handler).
+  if (_fundSearchBound) return;
+  _fundSearchBound = true;
   const modal = document.getElementById("fundSearchModal");
   const searchBtn = document.getElementById("fundSearchBtn");
   const closeBtn = document.getElementById("fundSearchClose");
@@ -1473,12 +1502,14 @@ function initFundSearch(available) {
   }
 
   function getResults(query) {
+    // Read the live global — `available` captured here goes stale after syncs
+    const months = availableMonths;
     const resultList = [];
     for (const [key, config] of Object.entries(FUNDS)) {
-      if (!available[key] || available[key].length === 0) continue;
+      if (!months[key] || months[key].length === 0) continue;
       const score = query ? fuzzyScore(query, config.name) : 100;
       if (score >= 0) {
-        resultList.push({ key, config, score, months: available[key].length });
+        resultList.push({ key, config, score, months: months[key].length });
       }
     }
     resultList.sort((a, b) => b.score - a.score);

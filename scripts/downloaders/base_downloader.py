@@ -280,14 +280,22 @@ class BaseFundDownloader(ABC):
             return True
         return False
 
-    def download(self, year: int, month: int, force: bool = False) -> bool:
+    def download(
+        self,
+        year: int,
+        month: int,
+        force: bool = False,
+        auto_extract: bool = True,
+    ) -> bool:
         """
         Full download pipeline:
         1. Check if file already exists
         2. Paginate through pages to find download link
         3. Download file
         4. Validate file
-        5. Trigger extraction
+        5. Trigger extraction (skipped when auto_extract=False — batch
+           callers like sync_all_funds run extraction once at the end
+           instead of re-extracting every fund's files after each fund)
         """
         self.logger.info("=" * 70)
         self.logger.info(f"[{self.FUND_DISPLAY_NAME}] Downloading {MONTH_NAMES[month-1]} {year}")
@@ -324,5 +332,6 @@ class BaseFundDownloader(ABC):
             return False
 
         self.logger.info(f"[SUCCESS] {output_path.name}")
-        run_extraction(self.logger)
+        if auto_extract:
+            run_extraction(self.logger)
         return True

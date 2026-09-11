@@ -214,7 +214,10 @@ Examples:
         for year, month in months_to_sync:
             logger.info("-" * 70)
             try:
-                ok = downloader.download(year, month, force=args.force)
+                # auto_extract=False: extraction runs once after all funds
+                ok = downloader.download(
+                    year, month, force=args.force, auto_extract=False
+                )
                 if ok:
                     results[fund_key]["success"] += 1
                 else:

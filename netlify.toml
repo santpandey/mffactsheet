@@ -1,10 +1,9 @@
 [build]
-  # Static site - no build needed
   command = "echo 'No build required - static site'"
   publish = "."
 
 [[redirects]]
-  # Redirect all paths to index.html for SPA behavior
+  # Redirect all other paths to index.html for SPA behavior
   # force=false ensures existing files (like /data/*.json) are served directly
   from = "/*"
   to = "/index.html"

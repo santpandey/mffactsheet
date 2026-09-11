@@ -1,0 +1,435 @@
+{
+  "fundName": "Invesco India Multicap Fund",
+  "month": "August",
+  "year": 2026,
+  "extractedAt": "2026-09-11T13:20:15.188454",
+  "holdingsCount": 71,
+  "holdings": [
+    {
+      "company": "Eternal Ltd.",
+      "percentOfNAV": 4.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Bank Ltd.",
+      "percentOfNAV": 3.73,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sai Life Sciences Ltd.",
+      "percentOfNAV": 2.77,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "InterGlobe Aviation Ltd.",
+      "percentOfNAV": 2.69,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Axis Bank Ltd.",
+      "percentOfNAV": 2.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Coforge Ltd.",
+      "percentOfNAV": 2.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dr Agarwals Health Care Ltd.",
+      "percentOfNAV": 2.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "TVS Motor Company Ltd.",
+      "percentOfNAV": 2.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Krishna Institute Of Medical Sciences Ltd.",
+      "percentOfNAV": 2.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Cholamandalam Investment and Finance Company Ltd.",
+      "percentOfNAV": 2.2,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "AU Small Finance Bank Ltd.",
+      "percentOfNAV": 2.18,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Prestige Estates Projects Ltd.",
+      "percentOfNAV": 2.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Nippon Life India Asset Management Ltd.",
+      "percentOfNAV": 2.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Amber Enterprises India Ltd.",
+      "percentOfNAV": 1.97,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "IndusInd Bank Ltd.",
+      "percentOfNAV": 1.95,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Delhivery Ltd.",
+      "percentOfNAV": 1.92,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Max Healthcare Institute Ltd.",
+      "percentOfNAV": 1.92,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Multi Commodity Exchange of India Ltd.",
+      "percentOfNAV": 1.89,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Trent Ltd.",
+      "percentOfNAV": 1.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "BSE Ltd.",
+      "percentOfNAV": 1.79,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Persistent Systems Ltd.",
+      "percentOfNAV": 1.79,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Larsen & Toubro Ltd.",
+      "percentOfNAV": 1.74,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "FSN E-Commerce Ventures Ltd.",
+      "percentOfNAV": 1.73,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "JK Cement Ltd.",
+      "percentOfNAV": 1.72,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dhoot Transmission Ltd.",
+      "percentOfNAV": 1.6,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "The Phoenix Mills Ltd.",
+      "percentOfNAV": 1.6,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharti Airtel Ltd.",
+      "percentOfNAV": 1.59,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finance Ltd.",
+      "percentOfNAV": 1.55,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "PB Fintech Ltd.",
+      "percentOfNAV": 1.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Ltd.",
+      "percentOfNAV": 1.45,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aditya Infotech Ltd.",
+      "percentOfNAV": 1.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "RBL Bank Ltd.",
+      "percentOfNAV": 1.38,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "UltraTech Cement Ltd.",
+      "percentOfNAV": 1.31,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Motors Ltd.",
+      "percentOfNAV": 1.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Corona Remedies Ltd.",
+      "percentOfNAV": 1.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Milky Mist Dairy Food Ltd.",
+      "percentOfNAV": 1.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hindustan Aeronautics Ltd.",
+      "percentOfNAV": 1.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hexaware Technologies Ltd.",
+      "percentOfNAV": 1.17,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Schneider Electric Infrastructure Ltd.",
+      "percentOfNAV": 1.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Swiggy Ltd.",
+      "percentOfNAV": 1.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "CG Power and Industrial Solutions Ltd.",
+      "percentOfNAV": 1.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Craftsman Automation Ltd.",
+      "percentOfNAV": 1.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Timken India Ltd.",
+      "percentOfNAV": 1.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Global Health Ltd.",
+      "percentOfNAV": 1.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Karur Vysya Bank Ltd.",
+      "percentOfNAV": 1.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mahindra & Mahindra Ltd.",
+      "percentOfNAV": 1.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Safari Industries Ltd.",
+      "percentOfNAV": 0.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Belrise Industries Ltd.",
+      "percentOfNAV": 0.95,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Manipal Health Enterprises Ltd.",
+      "percentOfNAV": 0.95,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Billionbrains Garage Ventures Ltd.",
+      "percentOfNAV": 0.86,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "APL Apollo Tubes Ltd.",
+      "percentOfNAV": 0.84,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "CEAT Ltd.",
+      "percentOfNAV": 0.84,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ABB India Ltd.",
+      "percentOfNAV": 0.81,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "L&T Finance Ltd.",
+      "percentOfNAV": 0.8,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aditya Birla Sun Life AMC Ltd.",
+      "percentOfNAV": 0.78,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "The Federal Bank Ltd.",
+      "percentOfNAV": 0.76,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Coromandel International Ltd.",
+      "percentOfNAV": 0.73,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "CCL Products Ltd.",
+      "percentOfNAV": 0.69,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "KEI Industries Ltd.",
+      "percentOfNAV": 0.69,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ethos Ltd.",
+      "percentOfNAV": 0.64,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "KFin Technologies Ltd.",
+      "percentOfNAV": 0.58,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dixon Technologies Ltd.",
+      "percentOfNAV": 0.57,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Jyoti CNC Automation Ltd.",
+      "percentOfNAV": 0.56,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ingersoll Rand Ltd.",
+      "percentOfNAV": 0.54,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Home First Finance Company India Ltd.",
+      "percentOfNAV": 0.53,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Avenue Supermarts Ltd.",
+      "percentOfNAV": 0.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Deepak Nitrite Ltd.",
+      "percentOfNAV": 0.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "KSB Ltd.",
+      "percentOfNAV": 0.46,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hindalco Industries Ltd.",
+      "percentOfNAV": 0.45,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dredging Corporation of India Ltd.",
+      "percentOfNAV": 0.27,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Meesho Ltd.",
+      "percentOfNAV": 0.18,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

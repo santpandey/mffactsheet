@@ -49,3 +49,6 @@ netlify-cli/
 
 # Local development
 start_server.bat
+
+# Configuration files with sensitive data
+config/
