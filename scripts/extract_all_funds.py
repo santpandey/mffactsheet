@@ -64,6 +64,18 @@ FUNDS = {
         "excel_folder": "excel-data/quant-small-cap",
         "data_folder": "data",
     },
+    "motilal_oswal_midcap": {
+        "name": "Motilal Oswal Midcap Fund",
+        "normalized_name": "MotilalOswalMidcapFund",
+        "excel_folder": "excel-data/motilal-oswal-midcap",
+        "data_folder": "data",
+    },
+    "hdfc_multi_asset": {
+        "name": "HDFC Multi-Asset Allocation Fund",
+        "normalized_name": "HDFCMultiAssetAllocationFund",
+        "excel_folder": "excel-data/hdfc-multi-asset",
+        "data_folder": "data",
+    },
 }
 
 
@@ -97,8 +109,9 @@ def normalize_company_name(name):
         flags=re.IGNORECASE,
     )
 
-    # Remove trailing footnote markers (e.g., "KEI Industries Limited ‡")
-    name = re.sub(r'[\s‡±†§\*#@^~$]+$', '', name)
+    # Remove trailing footnote markers (e.g., "KEI Industries Limited ‡",
+    # "HDFC Bank Ltd.£" — HDFC uses £ to flag sponsor-company holdings)
+    name = re.sub(r'[\s‡±†§\*#@^~$£¥€¢]+$', '', name)
 
     # Standardize common suffixes
     replacements = [
@@ -249,7 +262,9 @@ def find_holdings_in_dataframe(df):
                 has_more_equity = False
                 for next_idx in range(idx + 1, min(idx + 8, n_rows)):
                     next_str = row_str_of(data[next_idx])
-                    if any(k in next_str for k in ['foreign securities', 'overseas', 'equity', 'unlisted']):
+                    # 'reit' covers "(b) Units issued by ReIT" — a listed
+                    # sub-section inside EQUITY & EQUITY RELATED (HDFC layout)
+                    if any(k in next_str for k in ['foreign securities', 'overseas', 'equity', 'unlisted', 'reit']):
                         has_more_equity = True
                         break
                 if not has_more_equity:

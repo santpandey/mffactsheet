@@ -1,0 +1,159 @@
+{
+  "fundName": "Motilal Oswal Midcap Fund",
+  "month": "May",
+  "year": 2026,
+  "extractedAt": "2026-09-13T21:33:03.343922",
+  "holdingsCount": 25,
+  "holdings": [
+    {
+      "company": "One 97 Communications Ltd.",
+      "percentOfNAV": 7.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Coforge Ltd.",
+      "percentOfNAV": 6.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kalyan Jewellers India Ltd.",
+      "percentOfNAV": 5.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "KEI Industries Ltd.",
+      "percentOfNAV": 5.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Eternal Ltd.",
+      "percentOfNAV": 5.8,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Persistent Systems Ltd.",
+      "percentOfNAV": 5.74,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aditya Birla Capital Ltd.",
+      "percentOfNAV": 5.23,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Billionbrains Garage Ventures Ltd.",
+      "percentOfNAV": 4.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Multi Commodity Exchange of India Ltd.",
+      "percentOfNAV": 4.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "BSE Ltd.",
+      "percentOfNAV": 3.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tube Investments Of India Ltd.",
+      "percentOfNAV": 3.66,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dixon Technologies (India) Ltd.",
+      "percentOfNAV": 3.58,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Shriram Finance Ltd.",
+      "percentOfNAV": 3.24,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharti Hexacom Ltd.",
+      "percentOfNAV": 3.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Prestige Estates Projects Ltd.",
+      "percentOfNAV": 2.81,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "L&T Finance Ltd.",
+      "percentOfNAV": 2.63,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "PB Fintech Ltd.",
+      "percentOfNAV": 2.52,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Prudential Asset Management Company Ltd.",
+      "percentOfNAV": 2.48,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Max Healthcare Institute Ltd.",
+      "percentOfNAV": 2.46,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharat Electronics Ltd.",
+      "percentOfNAV": 2.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Premier Energies Ltd.",
+      "percentOfNAV": 2.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Suzlon Energy Ltd.",
+      "percentOfNAV": 2.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Waaree Energies Ltd.",
+      "percentOfNAV": 1.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "IDFC First Bank Ltd.",
+      "percentOfNAV": 1.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "AU Small Finance Bank Ltd.",
+      "percentOfNAV": 0.96,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

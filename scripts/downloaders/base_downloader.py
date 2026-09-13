@@ -99,6 +99,7 @@ def download_file(
     url: str,
     output_path: Path,
     logger: logging.Logger,
+    min_size: int = MIN_FILE_SIZE,
 ) -> bool:
     """Download a file with retry logic. Returns True on success."""
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -120,7 +121,7 @@ def download_file(
                         f.write(chunk)
 
             size = temp_path.stat().st_size
-            if size < MIN_FILE_SIZE:
+            if size < min_size:
                 logger.error(f"File too small ({size} bytes) — likely not a valid Excel file")
                 temp_path.unlink(missing_ok=True)
                 return False
@@ -234,6 +235,9 @@ class BaseFundDownloader(ABC):
     BASE_DOMAIN: str = ""
     DOWNLOAD_DIR: Path = Path("excel-data")
     FUND_NAME_KEYWORDS: list = []
+    # Some AMCs publish compact per-scheme files well under the global 50KB
+    # floor — lower it per-fund when needed (404 pages are <1KB anyway).
+    MIN_FILE_SIZE_BYTES: int = MIN_FILE_SIZE
 
     def __init__(self):
         log_file = LOG_DIR / f"{self.FUND_KEY}_download_{datetime.now().strftime('%Y%m')}.log"
@@ -322,7 +326,10 @@ class BaseFundDownloader(ABC):
             return False
 
         output_path = self.get_output_filename(year, month)
-        if not download_file(session, download_url, output_path, self.logger):
+        if not download_file(
+            session, download_url, output_path, self.logger,
+            min_size=self.MIN_FILE_SIZE_BYTES,
+        ):
             self.logger.error("Download failed")
             return False
 

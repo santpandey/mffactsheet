@@ -66,4 +66,18 @@ FUNDS = {
         "excel_folder": "excel-data/quant-small-cap",
         "data_folder": "data",
     },
+    "motilal_oswal_midcap": {
+        "name": "Motilal Oswal Midcap Fund",
+        "display_name": "Motilal Midcap",
+        "normalized_name": "MotilalOswalMidcapFund",
+        "excel_folder": "excel-data/motilal-oswal-midcap",
+        "data_folder": "data",
+    },
+    "hdfc_multi_asset": {
+        "name": "HDFC Multi-Asset Allocation Fund",
+        "display_name": "HDFC Multi Asset",
+        "normalized_name": "HDFCMultiAssetAllocationFund",
+        "excel_folder": "excel-data/hdfc-multi-asset",
+        "data_folder": "data",
+    },
 }

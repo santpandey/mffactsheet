@@ -33,6 +33,14 @@ const FUNDS = {
     name: "Quant Small Cap Fund",
     displayName: "Quant Small Cap",
   },
+  MotilalOswalMidcapFund: {
+    name: "Motilal Oswal Midcap Fund",
+    displayName: "Motilal Midcap",
+  },
+  HDFCMultiAssetAllocationFund: {
+    name: "HDFC Multi-Asset Allocation Fund",
+    displayName: "HDFC Multi Asset",
+  },
 };
 
 const MONTHS_ORDER = [
