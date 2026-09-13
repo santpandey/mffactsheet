@@ -2,7 +2,7 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "September",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:20:14.604656",
+  "extractedAt": "2026-09-13T14:52:06.562247",
   "holdingsCount": 34,
   "holdings": [
     {
@@ -132,7 +132,7 @@
       "value": null
     },
     {
-      "company": "E.I.D-Parry Ltd.",
+      "company": "E.I.D-Parry (India) Ltd.",
       "percentOfNAV": 2.09,
       "shares": null,
       "value": null
@@ -168,7 +168,7 @@
       "value": null
     },
     {
-      "company": "Shakti Pumps Ltd.",
+      "company": "Shakti Pumps (India) Ltd.",
       "percentOfNAV": 1.29,
       "shares": null,
       "value": null

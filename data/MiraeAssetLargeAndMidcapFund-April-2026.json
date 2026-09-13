@@ -2,8 +2,8 @@
   "fundName": "Mirae Asset Large & Midcap Fund",
   "month": "April",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:04.265199",
-  "holdingsCount": 80,
+  "extractedAt": "2026-09-13T14:52:04.534410",
+  "holdingsCount": 81,
   "holdings": [
     {
       "company": "HDFC Bank Ltd.",
@@ -140,12 +140,6 @@
     {
       "company": "Narayana Hrudayalaya Ltd.",
       "percentOfNAV": 1.56,
-      "shares": null,
-      "value": null
-    },
-    {
-      "company": "SKF India Ltd.",
-      "percentOfNAV": 1.55,
       "shares": null,
       "value": null
     },
@@ -294,7 +288,7 @@
       "value": null
     },
     {
-      "company": "Dixon Technologies Ltd.",
+      "company": "Dixon Technologies (India) Ltd.",
       "percentOfNAV": 0.94,
       "shares": null,
       "value": null
@@ -314,6 +308,12 @@
     {
       "company": "Bata India Ltd.",
       "percentOfNAV": 0.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SKF India Ltd.",
+      "percentOfNAV": 0.82,
       "shares": null,
       "value": null
     },
@@ -342,6 +342,12 @@
       "value": null
     },
     {
+      "company": "SKF India (Industrial) Ltd.",
+      "percentOfNAV": 0.73,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Hindustan Unilever Ltd.",
       "percentOfNAV": 0.7,
       "shares": null,
@@ -366,7 +372,7 @@
       "value": null
     },
     {
-      "company": "Century Plyboards Ltd.",
+      "company": "Century Plyboards (India) Ltd.",
       "percentOfNAV": 0.6,
       "shares": null,
       "value": null

@@ -2,7 +2,7 @@
   "fundName": "Mirae Asset Large & Midcap Fund",
   "month": "July",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:20:06.964388",
+  "extractedAt": "2026-09-13T14:52:05.048962",
   "holdingsCount": 94,
   "holdings": [
     {
@@ -426,7 +426,7 @@
       "value": null
     },
     {
-      "company": "Century Plyboards Ltd.",
+      "company": "Century Plyboards (India) Ltd.",
       "percentOfNAV": 0.58,
       "shares": null,
       "value": null
@@ -528,7 +528,7 @@
       "value": null
     },
     {
-      "company": "GAIL Ltd.",
+      "company": "GAIL (India) Ltd.",
       "percentOfNAV": 0.22,
       "shares": null,
       "value": null

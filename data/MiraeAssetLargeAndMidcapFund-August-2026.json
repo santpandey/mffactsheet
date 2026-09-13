@@ -2,8 +2,8 @@
   "fundName": "Mirae Asset Large & Midcap Fund",
   "month": "August",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:04.734798",
-  "holdingsCount": 80,
+  "extractedAt": "2026-09-13T14:52:04.679185",
+  "holdingsCount": 81,
   "holdings": [
     {
       "company": "HDFC Bank Ltd.",
@@ -138,12 +138,6 @@
       "value": null
     },
     {
-      "company": "SKF India Ltd.",
-      "percentOfNAV": 1.58,
-      "shares": null,
-      "value": null
-    },
-    {
       "company": "Swiggy Ltd.",
       "percentOfNAV": 1.54,
       "shares": null,
@@ -210,7 +204,7 @@
       "value": null
     },
     {
-      "company": "Dixon Technologies Ltd.",
+      "company": "Dixon Technologies (India) Ltd.",
       "percentOfNAV": 1.26,
       "shares": null,
       "value": null
@@ -288,6 +282,12 @@
       "value": null
     },
     {
+      "company": "SKF India (Industrial) Ltd.",
+      "percentOfNAV": 0.9,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "L&T Finance Ltd.",
       "percentOfNAV": 0.88,
       "shares": null,
@@ -330,7 +330,7 @@
       "value": null
     },
     {
-      "company": "Century Plyboards Ltd.",
+      "company": "Century Plyboards (India) Ltd.",
       "percentOfNAV": 0.72,
       "shares": null,
       "value": null
@@ -338,6 +338,12 @@
     {
       "company": "United Spirits Ltd.",
       "percentOfNAV": 0.71,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SKF India Ltd.",
+      "percentOfNAV": 0.68,
       "shares": null,
       "value": null
     },

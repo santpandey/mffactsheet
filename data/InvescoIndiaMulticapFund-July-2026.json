@@ -2,7 +2,7 @@
   "fundName": "Invesco India Multicap Fund",
   "month": "July",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:15.925830",
+  "extractedAt": "2026-09-13T14:52:06.799121",
   "holdingsCount": 68,
   "holdings": [
     {
@@ -210,7 +210,7 @@
       "value": null
     },
     {
-      "company": "Tata Motors Ltd.",
+      "company": "Tata Motors Ltd. (Commercial Vehicles)",
       "percentOfNAV": 1.23,
       "shares": null,
       "value": null
@@ -258,7 +258,7 @@
       "value": null
     },
     {
-      "company": "Safari Industries Ltd.",
+      "company": "Safari Industries (India) Ltd.",
       "percentOfNAV": 1.05,
       "shares": null,
       "value": null
@@ -312,7 +312,7 @@
       "value": null
     },
     {
-      "company": "CCL Products Ltd.",
+      "company": "CCL Products (India) Ltd.",
       "percentOfNAV": 0.76,
       "shares": null,
       "value": null
@@ -354,7 +354,7 @@
       "value": null
     },
     {
-      "company": "Dixon Technologies Ltd.",
+      "company": "Dixon Technologies (India) Ltd.",
       "percentOfNAV": 0.56,
       "shares": null,
       "value": null
@@ -372,7 +372,7 @@
       "value": null
     },
     {
-      "company": "Ingersoll Rand Ltd.",
+      "company": "Ingersoll Rand (India) Ltd.",
       "percentOfNAV": 0.5,
       "shares": null,
       "value": null

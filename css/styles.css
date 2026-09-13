@@ -1281,12 +1281,34 @@ th.sticky-col {
 }
 
 @media (max-width: 768px) {
+  body {
+    padding: 12px 6px;
+  }
+  .container {
+    padding: 16px;
+    border-radius: 16px;
+  }
+  header {
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+  }
   .charts-container {
     grid-template-columns: 1fr;
+  }
+  .chart-card {
+    padding: 16px;
+  }
+  .chart-wrapper {
+    height: 280px;
+  }
+  .chart-wrapper-wide {
+    height: 320px;
   }
   .controls {
     flex-direction: column;
     align-items: stretch;
+    padding: 16px;
+    gap: 16px;
   }
   select,
   input[type="text"] {
@@ -1294,5 +1316,96 @@ th.sticky-col {
   }
   header h1 {
     font-size: 1.5rem;
+  }
+  .stat-card {
+    padding: 16px;
+  }
+  .stats-bar {
+    gap: 12px;
+  }
+  .delta-summary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .delta-stat {
+    padding: 12px;
+    gap: 10px;
+  }
+  .delta-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+  .delta-value {
+    font-size: 1.3rem;
+  }
+  .export-bar {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+  .budget-input-wrap {
+    flex: 1;
+    min-width: 140px;
+  }
+  .budget-input {
+    width: 100%;
+  }
+  .modal-overlay {
+    padding-top: 40px;
+  }
+  .fund-search-modal {
+    width: 95%;
+  }
+  .top-movers-section {
+    padding: 16px;
+  }
+  .movers-table th,
+  .movers-table td {
+    padding: 8px 6px;
+    font-size: 0.8rem;
+  }
+
+  /* Holdings table: keep the fixed-layout column widths from crushing the
+     Company column on narrow screens. The wrapper scrolls horizontally and
+     company names wrap instead of being clipped to zero width. */
+  .table-section {
+    padding: 16px;
+  }
+  .table-wrapper {
+    -webkit-overflow-scrolling: touch;
+  }
+  #holdingsTable {
+    min-width: 600px;
+  }
+  #holdingsTable th,
+  #holdingsTable td {
+    padding: 10px 12px !important;
+  }
+  #holdingsTable th {
+    white-space: normal !important;
+    font-size: 0.68rem !important;
+  }
+  #holdingsTable td {
+    font-size: 0.85rem;
+  }
+  #holdingsTable td:nth-child(2) {
+    white-space: normal !important;
+    min-width: 140px;
+  }
+  #holdingsTable th:nth-child(3),
+  #holdingsTable td:nth-child(3) {
+    width: 110px !important;
+  }
+  #holdingsTable th:nth-child(4),
+  #holdingsTable td:nth-child(4) {
+    width: 110px !important;
+  }
+  #holdingsTable th:nth-child(5),
+  #holdingsTable td:nth-child(5) {
+    width: 90px !important;
+  }
+  #holdingsTable th:nth-child(6),
+  #holdingsTable td:nth-child(6) {
+    width: 100px !important;
   }
 }

@@ -2,7 +2,7 @@
   "fundName": "Quant Small Cap Fund",
   "month": "July",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:21:00.400263",
+  "extractedAt": "2026-09-13T14:52:11.523877",
   "holdingsCount": 94,
   "holdings": [
     {
@@ -186,7 +186,7 @@
       "value": null
     },
     {
-      "company": "EID Parry Ltd.",
+      "company": "EID Parry (India) Ltd.",
       "percentOfNAV": 1.15,
       "shares": null,
       "value": null
@@ -516,7 +516,7 @@
       "value": null
     },
     {
-      "company": "Sai Silks Ltd.",
+      "company": "Sai Silks (Kalamandir) Ltd.",
       "percentOfNAV": 0.13,
       "shares": null,
       "value": null

@@ -2,7 +2,7 @@
   "fundName": "Canara Robeco Large and Mid Cap Fund",
   "month": "September",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:20:03.931921",
+  "extractedAt": "2026-09-13T14:52:04.439121",
   "holdingsCount": 98,
   "holdings": [
     {
@@ -42,7 +42,7 @@
       "value": null
     },
     {
-      "company": "Dixon Technologies Ltd.",
+      "company": "Dixon Technologies (India) Ltd.",
       "percentOfNAV": 3.28,
       "shares": null,
       "value": null
@@ -372,7 +372,7 @@
       "value": null
     },
     {
-      "company": "Central Depository Services Ltd.",
+      "company": "Central Depository Services (India) Ltd.",
       "percentOfNAV": 0.46,
       "shares": null,
       "value": null

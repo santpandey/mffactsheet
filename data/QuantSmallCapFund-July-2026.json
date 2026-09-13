@@ -2,7 +2,7 @@
   "fundName": "Quant Small Cap Fund",
   "month": "July",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:21:00.585765",
+  "extractedAt": "2026-09-13T14:52:11.559034",
   "holdingsCount": 99,
   "holdings": [
     {
@@ -552,13 +552,13 @@
       "value": null
     },
     {
-      "company": "Safari Industries Ltd.",
+      "company": "Safari Industries (India) Ltd.",
       "percentOfNAV": 0.06,
       "shares": null,
       "value": null
     },
     {
-      "company": "Sai Silks Ltd.",
+      "company": "Sai Silks (Kalamandir) Ltd.",
       "percentOfNAV": 0.05,
       "shares": null,
       "value": null

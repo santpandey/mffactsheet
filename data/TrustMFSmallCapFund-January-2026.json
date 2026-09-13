@@ -2,7 +2,7 @@
   "fundName": "TrustMF Small Cap Fund",
   "month": "January",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:40.485643",
+  "extractedAt": "2026-09-13T14:52:10.099265",
   "holdingsCount": 68,
   "holdings": [
     {
@@ -216,7 +216,7 @@
       "value": null
     },
     {
-      "company": "Central Depository Services Ltd.",
+      "company": "Central Depository Services (India) Ltd.",
       "percentOfNAV": 1.21,
       "shares": null,
       "value": null
@@ -264,7 +264,7 @@
       "value": null
     },
     {
-      "company": "Data Patterns Ltd.",
+      "company": "Data Patterns (India) Ltd.",
       "percentOfNAV": 1.07,
       "shares": null,
       "value": null

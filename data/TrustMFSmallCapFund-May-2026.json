@@ -2,7 +2,7 @@
   "fundName": "TrustMF Small Cap Fund",
   "month": "May",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:54.776709",
+  "extractedAt": "2026-09-13T14:52:10.909193",
   "holdingsCount": 69,
   "holdings": [
     {
@@ -306,7 +306,7 @@
       "value": null
     },
     {
-      "company": "CCL Products Ltd.",
+      "company": "CCL Products (India) Ltd.",
       "percentOfNAV": 1.05,
       "shares": null,
       "value": null

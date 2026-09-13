@@ -2,8 +2,8 @@
   "fundName": "Mirae Asset Large & Midcap Fund",
   "month": "February",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:05.477095",
-  "holdingsCount": 80,
+  "extractedAt": "2026-09-13T14:52:04.809109",
+  "holdingsCount": 81,
   "holdings": [
     {
       "company": "HDFC Bank Ltd.",
@@ -110,12 +110,6 @@
     {
       "company": "Prestige Estates Projects Ltd.",
       "percentOfNAV": 1.58,
-      "shares": null,
-      "value": null
-    },
-    {
-      "company": "SKF India Ltd.",
-      "percentOfNAV": 1.56,
       "shares": null,
       "value": null
     },
@@ -318,6 +312,12 @@
       "value": null
     },
     {
+      "company": "SKF India (Industrial) Ltd.",
+      "percentOfNAV": 0.84,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Persistent Systems Ltd.",
       "percentOfNAV": 0.83,
       "shares": null,
@@ -332,6 +332,12 @@
     {
       "company": "Biocon Ltd.",
       "percentOfNAV": 0.73,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SKF India Ltd.",
+      "percentOfNAV": 0.72,
       "shares": null,
       "value": null
     },
@@ -354,13 +360,13 @@
       "value": null
     },
     {
-      "company": "Dixon Technologies Ltd.",
+      "company": "Dixon Technologies (India) Ltd.",
       "percentOfNAV": 0.59,
       "shares": null,
       "value": null
     },
     {
-      "company": "Century Plyboards Ltd.",
+      "company": "Century Plyboards (India) Ltd.",
       "percentOfNAV": 0.55,
       "shares": null,
       "value": null
@@ -474,7 +480,7 @@
       "value": null
     },
     {
-      "company": "Tata Motors Ltd.",
+      "company": "Tata Motors Ltd. (Commercial Vehicles)",
       "percentOfNAV": 0.02,
       "shares": null,
       "value": null

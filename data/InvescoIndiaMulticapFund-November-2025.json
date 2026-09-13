@@ -2,7 +2,7 @@
   "fundName": "Invesco India Multicap Fund",
   "month": "November",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:20:16.550239",
+  "extractedAt": "2026-09-13T14:52:06.960963",
   "holdingsCount": 55,
   "holdings": [
     {
@@ -30,7 +30,7 @@
       "value": null
     },
     {
-      "company": "Dixon Technologies Ltd.",
+      "company": "Dixon Technologies (India) Ltd.",
       "percentOfNAV": 3.0,
       "shares": null,
       "value": null
@@ -180,7 +180,7 @@
       "value": null
     },
     {
-      "company": "Safari Industries Ltd.",
+      "company": "Safari Industries (India) Ltd.",
       "percentOfNAV": 1.69,
       "shares": null,
       "value": null

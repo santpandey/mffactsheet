@@ -2,7 +2,7 @@
   "fundName": "Mirae Asset Large & Midcap Fund",
   "month": "September",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:20:10.407359",
+  "extractedAt": "2026-09-13T14:52:05.571881",
   "holdingsCount": 87,
   "holdings": [
     {
@@ -372,7 +372,7 @@
       "value": null
     },
     {
-      "company": "Century Plyboards Ltd.",
+      "company": "Century Plyboards (India) Ltd.",
       "percentOfNAV": 0.63,
       "shares": null,
       "value": null

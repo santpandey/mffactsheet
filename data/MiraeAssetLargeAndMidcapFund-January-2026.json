@@ -2,8 +2,8 @@
   "fundName": "Mirae Asset Large & Midcap Fund",
   "month": "January",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:05.961323",
-  "holdingsCount": 88,
+  "extractedAt": "2026-09-13T14:52:04.879118",
+  "holdingsCount": 89,
   "holdings": [
     {
       "company": "HDFC Bank Ltd.",
@@ -174,12 +174,6 @@
       "value": null
     },
     {
-      "company": "SKF India Ltd.",
-      "percentOfNAV": 1.34,
-      "shares": null,
-      "value": null
-    },
-    {
       "company": "Tata Steel Ltd.",
       "percentOfNAV": 1.33,
       "shares": null,
@@ -288,6 +282,12 @@
       "value": null
     },
     {
+      "company": "SKF India (Industrial) Ltd.",
+      "percentOfNAV": 0.89,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Bharti Airtel Ltd.",
       "percentOfNAV": 0.88,
       "shares": null,
@@ -360,7 +360,7 @@
       "value": null
     },
     {
-      "company": "Century Plyboards Ltd.",
+      "company": "Century Plyboards (India) Ltd.",
       "percentOfNAV": 0.61,
       "shares": null,
       "value": null
@@ -402,6 +402,12 @@
       "value": null
     },
     {
+      "company": "SKF India Ltd.",
+      "percentOfNAV": 0.45,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Aurobindo Pharma Ltd.",
       "percentOfNAV": 0.45,
       "shares": null,
@@ -414,7 +420,7 @@
       "value": null
     },
     {
-      "company": "Dixon Technologies Ltd.",
+      "company": "Dixon Technologies (India) Ltd.",
       "percentOfNAV": 0.37,
       "shares": null,
       "value": null
@@ -498,7 +504,7 @@
       "value": null
     },
     {
-      "company": "Tata Motors Ltd.",
+      "company": "Tata Motors Ltd. (Commercial Vehicles)",
       "percentOfNAV": 0.1,
       "shares": null,
       "value": null

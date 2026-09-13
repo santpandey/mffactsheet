@@ -2,8 +2,8 @@
   "fundName": "Mirae Asset Large & Midcap Fund",
   "month": "October",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:20:09.228383",
-  "holdingsCount": 86,
+  "extractedAt": "2026-09-13T14:52:05.369168",
+  "holdingsCount": 87,
   "holdings": [
     {
       "company": "HDFC Bank Ltd.",
@@ -216,12 +216,6 @@
       "value": null
     },
     {
-      "company": "SKF India Ltd.",
-      "percentOfNAV": 1.1,
-      "shares": null,
-      "value": null
-    },
-    {
       "company": "Tata Steel Ltd.",
       "percentOfNAV": 1.09,
       "shares": null,
@@ -372,6 +366,12 @@
       "value": null
     },
     {
+      "company": "SKF India (Industrial) Ltd.",
+      "percentOfNAV": 0.61,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Syngene International Ltd.",
       "percentOfNAV": 0.6,
       "shares": null,
@@ -390,7 +390,7 @@
       "value": null
     },
     {
-      "company": "Century Plyboards Ltd.",
+      "company": "Century Plyboards (India) Ltd.",
       "percentOfNAV": 0.56,
       "shares": null,
       "value": null
@@ -415,6 +415,12 @@
     },
     {
       "company": "Aditya Birla Capital Ltd.",
+      "percentOfNAV": 0.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SKF India Ltd.",
       "percentOfNAV": 0.49,
       "shares": null,
       "value": null

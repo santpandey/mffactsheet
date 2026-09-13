@@ -792,6 +792,12 @@ const TICKER_OVERRIDES = {
     "titan company": "TITAN",
     "asian paints": "ASIANPAINT",
     "ultratech cement": "ULTRACEMCO",
+    // Post-demerger (Oct 2025): PV entity kept ISIN and renamed TMPV;
+    // the CV entity took the legal name "Tata Motors Ltd" (NSE: TMCV).
+    // Specific keys must precede the generic "tata motors" match.
+    "tata motors passenger": "TMPV",
+    "tata motors ltd. (commercial vehicles)": "TMCV",
+    "tata motors commercial": "TMCV",
     "tata motors": "TATAMOTORS",
     "power grid corporation": "POWERGRID",
     "power grid corp": "POWERGRID",
@@ -936,6 +942,10 @@ const TICKER_OVERRIDES = {
     upl: "UPL",
     "coromandel international": "COROMANDEL",
     "chambal fertilisers": "CHAMBLFERT",
+    // SKF demerger (2025): "SKF India (Industrial)" is a distinct listing
+    // from "SKF India" — keep both mapped explicitly.
+    "skf india (industrial)": "SKFINDUS",
+    "skf india": "SKFINDIA",
 };
 
 // Pre-built once: entries array for the ordered override scan.

@@ -67,6 +67,13 @@ FUNDS = {
 }
 
 
+MONTH_NUMBER = {
+    'January': 1, 'February': 2, 'March': 3, 'April': 4, 'May': 5, 'June': 6,
+    'July': 7, 'August': 8, 'September': 9, 'October': 10, 'November': 11,
+    'December': 12,
+}
+
+
 def normalize_company_name(name):
     """Normalize company names to handle variations like 'Limited' vs 'Ltd.'."""
     if not name or pd.isna(name):
@@ -79,10 +86,16 @@ def normalize_company_name(name):
     # Remove trailing special characters and annotations like A**, B**, etc.
     name = re.sub(r'\s+[A-Z]\*\*$', '', name)
     
-    # Remove parenthetical descriptions from company names
-    # e.g., "SKF India (Industrial) Ltd." -> "SKF India Ltd."
-    # e.g., "Tata Motors (DVR)" -> "Tata Motors"
-    name = re.sub(r'\s*\([^)]+\)\s*', ' ', name)
+    # Remove annotation-only parentheticals (dates, DVR / partly-paid / warrant
+    # markers), but keep name-bearing ones like "(Industrial)" or "(India)" —
+    # post-demerger entities such as SKF India (Industrial) Ltd. vs
+    # SKF India Ltd. are distinct securities and must not be merged.
+    name = re.sub(
+        r'\s*\((?:[^)]*\d[^)]*|dvr|pp|partly\s*paid|warrants?)\)\s*',
+        ' ',
+        name,
+        flags=re.IGNORECASE,
+    )
 
     # Remove trailing footnote markers (e.g., "KEI Industries Limited ‡")
     name = re.sub(r'[\s‡±†§\*#@^~$]+$', '', name)
@@ -98,6 +111,9 @@ def normalize_company_name(name):
     
     for pattern, replacement in replacements:
         name = re.sub(pattern, replacement, name, flags=re.IGNORECASE)
+    
+    # Fix stray all-caps styling in source files (e.g., "TATA Motors Ltd")
+    name = re.sub(r'^TATA\b', 'Tata', name)
     
     # Remove extra spaces
     name = ' '.join(name.split())
@@ -362,6 +378,16 @@ def process_excel_file(filepath, fund_config):
         if not holdings:
             print(f"  ERROR: No holdings found in any sheet")
             return False
+        
+        # Corporate-action disambiguation: effective Oct 1, 2025 the listed
+        # Tata Motors Ltd was renamed Tata Motors Passenger Vehicles Ltd, and
+        # the demerged CV entity (TML Commercial Vehicles) was renamed
+        # "Tata Motors Ltd". Factsheets therefore report an ambiguous
+        # "Tata Motors Ltd." for the CV business — tag it for clarity.
+        if (year, MONTH_NUMBER[month]) >= (2025, 10):
+            for h in holdings:
+                if h["company"] == "Tata Motors Ltd.":
+                    h["company"] = "Tata Motors Ltd. (Commercial Vehicles)"
         
         # Sort by percentage descending
         holdings.sort(key=lambda x: x["percentOfNAV"], reverse=True)

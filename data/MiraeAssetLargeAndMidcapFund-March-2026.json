@@ -2,8 +2,8 @@
   "fundName": "Mirae Asset Large & Midcap Fund",
   "month": "March",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:08.207178",
-  "holdingsCount": 78,
+  "extractedAt": "2026-09-13T14:52:05.219098",
+  "holdingsCount": 79,
   "holdings": [
     {
       "company": "HDFC Bank Ltd.",
@@ -122,12 +122,6 @@
     {
       "company": "Larsen & Toubro Ltd.",
       "percentOfNAV": 1.53,
-      "shares": null,
-      "value": null
-    },
-    {
-      "company": "SKF India Ltd.",
-      "percentOfNAV": 1.52,
       "shares": null,
       "value": null
     },
@@ -324,6 +318,18 @@
       "value": null
     },
     {
+      "company": "SKF India (Industrial) Ltd.",
+      "percentOfNAV": 0.77,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SKF India Ltd.",
+      "percentOfNAV": 0.75,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "One 97 Communications Ltd.",
       "percentOfNAV": 0.74,
       "shares": null,
@@ -336,7 +342,7 @@
       "value": null
     },
     {
-      "company": "Dixon Technologies Ltd.",
+      "company": "Dixon Technologies (India) Ltd.",
       "percentOfNAV": 0.71,
       "shares": null,
       "value": null
@@ -366,7 +372,7 @@
       "value": null
     },
     {
-      "company": "Century Plyboards Ltd.",
+      "company": "Century Plyboards (India) Ltd.",
       "percentOfNAV": 0.59,
       "shares": null,
       "value": null

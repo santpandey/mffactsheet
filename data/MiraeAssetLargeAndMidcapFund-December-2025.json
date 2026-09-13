@@ -2,8 +2,8 @@
   "fundName": "Mirae Asset Large & Midcap Fund",
   "month": "December",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:20:05.010111",
-  "holdingsCount": 84,
+  "extractedAt": "2026-09-13T14:52:04.749018",
+  "holdingsCount": 85,
   "holdings": [
     {
       "company": "HDFC Bank Ltd.",
@@ -192,12 +192,6 @@
       "value": null
     },
     {
-      "company": "SKF India Ltd.",
-      "percentOfNAV": 1.21,
-      "shares": null,
-      "value": null
-    },
-    {
       "company": "Tata Steel Ltd.",
       "percentOfNAV": 1.2,
       "shares": null,
@@ -330,6 +324,12 @@
       "value": null
     },
     {
+      "company": "SKF India (Industrial) Ltd.",
+      "percentOfNAV": 0.79,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Syngene International Ltd.",
       "percentOfNAV": 0.77,
       "shares": null,
@@ -342,7 +342,7 @@
       "value": null
     },
     {
-      "company": "Tata Motors Ltd.",
+      "company": "Tata Motors Ltd. (Commercial Vehicles)",
       "percentOfNAV": 0.75,
       "shares": null,
       "value": null
@@ -384,7 +384,7 @@
       "value": null
     },
     {
-      "company": "Century Plyboards Ltd.",
+      "company": "Century Plyboards (India) Ltd.",
       "percentOfNAV": 0.6,
       "shares": null,
       "value": null
@@ -428,6 +428,12 @@
     {
       "company": "One 97 Communications Ltd.",
       "percentOfNAV": 0.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "SKF India Ltd.",
+      "percentOfNAV": 0.42,
       "shares": null,
       "value": null
     },

@@ -2,7 +2,7 @@
   "fundName": "TrustMF Small Cap Fund",
   "month": "July",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:20:42.107331",
+  "extractedAt": "2026-09-13T14:52:10.169009",
   "holdingsCount": 65,
   "holdings": [
     {
@@ -144,7 +144,7 @@
       "value": null
     },
     {
-      "company": "Transformers And Rectifiers Ltd.",
+      "company": "Transformers And Rectifiers (India) Ltd.",
       "percentOfNAV": 1.59,
       "shares": null,
       "value": null
@@ -204,7 +204,7 @@
       "value": null
     },
     {
-      "company": "Safari Industries Ltd.",
+      "company": "Safari Industries (India) Ltd.",
       "percentOfNAV": 1.32,
       "shares": null,
       "value": null
@@ -330,7 +330,7 @@
       "value": null
     },
     {
-      "company": "Data Patterns Ltd.",
+      "company": "Data Patterns (India) Ltd.",
       "percentOfNAV": 0.87,
       "shares": null,
       "value": null

@@ -2,7 +2,7 @@
   "fundName": "TrustMF Small Cap Fund",
   "month": "August",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:33.234693",
+  "extractedAt": "2026-09-13T14:52:09.769124",
   "holdingsCount": 70,
   "holdings": [
     {
@@ -72,7 +72,7 @@
       "value": null
     },
     {
-      "company": "Dixon Technologies Ltd.",
+      "company": "Dixon Technologies (India) Ltd.",
       "percentOfNAV": 1.73,
       "shares": null,
       "value": null
@@ -258,7 +258,7 @@
       "value": null
     },
     {
-      "company": "Data Patterns Ltd.",
+      "company": "Data Patterns (India) Ltd.",
       "percentOfNAV": 1.21,
       "shares": null,
       "value": null

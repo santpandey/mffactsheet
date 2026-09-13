@@ -2,7 +2,7 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "February",
   "year": 2026,
-  "extractedAt": "2026-09-11T13:20:11.994812",
+  "extractedAt": "2026-09-13T14:52:05.961290",
   "holdingsCount": 38,
   "holdings": [
     {
@@ -150,7 +150,7 @@
       "value": null
     },
     {
-      "company": "E.I.D-Parry Ltd.",
+      "company": "E.I.D-Parry (India) Ltd.",
       "percentOfNAV": 1.45,
       "shares": null,
       "value": null

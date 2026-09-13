@@ -2,7 +2,7 @@
   "fundName": "Canara Robeco Small Cap Fund",
   "month": "December",
   "year": 2025,
-  "extractedAt": "2026-09-11T13:20:23.325109",
+  "extractedAt": "2026-09-13T14:52:09.034743",
   "holdingsCount": 92,
   "holdings": [
     {
@@ -240,7 +240,7 @@
       "value": null
     },
     {
-      "company": "Safari Industries Ltd.",
+      "company": "Safari Industries (India) Ltd.",
       "percentOfNAV": 1.1,
       "shares": null,
       "value": null
@@ -438,7 +438,7 @@
       "value": null
     },
     {
-      "company": "Ahluwalia Contracts Ltd.",
+      "company": "Ahluwalia Contracts (India) Ltd.",
       "percentOfNAV": 0.65,
       "shares": null,
       "value": null
