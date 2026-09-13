@@ -2,48 +2,13 @@
   "CanaraRobecoLargeAndMidCapFund": [
     {
       "month": "April",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-April-2025.json"
-    },
-    {
-      "month": "April",
       "year": 2026,
       "filename": "CanaraRobecoLargeAndMidCapFund-April-2026.json"
     },
     {
       "month": "August",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-August-2025.json"
-    },
-    {
-      "month": "August",
       "year": 2026,
       "filename": "CanaraRobecoLargeAndMidCapFund-August-2026.json"
-    },
-    {
-      "month": "December",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-December-2025.json"
-    },
-    {
-      "month": "February",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-February-2025.json"
-    },
-    {
-      "month": "February",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-February-2026.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-January-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-July-2025.json"
     },
     {
       "month": "July",
@@ -52,18 +17,8 @@
     },
     {
       "month": "June",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-June-2025.json"
-    },
-    {
-      "month": "June",
       "year": 2026,
       "filename": "CanaraRobecoLargeAndMidCapFund-June-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-March-2025.json"
     },
     {
       "month": "March",
@@ -72,28 +27,8 @@
     },
     {
       "month": "May",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-May-2025.json"
-    },
-    {
-      "month": "May",
       "year": 2026,
       "filename": "CanaraRobecoLargeAndMidCapFund-May-2026.json"
-    },
-    {
-      "month": "November",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-November-2025.json"
-    },
-    {
-      "month": "October",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-October-2025.json"
-    },
-    {
-      "month": "September",
-      "year": 2025,
-      "filename": "CanaraRobecoLargeAndMidCapFund-September-2025.json"
     }
   ],
   "CanaraRobecoSmallCapFund": [
@@ -104,28 +39,8 @@
     },
     {
       "month": "August",
-      "year": 2025,
-      "filename": "CanaraRobecoSmallCapFund-August-2025.json"
-    },
-    {
-      "month": "August",
       "year": 2026,
       "filename": "CanaraRobecoSmallCapFund-August-2026.json"
-    },
-    {
-      "month": "December",
-      "year": 2025,
-      "filename": "CanaraRobecoSmallCapFund-December-2025.json"
-    },
-    {
-      "month": "February",
-      "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-February-2026.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-January-2026.json"
     },
     {
       "month": "July",
@@ -146,83 +61,18 @@
       "month": "May",
       "year": 2026,
       "filename": "CanaraRobecoSmallCapFund-May-2026.json"
-    },
-    {
-      "month": "November",
-      "year": 2025,
-      "filename": "CanaraRobecoSmallCapFund-November-2025.json"
-    },
-    {
-      "month": "October",
-      "year": 2025,
-      "filename": "CanaraRobecoSmallCapFund-October-2025.json"
-    },
-    {
-      "month": "September",
-      "year": 2025,
-      "filename": "CanaraRobecoSmallCapFund-September-2025.json"
     }
   ],
   "HDFCMultiAssetAllocationFund": [
-    {
-      "month": "April",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-April-2025.json"
-    },
     {
       "month": "April",
       "year": 2026,
       "filename": "HDFCMultiAssetAllocationFund-April-2026.json"
     },
     {
-      "month": "August",
-      "year": 2024,
-      "filename": "HDFCMultiAssetAllocationFund-August-2024.json"
-    },
-    {
-      "month": "August",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-August-2025.json"
-    },
-    {
-      "month": "December",
-      "year": 2024,
-      "filename": "HDFCMultiAssetAllocationFund-December-2024.json"
-    },
-    {
-      "month": "December",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-December-2025.json"
-    },
-    {
-      "month": "February",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-February-2025.json"
-    },
-    {
       "month": "February",
       "year": 2026,
       "filename": "HDFCMultiAssetAllocationFund-February-2026.json"
-    },
-    {
-      "month": "January",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-January-2025.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "HDFCMultiAssetAllocationFund-January-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2024,
-      "filename": "HDFCMultiAssetAllocationFund-July-2024.json"
-    },
-    {
-      "month": "July",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-July-2025.json"
     },
     {
       "month": "July",
@@ -231,23 +81,8 @@
     },
     {
       "month": "June",
-      "year": 2024,
-      "filename": "HDFCMultiAssetAllocationFund-June-2024.json"
-    },
-    {
-      "month": "June",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-June-2025.json"
-    },
-    {
-      "month": "June",
       "year": 2026,
       "filename": "HDFCMultiAssetAllocationFund-June-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-March-2025.json"
     },
     {
       "month": "March",
@@ -256,43 +91,8 @@
     },
     {
       "month": "May",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-May-2025.json"
-    },
-    {
-      "month": "May",
       "year": 2026,
       "filename": "HDFCMultiAssetAllocationFund-May-2026.json"
-    },
-    {
-      "month": "November",
-      "year": 2024,
-      "filename": "HDFCMultiAssetAllocationFund-November-2024.json"
-    },
-    {
-      "month": "November",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-November-2025.json"
-    },
-    {
-      "month": "October",
-      "year": 2024,
-      "filename": "HDFCMultiAssetAllocationFund-October-2024.json"
-    },
-    {
-      "month": "October",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-October-2025.json"
-    },
-    {
-      "month": "September",
-      "year": 2024,
-      "filename": "HDFCMultiAssetAllocationFund-September-2024.json"
-    },
-    {
-      "month": "September",
-      "year": 2025,
-      "filename": "HDFCMultiAssetAllocationFund-September-2025.json"
     }
   ],
   "InvescoIndiaMulticapFund": [
@@ -303,28 +103,8 @@
     },
     {
       "month": "August",
-      "year": 2025,
-      "filename": "InvescoIndiaMulticapFund-August-2025.json"
-    },
-    {
-      "month": "August",
       "year": 2026,
       "filename": "InvescoIndiaMulticapFund-August-2026.json"
-    },
-    {
-      "month": "December",
-      "year": 2025,
-      "filename": "InvescoIndiaMulticapFund-December-2025.json"
-    },
-    {
-      "month": "February",
-      "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-February-2026.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-January-2026.json"
     },
     {
       "month": "July",
@@ -345,21 +125,6 @@
       "month": "May",
       "year": 2026,
       "filename": "InvescoIndiaMulticapFund-May-2026.json"
-    },
-    {
-      "month": "November",
-      "year": 2025,
-      "filename": "InvescoIndiaMulticapFund-November-2025.json"
-    },
-    {
-      "month": "October",
-      "year": 2025,
-      "filename": "InvescoIndiaMulticapFund-October-2025.json"
-    },
-    {
-      "month": "September",
-      "year": 2025,
-      "filename": "InvescoIndiaMulticapFund-September-2025.json"
     }
   ],
   "MiraeAssetLargeAndMidcapFund": [
@@ -370,33 +135,8 @@
     },
     {
       "month": "August",
-      "year": 2025,
-      "filename": "MiraeAssetLargeAndMidcapFund-August-2025.json"
-    },
-    {
-      "month": "August",
       "year": 2026,
       "filename": "MiraeAssetLargeAndMidcapFund-August-2026.json"
-    },
-    {
-      "month": "December",
-      "year": 2025,
-      "filename": "MiraeAssetLargeAndMidcapFund-December-2025.json"
-    },
-    {
-      "month": "February",
-      "year": 2026,
-      "filename": "MiraeAssetLargeAndMidcapFund-February-2026.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "MiraeAssetLargeAndMidcapFund-January-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2025,
-      "filename": "MiraeAssetLargeAndMidcapFund-July-2025.json"
     },
     {
       "month": "July",
@@ -417,21 +157,6 @@
       "month": "May",
       "year": 2026,
       "filename": "MiraeAssetLargeAndMidcapFund-May-2026.json"
-    },
-    {
-      "month": "November",
-      "year": 2025,
-      "filename": "MiraeAssetLargeAndMidcapFund-November-2025.json"
-    },
-    {
-      "month": "October",
-      "year": 2025,
-      "filename": "MiraeAssetLargeAndMidcapFund-October-2025.json"
-    },
-    {
-      "month": "September",
-      "year": 2025,
-      "filename": "MiraeAssetLargeAndMidcapFund-September-2025.json"
     }
   ],
   "MotilalOswalMidcapFund": [
@@ -444,16 +169,6 @@
       "month": "August",
       "year": 2026,
       "filename": "MotilalOswalMidcapFund-August-2026.json"
-    },
-    {
-      "month": "February",
-      "year": 2026,
-      "filename": "MotilalOswalMidcapFund-February-2026.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "MotilalOswalMidcapFund-January-2026.json"
     },
     {
       "month": "July",
@@ -484,33 +199,8 @@
     },
     {
       "month": "August",
-      "year": 2025,
-      "filename": "QuantSmallCapFund-August-2025.json"
-    },
-    {
-      "month": "August",
       "year": 2026,
       "filename": "QuantSmallCapFund-August-2026.json"
-    },
-    {
-      "month": "December",
-      "year": 2025,
-      "filename": "QuantSmallCapFund-December-2025.json"
-    },
-    {
-      "month": "February",
-      "year": 2026,
-      "filename": "QuantSmallCapFund-February-2026.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "QuantSmallCapFund-January-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2025,
-      "filename": "QuantSmallCapFund-July-2025.json"
     },
     {
       "month": "July",
@@ -531,21 +221,6 @@
       "month": "May",
       "year": 2026,
       "filename": "QuantSmallCapFund-May-2026.json"
-    },
-    {
-      "month": "November",
-      "year": 2025,
-      "filename": "QuantSmallCapFund-November-2025.json"
-    },
-    {
-      "month": "October",
-      "year": 2025,
-      "filename": "QuantSmallCapFund-October-2025.json"
-    },
-    {
-      "month": "September",
-      "year": 2025,
-      "filename": "QuantSmallCapFund-September-2025.json"
     }
   ],
   "SBIChildrensFund": [
@@ -556,33 +231,8 @@
     },
     {
       "month": "August",
-      "year": 2025,
-      "filename": "SBIChildrensFund-August-2025.json"
-    },
-    {
-      "month": "August",
       "year": 2026,
       "filename": "SBIChildrensFund-August-2026.json"
-    },
-    {
-      "month": "December",
-      "year": 2025,
-      "filename": "SBIChildrensFund-December-2025.json"
-    },
-    {
-      "month": "February",
-      "year": 2026,
-      "filename": "SBIChildrensFund-February-2026.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "SBIChildrensFund-January-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2025,
-      "filename": "SBIChildrensFund-July-2025.json"
     },
     {
       "month": "July",
@@ -603,21 +253,6 @@
       "month": "May",
       "year": 2026,
       "filename": "SBIChildrensFund-May-2026.json"
-    },
-    {
-      "month": "November",
-      "year": 2025,
-      "filename": "SBIChildrensFund-November-2025.json"
-    },
-    {
-      "month": "October",
-      "year": 2025,
-      "filename": "SBIChildrensFund-October-2025.json"
-    },
-    {
-      "month": "September",
-      "year": 2025,
-      "filename": "SBIChildrensFund-September-2025.json"
     }
   ],
   "TrustMFSmallCapFund": [
@@ -628,33 +263,8 @@
     },
     {
       "month": "August",
-      "year": 2025,
-      "filename": "TrustMFSmallCapFund-August-2025.json"
-    },
-    {
-      "month": "August",
       "year": 2026,
       "filename": "TrustMFSmallCapFund-August-2026.json"
-    },
-    {
-      "month": "December",
-      "year": 2025,
-      "filename": "TrustMFSmallCapFund-December-2025.json"
-    },
-    {
-      "month": "February",
-      "year": 2026,
-      "filename": "TrustMFSmallCapFund-February-2026.json"
-    },
-    {
-      "month": "January",
-      "year": 2026,
-      "filename": "TrustMFSmallCapFund-January-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2025,
-      "filename": "TrustMFSmallCapFund-July-2025.json"
     },
     {
       "month": "July",
@@ -675,21 +285,6 @@
       "month": "May",
       "year": 2026,
       "filename": "TrustMFSmallCapFund-May-2026.json"
-    },
-    {
-      "month": "November",
-      "year": 2025,
-      "filename": "TrustMFSmallCapFund-November-2025.json"
-    },
-    {
-      "month": "October",
-      "year": 2025,
-      "filename": "TrustMFSmallCapFund-October-2025.json"
-    },
-    {
-      "month": "September",
-      "year": 2025,
-      "filename": "TrustMFSmallCapFund-September-2025.json"
     }
   ]
 }
