@@ -2,414 +2,509 @@
   "fundName": "Invesco India Multicap Fund",
   "month": "July",
   "year": 2026,
-  "extractedAt": "2026-09-13T21:32:56.029650",
-  "holdingsCount": 68,
+  "extractedAt": "2026-09-14T14:26:19.093917",
+  "holdingsCount": 71,
+  "sectionCounts": {
+    "equity": 68,
+    "treps": 1,
+    "net_receivable": 1,
+    "preference_shares": 1
+  },
   "holdings": [
     {
       "company": "Eternal Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 4.0,
       "shares": null,
       "value": null
     },
     {
       "company": "ICICI Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.79,
       "shares": null,
       "value": null
     },
     {
       "company": "InterGlobe Aviation Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.16,
       "shares": null,
       "value": null
     },
     {
       "company": "Sai Life Sciences Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.57,
       "shares": null,
       "value": null
     },
     {
       "company": "TVS Motor Company Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.55,
       "shares": null,
       "value": null
     },
     {
       "company": "Axis Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.55,
       "shares": null,
       "value": null
     },
     {
       "company": "Krishna Institute Of Medical Sciences Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.51,
       "shares": null,
       "value": null
     },
     {
       "company": "Nippon Life India Asset Management Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.41,
       "shares": null,
       "value": null
     },
     {
       "company": "Cholamandalam Investment and Finance Company Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.38,
       "shares": null,
       "value": null
     },
     {
       "company": "AU Small Finance Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.3,
       "shares": null,
       "value": null
     },
     {
       "company": "HDFC Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.29,
       "shares": null,
       "value": null
     },
     {
       "company": "Max Healthcare Institute Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.23,
       "shares": null,
       "value": null
     },
     {
       "company": "Dr Agarwals Health Care Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.2,
       "shares": null,
       "value": null
     },
     {
       "company": "Prestige Estates Projects Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.15,
       "shares": null,
       "value": null
     },
     {
       "company": "Coforge Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.11,
       "shares": null,
       "value": null
     },
     {
       "company": "Delhivery Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.09,
       "shares": null,
       "value": null
     },
     {
       "company": "BSE Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.05,
       "shares": null,
       "value": null
     },
     {
       "company": "Amber Enterprises India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.98,
       "shares": null,
       "value": null
     },
     {
       "company": "Trent Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.97,
       "shares": null,
       "value": null
     },
     {
       "company": "JK Cement Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.88,
       "shares": null,
       "value": null
     },
     {
       "company": "Persistent Systems Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.83,
       "shares": null,
       "value": null
     },
     {
       "company": "Bharti Airtel Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.78,
       "shares": null,
       "value": null
     },
     {
       "company": "IndusInd Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.76,
       "shares": null,
       "value": null
     },
     {
       "company": "Larsen & Toubro Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.75,
       "shares": null,
       "value": null
     },
     {
       "company": "Bajaj Finance Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.73,
       "shares": null,
       "value": null
     },
     {
       "company": "FSN E-Commerce Ventures Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.7,
       "shares": null,
       "value": null
     },
     {
       "company": "The Phoenix Mills Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.64,
       "shares": null,
       "value": null
     },
     {
       "company": "RBL Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.63,
       "shares": null,
       "value": null
     },
     {
       "company": "Multi Commodity Exchange of India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.54,
       "shares": null,
       "value": null
     },
     {
       "company": "UltraTech Cement Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.41,
       "shares": null,
       "value": null
     },
     {
       "company": "Aditya Infotech Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.39,
       "shares": null,
       "value": null
     },
     {
       "company": "Global Health Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.37,
       "shares": null,
       "value": null
     },
     {
       "company": "Corona Remedies Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.33,
       "shares": null,
       "value": null
     },
     {
       "company": "PB Fintech Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.31,
       "shares": null,
       "value": null
     },
     {
       "company": "Tata Motors Ltd. (Commercial Vehicles)",
+      "instrumentType": "equity",
       "percentOfNAV": 1.23,
       "shares": null,
       "value": null
     },
     {
       "company": "Hexaware Technologies Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.22,
       "shares": null,
       "value": null
     },
     {
       "company": "Hindustan Aeronautics Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.22,
       "shares": null,
       "value": null
     },
     {
       "company": "Swiggy Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.2,
       "shares": null,
       "value": null
     },
     {
       "company": "Timken India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.17,
       "shares": null,
       "value": null
     },
     {
+      "company": "Triparty Repo",
+      "instrumentType": "treps",
+      "percentOfNAV": 1.16,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "KEI Industries Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.14,
       "shares": null,
       "value": null
     },
     {
       "company": "Schneider Electric Infrastructure Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.11,
       "shares": null,
       "value": null
     },
     {
       "company": "Mahindra & Mahindra Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.07,
       "shares": null,
       "value": null
     },
     {
       "company": "Safari Industries (India) Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.05,
       "shares": null,
       "value": null
     },
     {
       "company": "Karur Vysya Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.04,
       "shares": null,
       "value": null
     },
     {
       "company": "Craftsman Automation Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.03,
       "shares": null,
       "value": null
     },
     {
       "company": "Belrise Industries Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.0,
       "shares": null,
       "value": null
     },
     {
       "company": "CG Power and Industrial Solutions Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.98,
       "shares": null,
       "value": null
     },
     {
       "company": "Aditya Birla Sun Life AMC Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.96,
       "shares": null,
       "value": null
     },
     {
       "company": "CEAT Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.87,
       "shares": null,
       "value": null
     },
     {
       "company": "Vishal Mega Mart Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.82,
       "shares": null,
       "value": null
     },
     {
       "company": "Coromandel International Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.82,
       "shares": null,
       "value": null
     },
     {
       "company": "CCL Products (India) Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.76,
       "shares": null,
       "value": null
     },
     {
       "company": "Avenue Supermarts Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.76,
       "shares": null,
       "value": null
     },
     {
       "company": "APL Apollo Tubes Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.71,
       "shares": null,
       "value": null
     },
     {
       "company": "Billionbrains Garage Ventures Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.65,
       "shares": null,
       "value": null
     },
     {
       "company": "Hitachi Energy India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.65,
       "shares": null,
       "value": null
     },
     {
       "company": "L&T Finance Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.64,
       "shares": null,
       "value": null
     },
     {
       "company": "Ethos Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.59,
       "shares": null,
       "value": null
     },
     {
       "company": "Dixon Technologies (India) Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.56,
       "shares": null,
       "value": null
     },
     {
       "company": "Home First Finance Company India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.55,
       "shares": null,
       "value": null
     },
     {
       "company": "KSB Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.5,
       "shares": null,
       "value": null
     },
     {
       "company": "Ingersoll Rand (India) Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.5,
       "shares": null,
       "value": null
     },
     {
       "company": "Jyoti CNC Automation Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.47,
       "shares": null,
       "value": null
     },
     {
       "company": "Deepak Nitrite Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.46,
       "shares": null,
       "value": null
     },
     {
       "company": "Hindalco Industries Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.44,
       "shares": null,
       "value": null
     },
     {
       "company": "Tata Consumer Products Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.42,
       "shares": null,
       "value": null
     },
     {
       "company": "Manipal Health Enterprises Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.34,
       "shares": null,
       "value": null
     },
     {
       "company": "Dredging Corporation of India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Net Receivables / (Payables)",
+      "instrumentType": "net_receivable",
+      "percentOfNAV": 0.27,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "TVS Motor Company Ltd.",
+      "instrumentType": "preference_shares",
+      "percentOfNAV": 0.02,
       "shares": null,
       "value": null
     }

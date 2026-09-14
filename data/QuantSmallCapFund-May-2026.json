@@ -2,600 +2,847 @@
   "fundName": "Quant Small Cap Fund",
   "month": "May",
   "year": 2026,
-  "extractedAt": "2026-09-13T21:33:01.923968",
-  "holdingsCount": 99,
+  "extractedAt": "2026-09-14T14:26:24.468739",
+  "holdingsCount": 119,
+  "sectionCounts": {
+    "equity": 103,
+    "treps": 1,
+    "futures": 4,
+    "treasury_bill": 9,
+    "mutual_fund_units": 1,
+    "net_receivable": 1
+  },
   "holdings": [
     {
       "company": "Reliance Industries Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 8.36,
       "shares": null,
       "value": null
     },
     {
+      "company": "TREPS 01-Jun-2026 DEPO 10",
+      "instrumentType": "treps",
+      "percentOfNAV": 5.34,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "HFCL Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 5.1,
       "shares": null,
       "value": null
     },
     {
       "company": "RBL Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 4.66,
       "shares": null,
       "value": null
     },
     {
       "company": "Adani Power Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 4.59,
       "shares": null,
       "value": null
     },
     {
       "company": "Adani Green Energy Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.23,
       "shares": null,
       "value": null
     },
     {
       "company": "Adani Enterprises Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.8,
       "shares": null,
       "value": null
     },
     {
       "company": "Piramal Finance Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.63,
       "shares": null,
       "value": null
     },
     {
       "company": "Aster DM Healthcare Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.59,
       "shares": null,
       "value": null
     },
     {
       "company": "Anand Rathi Wealth Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.58,
       "shares": null,
       "value": null
     },
     {
       "company": "SUN TV Network Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.32,
       "shares": null,
       "value": null
     },
     {
       "company": "Arvind Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.21,
       "shares": null,
       "value": null
     },
     {
       "company": "Capri Global Capital Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.96,
       "shares": null,
       "value": null
     },
     {
       "company": "Viyash Scientific Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.92,
       "shares": null,
       "value": null
     },
     {
       "company": "Aegis Logistics Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.88,
       "shares": null,
       "value": null
     },
     {
       "company": "Welspun Corp Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.87,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aurobindo Pharma Limited 30/06/2026",
+      "instrumentType": "futures",
       "percentOfNAV": 1.87,
       "shares": null,
       "value": null
     },
     {
       "company": "Poly Medicure Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.85,
       "shares": null,
       "value": null
     },
     {
       "company": "Bikaji Foods International Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.77,
       "shares": null,
       "value": null
     },
     {
       "company": "Usha Martin Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.71,
       "shares": null,
       "value": null
     },
     {
       "company": "ICICI Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.69,
       "shares": null,
       "value": null
     },
     {
       "company": "Ventive Hospitality Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.65,
       "shares": null,
       "value": null
     },
     {
       "company": "Manappuram Finance Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.59,
       "shares": null,
       "value": null
     },
     {
       "company": "Bayer Cropscience Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.47,
       "shares": null,
       "value": null
     },
     {
       "company": "Zydus Wellness Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.44,
       "shares": null,
       "value": null
     },
     {
       "company": "Pfizer Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.32,
       "shares": null,
       "value": null
     },
     {
       "company": "National Building Construction Corp",
+      "instrumentType": "equity",
       "percentOfNAV": 1.27,
       "shares": null,
       "value": null
     },
     {
       "company": "Strides Pharma Science Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.27,
       "shares": null,
       "value": null
     },
     {
       "company": "Aditya Birla Lifestyle Brands Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.26,
       "shares": null,
       "value": null
     },
     {
       "company": "Karnataka Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.25,
       "shares": null,
       "value": null
     },
     {
+      "company": "Samvardhana Motherson International Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.22,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Welspun Enterprises Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.09,
       "shares": null,
       "value": null
     },
     {
       "company": "Black Box Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.04,
       "shares": null,
       "value": null
     },
     {
+      "company": "RBL Bank Limited 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 1.0,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Marathon Nextgen Realty Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.97,
       "shares": null,
       "value": null
     },
     {
       "company": "Jubilant Pharmova Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.92,
       "shares": null,
       "value": null
     },
     {
       "company": "ANTHEM BIOSCIENCES Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.88,
       "shares": null,
       "value": null
     },
     {
       "company": "Orchid Pharma Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.86,
       "shares": null,
       "value": null
     },
     {
       "company": "NCC Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.83,
       "shares": null,
       "value": null
     },
     {
       "company": "Gland Pharma Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.82,
       "shares": null,
       "value": null
     },
     {
       "company": "KEYSTONE REALTORS Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.78,
       "shares": null,
       "value": null
     },
     {
       "company": "Afcons Infrastructure Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.71,
       "shares": null,
       "value": null
     },
     {
       "company": "JM FINANCIAL Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.69,
       "shares": null,
       "value": null
     },
     {
       "company": "EID Parry (India) Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.65,
       "shares": null,
       "value": null
     },
     {
       "company": "Just Dial Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.62,
       "shares": null,
       "value": null
     },
     {
       "company": "Alivus Life Sciences",
+      "instrumentType": "equity",
       "percentOfNAV": 0.58,
       "shares": null,
       "value": null
     },
     {
       "company": "EPL Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.53,
       "shares": null,
       "value": null
     },
     {
       "company": "Welspun Living Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.53,
       "shares": null,
       "value": null
     },
     {
       "company": "Sona BLW Precision Forgings Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.53,
       "shares": null,
       "value": null
     },
     {
+      "company": "Manappuram Finance Ltd 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 0.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Exide Industries Limited 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 0.5,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "IRB Infrastructure Developers Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.49,
       "shares": null,
       "value": null
     },
     {
       "company": "TVS Srichakra Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.46,
       "shares": null,
       "value": null
     },
     {
       "company": "HDFC Life Insurance Co Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.43,
       "shares": null,
       "value": null
     },
     {
       "company": "Nitin Spinners Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.42,
       "shares": null,
       "value": null
     },
     {
       "company": "Aurobindo Pharma Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.4,
       "shares": null,
       "value": null
     },
     {
       "company": "Suven Life Sciences Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.39,
       "shares": null,
       "value": null
     },
     {
       "company": "Gujarat State Fert & Chemicals Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.39,
       "shares": null,
       "value": null
     },
     {
       "company": "Apeejay Surrendra Park Hotels Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.39,
       "shares": null,
       "value": null
     },
     {
       "company": "Juniper Hotels Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.37,
       "shares": null,
       "value": null
     },
     {
       "company": "Aditya Birla Fashion And Retail Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.37,
       "shares": null,
       "value": null
     },
     {
       "company": "Apollo Tyres Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.35,
       "shares": null,
       "value": null
     },
     {
       "company": "Lloyds Metals And Energy Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.33,
       "shares": null,
       "value": null
     },
     {
       "company": "RISHABH INSTRUMENTS Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.32,
       "shares": null,
       "value": null
     },
     {
       "company": "Balrampur Chini Mills Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.31,
       "shares": null,
       "value": null
     },
     {
       "company": "INDOCO REMEDIES Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 13-Aug-2026",
+      "instrumentType": "treasury_bill",
       "percentOfNAV": 0.28,
       "shares": null,
       "value": null
     },
     {
       "company": "BLACKBUCK Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.27,
       "shares": null,
       "value": null
     },
     {
       "company": "Maharashtra Seamless Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.25,
       "shares": null,
       "value": null
     },
     {
       "company": "Kaynes Technology India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.24,
       "shares": null,
       "value": null
     },
     {
+      "company": "91 Days Treasury Bill 20-Aug-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.23,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Man Infraconstruction Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.22,
       "shares": null,
       "value": null
     },
     {
       "company": "Himadri Speciality Chemical Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.22,
       "shares": null,
       "value": null
     },
     {
       "company": "Exicom Tele-Systems Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.22,
       "shares": null,
       "value": null
     },
     {
       "company": "SMS Pharmaceuticals Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.22,
       "shares": null,
       "value": null
     },
     {
       "company": "K.P.R. Mill Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.21,
       "shares": null,
       "value": null
     },
     {
       "company": "Triveni Turbine Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.21,
       "shares": null,
       "value": null
     },
     {
       "company": "Sula Vineyards Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.21,
       "shares": null,
       "value": null
     },
     {
       "company": "S. P. Apparels Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.2,
       "shares": null,
       "value": null
     },
     {
       "company": "Bata India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.18,
       "shares": null,
       "value": null
     },
     {
       "company": "Castrol India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.18,
       "shares": null,
       "value": null
     },
     {
       "company": "OSWAL PUMPS Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.17,
       "shares": null,
       "value": null
     },
     {
+      "company": "91 Days Treasury Bill 28-Aug-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 11-Jun-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 30-Jul-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.16,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Embassy Developments Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.15,
       "shares": null,
       "value": null
     },
     {
       "company": "Capacite Infraprojects Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Prime Securities Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.15,
       "shares": null,
       "value": null
     },
     {
       "company": "The Orissa Minerals Development Co Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.14,
       "shares": null,
       "value": null
     },
     {
       "company": "Exide Industries Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 04-Jun-2026",
+      "instrumentType": "treasury_bill",
       "percentOfNAV": 0.12,
       "shares": null,
       "value": null
     },
     {
       "company": "Intellect Design Arena Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.11,
       "shares": null,
       "value": null
     },
     {
       "company": "Graphite India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.1,
       "shares": null,
       "value": null
     },
     {
       "company": "Ravindra Energy Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.09,
       "shares": null,
       "value": null
     },
     {
       "company": "Praj Industries Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 06-Aug-2026",
+      "instrumentType": "treasury_bill",
       "percentOfNAV": 0.08,
       "shares": null,
       "value": null
     },
     {
       "company": "Digitide Solutions Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.07,
       "shares": null,
       "value": null
     },
     {
       "company": "Sai Silks (Kalamandir) Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.07,
       "shares": null,
       "value": null
     },
     {
       "company": "ETHOS Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.07,
       "shares": null,
       "value": null
     },
     {
       "company": "Newgen Software Technologies Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.07,
       "shares": null,
       "value": null
     },
     {
       "company": "Mahindra Holidays & Resorts Ind Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.07,
       "shares": null,
       "value": null
     },
     {
       "company": "Emami Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.07,
       "shares": null,
       "value": null
     },
     {
       "company": "PTC India Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 19-Jun-2026",
+      "instrumentType": "treasury_bill",
       "percentOfNAV": 0.07,
       "shares": null,
       "value": null
     },
     {
       "company": "Vishnu Prakash R Punglia Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.06,
       "shares": null,
       "value": null
     },
     {
       "company": "SANOFI INDIA Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.06,
       "shares": null,
       "value": null
     },
     {
       "company": "Oriental Hotels Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.06,
       "shares": null,
       "value": null
     },
     {
       "company": "Safari Industries (India) Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.06,
       "shares": null,
       "value": null
     },
     {
       "company": "Sai Parenterals Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.05,
       "shares": null,
       "value": null
     },
     {
       "company": "Heritage Foods Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.04,
       "shares": null,
       "value": null
     },
     {
       "company": "Gillette India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.04,
       "shares": null,
       "value": null
     },
     {
       "company": "Best Agrolife Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 23-Jul-2026",
+      "instrumentType": "treasury_bill",
       "percentOfNAV": 0.04,
       "shares": null,
       "value": null
     },
     {
       "company": "Sudeep Pharma Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.03,
       "shares": null,
       "value": null
     },
     {
       "company": "PUNJAB ALKALIES AND CHEMICALS Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kalyani Steels Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "OM INFRA Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "QUANT GILT FUND -DIRECT PLAN-GROWTH",
+      "instrumentType": "mutual_fund_units",
+      "percentOfNAV": 0.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "NCA-NET CURRENT ASSETS",
+      "instrumentType": "net_receivable",
+      "percentOfNAV": -3.78,
       "shares": null,
       "value": null
     }

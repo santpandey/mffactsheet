@@ -820,6 +820,18 @@ input[type="text"]:focus {
   font-weight: 600;
 }
 
+.type-badge {
+  background: rgba(37, 99, 235, 0.12);
+  color: var(--primary);
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
 /* Yearly Matrix Styling */
 .yearly-matrix-section {
   background: white;

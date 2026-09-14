@@ -86,28 +86,34 @@ MONTH_NUMBER = {
 }
 
 
-def normalize_company_name(name):
-    """Normalize company names to handle variations like 'Limited' vs 'Ltd.'."""
+def normalize_company_name(name, keep_parentheticals=False):
+    """Normalize company names to handle variations like 'Limited' vs 'Ltd.'.
+
+    keep_parentheticals=True preserves "(04/09/2026)" / "(Tier 2 - Basel III)"
+    style annotations — for debt/money-market instruments the maturity and
+    tranche details are identifying info, not noise.
+    """
     if not name or pd.isna(name):
         return None
-    
+
     # Convert to string and strip whitespace
     name = str(name).strip()
     name = ' '.join(name.split())
-    
+
     # Remove trailing special characters and annotations like A**, B**, etc.
     name = re.sub(r'\s+[A-Z]\*\*$', '', name)
-    
+
     # Remove annotation-only parentheticals (dates, DVR / partly-paid / warrant
     # markers), but keep name-bearing ones like "(Industrial)" or "(India)" —
     # post-demerger entities such as SKF India (Industrial) Ltd. vs
     # SKF India Ltd. are distinct securities and must not be merged.
-    name = re.sub(
-        r'\s*\((?:[^)]*\d[^)]*|dvr|pp|partly\s*paid|warrants?)\)\s*',
-        ' ',
-        name,
-        flags=re.IGNORECASE,
-    )
+    if not keep_parentheticals:
+        name = re.sub(
+            r'\s*\((?:[^)]*\d[^)]*|dvr|pp|partly\s*paid|warrants?)\)\s*',
+            ' ',
+            name,
+            flags=re.IGNORECASE,
+        )
 
     # Remove trailing footnote markers (e.g., "KEI Industries Limited ‡",
     # "HDFC Bank Ltd.£" — HDFC uses £ to flag sponsor-company holdings)
@@ -115,7 +121,7 @@ def normalize_company_name(name):
 
     # Standardize common suffixes
     replacements = [
-        (r'\s+Limited$', ' Ltd.'),
+        (r'\s+Limited\.?$', ' Ltd.'),
         (r'\s+Pvt\.?\s*Ltd\.?$', ' Ltd.'),
         (r'\s+Private\s+Limited$', ' Ltd.'),
         (r'\s+Ltd$', ' Ltd.'),
@@ -164,6 +170,154 @@ def extract_month_year_from_filename(filename):
     return None, None
 
 
+# Section transition rules, checked on rows whose % cell is NOT numeric.
+# Order matters: the first matching rule wins.
+SECTION_RULES = [
+    ("end", [r"grand\s*total", r"net\s*assets?", r"\bnotes?\b", r"disclosure",
+             r"risk[\s-]*o[\s-]*meter", r"nav\s*(history|as\s*on)",
+             r"hedging\s*positions?", r"benchmark", r"portfolio\s*turnover"]),
+    ("equity", [r"equity\s*(?:&|and)\s*equity\s*related"]),
+    ("derivatives", [r"\bderivatives?\b", r"\bfutures?\b", r"\boptions?\b"]),
+    ("debt", [r"\bdebt\b", r"\bbonds?\b", r"debenture", r"non[\s-]*convertible",
+              r"government\s*securities", r"sovereign", r"\bgilt\b",
+              r"state\s*development"]),
+    ("money_market", [r"money\s*market", r"treasury\s*bills?", r"t[ -]?bills?\b",
+                      r"cash\s*management\s*bills?", r"commercial\s*paper",
+                      r"certificate\s*of\s*deposits?"]),
+    ("fixed_deposit", [r"fixed\s*deposits?", r"term\s*deposits?"]),
+    ("reit_invit", [r"units\s*issued\s*by\s*(?:reit|invit)", r"\binvits?\b"]),
+    ("others", [r"\bothers?\b", r"cash\s*(?:&|and)\s*cash\s*equivalents?",
+                r"reverse\s*repo", r"\btreps?\b", r"tri[\s-]*party\s*repo",
+                r"\brepo\b", r"net\s*current", r"receivables?", r"payables?",
+                r"mutual\s*fund", r"alternative\s*investment",
+                r"infrastructure\s*investment", r"\bgold\b", r"\bsilver\b",
+                r"\bcommodity\b"]),
+]
+
+# Names that are section/total labels, not instruments. Matched against the
+# name cell after stripping a leading "(a)"-style enumerator — so
+# "Samvardhana Motherson" or "Prime Securities" are never filtered the way
+# the old substring-based skip_words did.
+SUBHEADER_NAMES = {
+    "total", "sub total", "subtotal", "sub-total", "grand total", "net assets",
+    "nil", "others", "equity shares", "listed",
+    "listed / awaiting listing on stock exchanges",
+    "listed/awaiting listing on stock exchanges", "unlisted",
+    "equity & equity related", "debt instruments", "debt securities",
+    "money market instruments", "derivatives", "fixed deposits",
+    "non convertible debenture", "corporate bond", "psu & pfi bonds",
+    "psu bonds", "government securities", "state development loans",
+    "zero coupon bonds", "perpetual bonds", "securitised debt instruments",
+    "privately placed", "commercial paper", "treasury bills",
+    "cd-certificate of deposits", "certificate of deposits",
+    "mutual fund unit", "mutual fund units",
+    "units of infrastructure investment trust",
+    "units issued by reit", "units issued by invits",
+    "tri party repo (treps)", "tri party repo",
+    "other receivables (payables)", "index / stock futures",
+    "index / stock options", "commodity futures", "commodity option",
+    "foreign securities and /or overseas etf",
+    "units of an alternative investment fund (aif)", "commercial bill",
+    "cash & cash equivalents", "reverse repo", "net current assets",
+    "exchange traded commodity derivatives",
+}
+
+_ENUM_PREFIX = re.compile(
+    r"^(?:\([a-z0-9]{1,3}\)|[a-z](?=[\s.\-)/])|\d{1,3}(?=[\s.\-)/]))[\s.\-)/]*"
+)
+_NOISE_NAME = re.compile(
+    r"^(?:sub[\s-]*total|total|grand\s*total|net\s*assets?|nil)\b",
+    re.IGNORECASE,
+)
+
+
+def classify_section(row_str):
+    for sec, patterns in SECTION_RULES:
+        if any(re.search(p, row_str) for p in patterns):
+            return sec
+    return None
+
+
+# Sub-section header rules — applied to non-entry rows to remember which
+# instrument family the following rows belong to ("Certificate Of Deposit
+# (CD)", "Non-Convertible debentures / Bonds", ...). Lets issuer-only names
+# like "HDFC Bank Ltd." still get the right type.
+SUBTYPE_RULES = [
+    ("futures", [r"futures?"]),
+    ("options", [r"options?"]),
+    ("government_bond", [r"government\s*securities", r"sovereign",
+                         r"state\s*(?:government|development)", r"\bgilt",
+                         r"central\s*government"]),
+    ("securitized_debt", [r"securiti[sz]ed"]),
+    ("preference_shares", [r"preference\s*shares?"]),
+    ("corporate_bond", [r"non[\s-]*convertible", r"corporate\s*(?:debt|bonds?)",
+                        r"\bbonds?\b", r"debentures?", r"perpetual",
+                        r"at[\s-]?1\b", r"tier[\s-]*[12]\b", r"zero\s*coupon"]),
+    ("certificate_of_deposit", [r"certificate\s*of\s*deposits?", r"\bcd\b"]),
+    ("commercial_paper", [r"commercial\s*paper"]),
+    ("treasury_bill", [r"treasury\s*bills?", r"t[ -]?bills?\b",
+                       r"cash\s*management\s*bills?"]),
+    ("commercial_bill", [r"commercial\s*bill", r"bills?\s*re[\s-]*discount",
+                         r"\bstrips\b"]),
+    ("treps", [r"treps?", r"tri[\s-]*party", r"reverse\s*repo", r"cblo",
+               r"\brepo\b"]),
+    ("net_receivable", [r"net\s*(?:receivable|current)", r"receivables?",
+                        r"payables?", r"current\s*assets"]),
+    ("margin", [r"margin"]),
+    ("mutual_fund_units", [r"mutual\s*fund"]),
+    ("reit_invit", [r"units\s*issued\s*by", r"invit", r"reit",
+                    r"infrastructure\s*investment"]),
+    ("foreign_equity", [r"foreign\s*securities", r"overseas"]),
+    ("etf", [r"exchange\s*traded", r"\betf\b", r"\bgold\b", r"\bsilver\b"]),
+    ("fixed_deposit", [r"(?:short|long|term|fixed)[\s-]*deposits?"]),
+    ("aif", [r"alternative\s*investment"]),
+]
+
+
+def classify_subtype(row_str):
+    for sub, patterns in SUBTYPE_RULES:
+        if any(re.search(p, row_str) for p in patterns):
+            return sub
+    return None
+
+
+def name_based_type(name):
+    """Specific instrument type inferable from the entry's own name."""
+    n = name.lower()
+    if re.search(r"treps?|tri[\s-]*party|collateralized|\bcb[o]{1,2}\b|"
+                 r"reverse\s*repo|\btrp_|\brepo\b", n):
+        return "treps"
+    if re.search(r"net\s*(?:receivable|current)|\bnca\b", n):
+        return "net_receivable"
+    if "margin" in n:
+        return "margin"
+    if re.search(r"exchange\s*traded|\betf\b", n):
+        return "etf"
+    if re.search(r"\breit\b|\binvit\b|infrastructure\s*investment", n):
+        return "reit_invit"
+    if re.search(r"t[ -]?bill|treasury|cash\s*management", n):
+        return "treasury_bill"
+    if "commercial paper" in n:
+        return "commercial_paper"
+    if re.search(r"certificate\s*of\s*deposit|\bcd\b", n):
+        return "certificate_of_deposit"
+    if re.search(r"\bgoi\b|government|sovereign|g[\s-]?sec|\bsdl\b|"
+                 r"state\s*development", n):
+        return "government_bond"
+    if re.search(r"debenture|\bncd\b|ncrps|perpetual|at[\s-]?1\b|"
+                 r"tier[\s-]*[12]|zero\s*coupon|non[\s-]*convertible", n):
+        return "corporate_bond"
+    if "securitisation" in n or "securitization" in n:
+        return "securitized_debt"
+    if "fund" in n and re.search(r"direct\s*plan|growth|idcw", n):
+        return "mutual_fund_units"
+    if "future" in n or re.search(r"\d{2}[/\-.]\d{2}[/\-.]\d{4}\s*$", n):
+        return "futures"
+    if re.search(r"option|call\b|put\b", n):
+        return "options"
+    return None
+
+
 def find_holdings_in_dataframe(df):
     """Find holdings data in a dataframe"""
     holdings = []
@@ -183,22 +337,23 @@ def find_holdings_in_dataframe(df):
         # Check for header indicators
         has_instrument = 'name of the instrument' in row_str or 'instrument' in row_str
         has_percent = '% to net' in row_str or '% to nav' in row_str or '% of nav' in row_str or '% to aum' in row_str or '% of aum' in row_str
-        
+
         if has_instrument and has_percent:
             header_row_idx = idx
             break
-    
+
     if header_row_idx is None:
         print("  ERROR: Could not find header row")
         return None
-    
+
     print(f"  Found header row at index {header_row_idx}")
-    
+
     # Extract column indices from header row
     header_row = data[header_row_idx]
     company_col_idx = None
     percent_col_idx = None
-    
+
+    coupon_col_idx = None
     for i, cell in enumerate(header_row):
         if pd.notna(cell):
             cell_str = str(cell).lower().strip()
@@ -208,13 +363,15 @@ def find_holdings_in_dataframe(df):
             elif '% to net' in cell_str or '% to nav' in cell_str or '% to aum' in cell_str or '% of aum' in cell_str:
                 if percent_col_idx is None:
                     percent_col_idx = i
-    
+            elif 'coupon' in cell_str:
+                coupon_col_idx = i
+
     if company_col_idx is None or percent_col_idx is None:
         print(f"  ERROR: Could not find columns (company={company_col_idx}, percent={percent_col_idx})")
         return None
-    
-    print(f"  Company column: {company_col_idx}, Percent column: {percent_col_idx}")
-    
+
+    print(f"  Company column: {company_col_idx}, Percent column: {percent_col_idx}, Coupon column: {coupon_col_idx}")
+
     # Detect percentage format by checking first 10 valid values
     # If all are < 1, it's decimal format (0.06274 = 6.274%)
     # If any are >= 1, it's already percentage format (6.44 = 6.44%)
@@ -229,113 +386,158 @@ def find_holdings_in_dataframe(df):
                     sample_values.append(val)
                     if len(sample_values) >= 10:
                         break
-            except:
+            except (ValueError, TypeError):
                 pass
-    
+
     # Determine if we need to multiply by 100
     needs_conversion = all(v < 1 for v in sample_values) if sample_values else False
     print(f"  Format detection: {'Decimal (needs *100)' if needs_conversion else 'Percentage (no conversion)'}")
-    
-    # Extract data starting after header row
-    # seen maps normalized_lower -> holding dict so duplicate merges are O(1)
+
+    # Extract data starting after header row, across ALL portfolio sections
+    # (equity, derivatives, debt, money market, fixed deposits, others) so the
+    # JSON mirrors every numbered factsheet entry — T-bills, TREPS, futures
+    # shorts, net receivables, etc.
+    # seen maps (instrument_type, normalized_lower) -> holding dict so
+    # duplicate merges are O(1)
     seen = {}
-    equity_section = False
+    section = "equity"
+    subsection = None
 
     for idx in range(header_row_idx + 1, n_rows):
         row = data[idx]
-
-        # Check if we're in equity section
         row_str = row_str_of(row)
-        
-        if 'equity & equity related' in row_str or 'equity' in row_str:
-            equity_section = True
-            continue
-        
-        # Stop at debt or other sections
-        if equity_section:
-            if 'grand total' in row_str or 'net assets' in row_str:
-                break
-            if 'debt instruments' in row_str or 'debt securities' in row_str:
-                break
-            # Sub-total rows: only stop if no further foreign/overseas equity follows
-            if 'total' in row_str and len(holdings) > 0:
-                has_more_equity = False
-                for next_idx in range(idx + 1, min(idx + 8, n_rows)):
-                    next_str = row_str_of(data[next_idx])
-                    # 'reit' covers "(b) Units issued by ReIT" — a listed
-                    # sub-section inside EQUITY & EQUITY RELATED (HDFC layout)
-                    if any(k in next_str for k in ['foreign securities', 'overseas', 'equity', 'unlisted', 'reit']):
-                        has_more_equity = True
-                        break
-                if not has_more_equity:
-                    break
-                continue
-        
-        if not equity_section:
-            continue
-        
-        # Get company name and percentage
+
         company = row[company_col_idx] if company_col_idx < len(row) else None
         percent = row[percent_col_idx] if percent_col_idx < len(row) else None
-        
-        if pd.isna(company) or pd.isna(percent):
+
+        pct_val = None
+        if pd.notna(percent):
+            try:
+                pct_str = str(percent).replace('%', '').strip() if isinstance(percent, str) else percent
+                pct_val = float(pct_str)
+            except (ValueError, TypeError):
+                pct_val = None
+
+        if pct_val is None:
+            # Non-entry row: a section header, a stop marker, or noise.
+            sec = classify_section(row_str)
+            if sec == "end":
+                break
+            # Inside OTHERS, sub-labels like "Margin amount for Derivative
+            # positions" or "Term Deposits Placed as Margins" must not flip
+            # the section back out — but "EQUITY & EQUITY RELATED" still can,
+            # since some sheets (Motilal) list repo items before equity.
+            if sec and (section != "others" or sec in ("equity", "reit_invit")):
+                section = sec
+                subsection = None
+            # Track the current instrument family from sub-headers
+            # ("Certificate Of Deposit (CD)", "Treasury Bills", ...)
+            sub = classify_subtype(row_str)
+            if sub:
+                subsection = sub
             continue
-        
-        # Clean company name
+        elif re.search(r"grand\s*total|net\s*assets", row_str):
+            break
+
+        if pd.isna(company):
+            continue
         company = str(company).strip()
         if len(company) < 3:
             continue
-        
-        # Skip section headers and noise
-        skip_words = ['equity', 'listed', 'awaiting', 'unlisted', 'total', 'fund',
-                     'benchmark', 'index', 'plan', 'regular', 'direct', 'growth',
-                     'others', 'cash', 'debt', 'portfolio', 'grand', 'foreign',
-                     'overseas', 'securities']
-        if any(s in company.lower() for s in skip_words):
-            continue
-        
-        # Parse percentage
+
+        # A pure-number name is a misaligned code column, not an instrument
         try:
-            if isinstance(percent, str):
-                percent = percent.replace('%', '').strip()
-            pct_val = float(percent)
-            
-            # Apply conversion based on detected format
-            if needs_conversion:
-                pct_val = pct_val * 100
-        except (ValueError, TypeError):
+            float(company)
             continue
-        
-        # Validate percentage range (allow smaller percentages)
-        if not (0.01 < pct_val < 50):
+        except ValueError:
+            pass
+
+        # Count other numeric cells (quantity / market value / YTM ...) —
+        # distinguishes real line items from header labels
+        other_numeric = 0
+        for ci, cell in enumerate(row):
+            if ci in (company_col_idx, percent_col_idx) or pd.isna(cell):
+                continue
+            try:
+                float(cell)
+                other_numeric += 1
+            except (ValueError, TypeError):
+                pass
+
+        # "Total"/"Sub Total"-family labels are always noise, even when they
+        # carry the section's summed % value.
+        if _NOISE_NAME.match(company):
             continue
-        
-        # Normalize company name
-        normalized_name = normalize_company_name(company)
-        
+        # Broader sub-header labels ("Net Current Assets", "Treasury Bills",
+        # ...) are noise only when the row carries no other numbers — the same
+        # words can be a genuine line item elsewhere (e.g. TrustMF).
+        if other_numeric == 0:
+            canonical = _ENUM_PREFIX.sub("", company.lower()).strip(" :-–—")
+            if canonical in SUBHEADER_NAMES:
+                continue
+
+        # Apply conversion based on detected format
+        if needs_conversion:
+            pct_val = pct_val * 100
+
+        # Sanity bound; negatives are legitimate (futures shorts, payables)
+        if abs(pct_val) >= 100:
+            continue
+
+        # 0% rows count only when the row carries other numeric data
+        # (quantity / market value) — e.g. residual positions like
+        # "Endurance Technologies Ltd | 1086 | 31.18 | 0"
+        if pct_val == 0 and other_numeric == 0:
+            continue
+
+        # Resolve the instrument type: the entry's own name wins, then the
+        # current sub-header ("Certificate Of Deposit"), then the section.
+        instrument_type = (
+            name_based_type(company) or subsection or section
+        )
+
+        # Debt/money-market names keep identifying parentheticals such as
+        # "(04/09/2026)" maturity or "(Tier 2 - Basel III)" tranche tags.
+        keep_parens = instrument_type != "equity"
+        normalized_name = normalize_company_name(
+            company, keep_parentheticals=keep_parens)
         if not normalized_name:
             continue
-        
-        # Check for duplicates and merge if found
-        normalized_lower = normalized_name.lower()
-        existing = seen.get(normalized_lower)
+
+        # Give issuer-only names a meaningful label: prepend the coupon when
+        # the sheet provides one and the name doesn't already carry a rate —
+        # "HDFC Bank Ltd." (a 9.05% NCD) reads like the equity otherwise.
+        if (instrument_type != "equity" and coupon_col_idx is not None
+                and not re.match(r"^\d+(?:\.\d+)?%", normalized_name)):
+            coupon = (row[coupon_col_idx]
+                      if coupon_col_idx < len(row) else None)
+            if pd.notna(coupon):
+                try:
+                    normalized_name = f"{float(coupon):g}% {normalized_name}"
+                except (ValueError, TypeError):
+                    pass
+
+        # Check for duplicates and merge if found (same type only)
+        key = (instrument_type, normalized_name.lower())
+        existing = seen.get(key)
         if existing is not None:
             existing['percentOfNAV'] = round(existing['percentOfNAV'] + pct_val, 2)
             continue
 
         holding = {
             "company": normalized_name,
+            "instrumentType": instrument_type,
             "percentOfNAV": round(pct_val, 2),
             "shares": None,
             "value": None
         }
-        seen[normalized_lower] = holding
+        seen[key] = holding
         holdings.append(holding)
-        
+
         # Debug: Print first few holdings
         if len(holdings) <= 3:
-            print(f"    DEBUG: Added {normalized_name}: {round(pct_val, 2)}%")
-    
+            print(f"    DEBUG: Added {normalized_name} [{instrument_type}]: {round(pct_val, 2)}%")
+
     return holdings if len(holdings) >= 5 else None
 
 
@@ -401,12 +603,18 @@ def process_excel_file(filepath, fund_config):
         # "Tata Motors Ltd." for the CV business — tag it for clarity.
         if (year, MONTH_NUMBER[month]) >= (2025, 10):
             for h in holdings:
-                if h["company"] == "Tata Motors Ltd.":
+                if (h["company"] == "Tata Motors Ltd."
+                        and h.get("instrumentType") == "equity"):
                     h["company"] = "Tata Motors Ltd. (Commercial Vehicles)"
-        
+
         # Sort by percentage descending
         holdings.sort(key=lambda x: x["percentOfNAV"], reverse=True)
-        
+
+        section_counts = {}
+        for h in holdings:
+            t = h.get("instrumentType", "equity")
+            section_counts[t] = section_counts.get(t, 0) + 1
+
         # Save to JSON
         data = {
             "fundName": fund_config["name"],
@@ -414,6 +622,7 @@ def process_excel_file(filepath, fund_config):
             "year": year,
             "extractedAt": datetime.now().isoformat(),
             "holdingsCount": len(holdings),
+            "sectionCounts": section_counts,
             "holdings": holdings
         }
         

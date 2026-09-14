@@ -2,234 +2,315 @@
   "fundName": "SBI Children's Fund - Investment Plan",
   "month": "June",
   "year": 2026,
-  "extractedAt": "2026-09-13T21:32:55.334154",
-  "holdingsCount": 38,
+  "extractedAt": "2026-09-14T14:26:18.365934",
+  "holdingsCount": 43,
+  "sectionCounts": {
+    "treps": 1,
+    "equity": 35,
+    "foreign_equity": 4,
+    "corporate_bond": 1,
+    "treasury_bill": 1,
+    "net_receivable": 1
+  },
   "holdings": [
     {
+      "company": "TREPS",
+      "instrumentType": "treps",
+      "percentOfNAV": 9.3,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Thangamayil Jewellery Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 6.45,
       "shares": null,
       "value": null
     },
     {
       "company": "Alphabet Inc.",
+      "instrumentType": "foreign_equity",
       "percentOfNAV": 6.33,
       "shares": null,
       "value": null
     },
     {
       "company": "State Bank of India",
+      "instrumentType": "equity",
       "percentOfNAV": 5.32,
       "shares": null,
       "value": null
     },
     {
       "company": "Adani Enterprises Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 4.37,
       "shares": null,
       "value": null
     },
     {
       "company": "Kotak Mahindra Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.95,
       "shares": null,
       "value": null
     },
     {
       "company": "Renew Energy Global",
+      "instrumentType": "foreign_equity",
       "percentOfNAV": 3.88,
       "shares": null,
       "value": null
     },
     {
       "company": "Hatsun Agro Product Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.67,
       "shares": null,
       "value": null
     },
     {
       "company": "Aequs Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.38,
       "shares": null,
       "value": null
     },
     {
       "company": "Muthoot Finance Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.32,
       "shares": null,
       "value": null
     },
     {
       "company": "Privi Speciality Chemicals Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.23,
       "shares": null,
       "value": null
     },
     {
       "company": "Doms Industries Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.1,
       "shares": null,
       "value": null
     },
     {
       "company": "Jubilant Foodworks Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.01,
       "shares": null,
       "value": null
     },
     {
       "company": "ICICI Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.97,
       "shares": null,
       "value": null
     },
     {
       "company": "Sona Blw Precision Forgings Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.95,
       "shares": null,
       "value": null
     },
     {
       "company": "Amagi Media Labs Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.83,
       "shares": null,
       "value": null
     },
     {
       "company": "Powerica Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.78,
       "shares": null,
       "value": null
     },
     {
       "company": "Epam Systems Inc",
+      "instrumentType": "foreign_equity",
       "percentOfNAV": 2.49,
       "shares": null,
       "value": null
     },
     {
       "company": "Honeywell Automation India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.29,
       "shares": null,
       "value": null
     },
     {
       "company": "K.P.R. Mill Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.2,
       "shares": null,
       "value": null
     },
     {
       "company": "Bosch Home Comfort India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.16,
       "shares": null,
       "value": null
     },
     {
       "company": "Le Travenues Technology Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.98,
       "shares": null,
       "value": null
     },
     {
       "company": "JSW Steel Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.94,
       "shares": null,
       "value": null
     },
     {
       "company": "Asahi India Glass Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.88,
       "shares": null,
       "value": null
     },
     {
       "company": "Sanathan Textiles Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.83,
       "shares": null,
       "value": null
     },
     {
       "company": "Sun TV Network Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.78,
       "shares": null,
       "value": null
     },
     {
       "company": "Ajax Engineering Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.74,
       "shares": null,
       "value": null
     },
     {
       "company": "Dodla Dairy Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.46,
       "shares": null,
       "value": null
     },
     {
       "company": "Navin Fluorine International Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.31,
       "shares": null,
       "value": null
     },
     {
       "company": "Kalpataru Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.29,
       "shares": null,
       "value": null
     },
     {
       "company": "Relaxo Footwears Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.06,
       "shares": null,
       "value": null
     },
     {
       "company": "E.I.D-Parry (India) Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.93,
       "shares": null,
       "value": null
     },
     {
       "company": "Wonderla Holidays Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.71,
       "shares": null,
       "value": null
     },
     {
       "company": "Brigade Hotel Ventures Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.49,
       "shares": null,
       "value": null
     },
     {
       "company": "Hawkins Cookers Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.42,
       "shares": null,
       "value": null
     },
     {
       "company": "Nephrocare Health Service Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.38,
       "shares": null,
       "value": null
     },
     {
       "company": "Pakka Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.35,
       "shares": null,
       "value": null
     },
     {
+      "company": "REC Ltd.",
+      "instrumentType": "corporate_bond",
+      "percentOfNAV": 0.29,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "The Ramco Cements Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.24,
       "shares": null,
       "value": null
     },
     {
+      "company": "364 DAY T-BILL 19.11.26",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.14,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Fairfax India Holdings Corporation",
+      "instrumentType": "foreign_equity",
       "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Elin Electronics Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Net Receivable / Payable",
+      "instrumentType": "net_receivable",
+      "percentOfNAV": -0.29,
       "shares": null,
       "value": null
     }

@@ -2,156 +2,207 @@
   "fundName": "Motilal Oswal Midcap Fund",
   "month": "May",
   "year": 2026,
-  "extractedAt": "2026-09-13T21:33:03.343922",
-  "holdingsCount": 25,
+  "extractedAt": "2026-09-14T14:26:26.017015",
+  "holdingsCount": 28,
+  "sectionCounts": {
+    "equity": 26,
+    "net_receivable": 1,
+    "treps": 1
+  },
   "holdings": [
     {
       "company": "One 97 Communications Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 7.29,
       "shares": null,
       "value": null
     },
     {
+      "company": "Net Receivables / (Payables)",
+      "instrumentType": "net_receivable",
+      "percentOfNAV": 6.63,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "Coforge Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 6.12,
       "shares": null,
       "value": null
     },
     {
       "company": "Kalyan Jewellers India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 5.98,
       "shares": null,
       "value": null
     },
     {
       "company": "KEI Industries Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 5.82,
       "shares": null,
       "value": null
     },
     {
       "company": "Eternal Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 5.8,
       "shares": null,
       "value": null
     },
     {
       "company": "Persistent Systems Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 5.74,
       "shares": null,
       "value": null
     },
     {
       "company": "Aditya Birla Capital Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 5.23,
       "shares": null,
       "value": null
     },
     {
       "company": "Billionbrains Garage Ventures Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 4.29,
       "shares": null,
       "value": null
     },
     {
       "company": "Multi Commodity Exchange of India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 4.22,
       "shares": null,
       "value": null
     },
     {
       "company": "BSE Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.98,
       "shares": null,
       "value": null
     },
     {
       "company": "Tube Investments Of India Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.66,
       "shares": null,
       "value": null
     },
     {
       "company": "Dixon Technologies (India) Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.58,
       "shares": null,
       "value": null
     },
     {
       "company": "Shriram Finance Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.24,
       "shares": null,
       "value": null
     },
     {
       "company": "Bharti Hexacom Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 3.08,
       "shares": null,
       "value": null
     },
     {
       "company": "Prestige Estates Projects Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.81,
       "shares": null,
       "value": null
     },
     {
       "company": "L&T Finance Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.63,
       "shares": null,
       "value": null
     },
     {
       "company": "PB Fintech Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.52,
       "shares": null,
       "value": null
     },
     {
       "company": "ICICI Prudential Asset Management Company Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.48,
       "shares": null,
       "value": null
     },
     {
       "company": "Max Healthcare Institute Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.46,
       "shares": null,
       "value": null
     },
     {
       "company": "Bharat Electronics Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.26,
       "shares": null,
       "value": null
     },
     {
       "company": "Premier Energies Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.13,
       "shares": null,
       "value": null
     },
     {
       "company": "Suzlon Energy Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 2.01,
       "shares": null,
       "value": null
     },
     {
       "company": "Waaree Energies Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.98,
       "shares": null,
       "value": null
     },
     {
+      "company": "Samvardhana Motherson International Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.63,
+      "shares": null,
+      "value": null
+    },
+    {
       "company": "IDFC First Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 1.47,
       "shares": null,
       "value": null
     },
     {
       "company": "AU Small Finance Bank Ltd.",
+      "instrumentType": "equity",
       "percentOfNAV": 0.96,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "TRP_010626",
+      "instrumentType": "treps",
+      "percentOfNAV": 0.0,
       "shares": null,
       "value": null
     }

@@ -222,6 +222,39 @@ function formatNumber(num) {
   return _numberFmt.format(Math.round(num));
 }
 
+const TYPE_LABELS = {
+  equity: "Equity",
+  debt: "Debt",
+  corporate_bond: "Corp Bond",
+  government_bond: "Govt Bond",
+  securitized_debt: "Securitized",
+  preference_shares: "Pref Shares",
+  treasury_bill: "T-Bill",
+  commercial_paper: "Comm Paper",
+  certificate_of_deposit: "CD",
+  commercial_bill: "Comm Bill",
+  money_market: "Money Mkt",
+  fixed_deposit: "Fixed Dep",
+  treps: "TREPS",
+  net_receivable: "Net Rec/Pay",
+  margin: "Margin",
+  futures: "Futures",
+  options: "Options",
+  derivatives: "Derivative",
+  etf: "ETF",
+  foreign_equity: "Foreign Eq",
+  mutual_fund_units: "MF Units",
+  reit_invit: "REIT/InvIT",
+  aif: "AIF",
+  others: "Other",
+};
+
+function typeBadge(instrumentType) {
+  const t = instrumentType || "equity";
+  if (t === "equity") return "";
+  return ` <span class="type-badge">${TYPE_LABELS[t] || t}</span>`;
+}
+
 function formatPercent(num) {
   if (num === null || num === undefined) return "-";
   return num.toFixed(2) + "%";
@@ -381,6 +414,7 @@ function calculateDelta(current, previous) {
     if (!prev) {
       delta.added.push({
         company: holding.company,
+        instrumentType: holding.instrumentType || "equity",
         currentNAV: holding.percentOfNAV,
         previousNAV: 0,
         navDelta: holding.percentOfNAV || 0,
@@ -390,6 +424,7 @@ function calculateDelta(current, previous) {
       const navDelta = (holding.percentOfNAV || 0) - (prev.percentOfNAV || 0);
       delta.changed.push({
         company: holding.company,
+        instrumentType: holding.instrumentType || "equity",
         currentNAV: holding.percentOfNAV,
         previousNAV: prev.percentOfNAV,
         navDelta: navDelta,
@@ -403,6 +438,7 @@ function calculateDelta(current, previous) {
     if (!currentMap.has(key)) {
       delta.removed.push({
         company: holding.company,
+        instrumentType: holding.instrumentType || "equity",
         currentNAV: 0,
         previousNAV: holding.percentOfNAV,
         navDelta: -(holding.percentOfNAV || 0),
@@ -510,6 +546,29 @@ function renderTable(
       items = [...delta.all];
   }
 
+  // Rebuild the instrument-type filter from whatever this delta contains,
+  // preserving the user's current selection when possible
+  const typeSelect = document.getElementById("typeSelect");
+  let typeFilter = "all";
+  if (typeSelect) {
+    const prevVal = typeSelect.value || "all";
+    const types = [
+      ...new Set(delta.all.map((h) => h.instrumentType || "equity")),
+    ].sort();
+    typeSelect.innerHTML =
+      `<option value="all">All Types</option>` +
+      types
+        .map((t) => `<option value="${t}">${TYPE_LABELS[t] || t}</option>`)
+        .join("");
+    typeSelect.value = types.includes(prevVal) ? prevVal : "all";
+    typeFilter = typeSelect.value;
+  }
+  if (typeFilter !== "all") {
+    items = items.filter(
+      (h) => (h.instrumentType || "equity") === typeFilter,
+    );
+  }
+
   const searchTerm = document.getElementById("searchInput").value.toLowerCase();
   if (searchTerm) {
     items = items.filter((h) => h.company.toLowerCase().includes(searchTerm));
@@ -560,7 +619,7 @@ function renderTable(
       return `
       <tr>
         <td>${i + 1}</td>
-        <td>${h.company}</td>
+        <td>${h.company}${typeBadge(h.instrumentType)}</td>
         <td>${formatPercent(h.currentNAV)}</td>
         <td>${formatPercent(h.previousNAV)}</td>
         <td class="${changeClass}">${formatDelta(h.navDelta)}</td>
@@ -1077,7 +1136,13 @@ async function _buildEnrichedRows() {
   // Load NSE master CSV first (no-op if already loaded)
   await _loadNseSymbolMap();
 
-  const actionable = currentDelta.all.filter((d) => d.status !== "unchanged");
+  // Only equity entries are actionable buys — debt, TREPS, futures shorts,
+  // net receivables etc. are portfolio context, not purchasable stocks.
+  const actionable = currentDelta.all.filter(
+    (d) =>
+      d.status !== "unchanged" &&
+      (d.instrumentType || "equity") === "equity",
+  );
   const tickers = actionable.map((d) => _toNseTicker(d.company));
   await _fetchPrices(tickers);
 
@@ -1793,6 +1858,12 @@ async function init() {
     });
 
     document.getElementById("sortSelect").addEventListener("change", () => {
+      if (currentDelta) {
+        renderTable(currentDelta, currentFilter);
+      }
+    });
+
+    document.getElementById("typeSelect").addEventListener("change", () => {
       if (currentDelta) {
         renderTable(currentDelta, currentFilter);
       }
