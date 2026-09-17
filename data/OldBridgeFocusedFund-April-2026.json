@@ -1,0 +1,189 @@
+{
+  "fundName": "Old Bridge Focused Fund",
+  "month": "April",
+  "year": 2026,
+  "extractedAt": "2026-09-17T12:23:02.081197",
+  "holdingsCount": 25,
+  "sectionCounts": {
+    "treps": 1,
+    "equity": 23,
+    "net_receivable": 1
+  },
+  "holdings": [
+    {
+      "company": "Triparty Repo",
+      "instrumentType": "treps",
+      "percentOfNAV": 14.58,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Shriram Finance Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 6.78,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aurobindo Pharma Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 5.71,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Maruti Suzuki India Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.58,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharti Airtel Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.48,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Axis Bank Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Steel Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.18,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Alivus Life Sciences Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Redington Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.05,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hindustan Zinc Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Radico Khaitan Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.98,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Granules India Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.95,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Ramkrishna Forgings Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.9,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Prestige Estates Projects Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.87,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "UPL Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.68,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hindalco Industries Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.54,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Energy Exchange Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "InterGlobe Aviation Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kaveri Seed Company Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "The Great Eastern Shipping Company Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Motors Passenger Vehicles Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "United Foodbrands Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.67,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Medi Assist Healthcare Services Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Antony Waste Handling Cell Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Net Receivables / (Payables)",
+      "instrumentType": "net_receivable",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

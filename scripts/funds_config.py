@@ -80,4 +80,11 @@ FUNDS = {
         "excel_folder": "excel-data/hdfc-multi-asset",
         "data_folder": "data",
     },
+    "old_bridge_focused": {
+        "name": "Old Bridge Focused Fund",
+        "display_name": "Old Bridge Focused",
+        "normalized_name": "OldBridgeFocusedFund",
+        "excel_folder": "excel-data/old-bridge-focused",
+        "data_folder": "data",
+    },
 }

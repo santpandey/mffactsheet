@@ -41,6 +41,10 @@ const FUNDS = {
     name: "HDFC Multi-Asset Allocation Fund",
     displayName: "HDFC Multi Asset",
   },
+  OldBridgeFocusedFund: {
+    name: "Old Bridge Focused Fund",
+    displayName: "Old Bridge Focused",
+  },
 };
 
 const MONTHS_ORDER = [
