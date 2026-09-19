@@ -1161,104 +1161,6 @@ th.sticky-col {
   font-weight: 600;
 }
 
-/* Top Movers Section */
-.top-movers-section {
-  margin-top: 32px;
-  padding: 24px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.top-movers-section h2 {
-  margin: 0 0 16px 0;
-  font-size: 1.25rem;
-  color: var(--gray-800);
-}
-
-.movers-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.mover-tab {
-  padding: 8px 16px;
-  border: 2px solid var(--gray-200);
-  background: white;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--gray-600);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.mover-tab:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-}
-
-.mover-tab.active {
-  background: var(--primary);
-  border-color: var(--primary);
-  color: white;
-}
-
-.movers-content {
-  min-height: 200px;
-}
-
-.movers-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.movers-table th {
-  text-align: left;
-  padding: 12px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--gray-500);
-  border-bottom: 2px solid var(--gray-100);
-}
-
-.movers-table td {
-  padding: 12px;
-  font-size: 0.9rem;
-  border-bottom: 1px solid var(--gray-100);
-}
-
-.movers-table tr:last-child td {
-  border-bottom: none;
-}
-
-.mover-symbol {
-  font-weight: 700;
-  color: var(--gray-800);
-}
-
-.mover-change {
-  font-weight: 700;
-  color: var(--success);
-}
-
-.mover-change.negative {
-  color: var(--danger);
-}
-
-.mover-price {
-  font-family: "SF Mono", Monaco, monospace;
-  color: var(--gray-600);
-}
-
-.loading-text {
-  color: var(--gray-400);
-  font-style: italic;
-  text-align: center;
-  padding: 40px 0;
-}
-
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -1368,15 +1270,6 @@ th.sticky-col {
   .fund-search-modal {
     width: 95%;
   }
-  .top-movers-section {
-    padding: 16px;
-  }
-  .movers-table th,
-  .movers-table td {
-    padding: 8px 6px;
-    font-size: 0.8rem;
-  }
-
   /* Holdings table: keep the fixed-layout column widths from crushing the
      Company column on narrow screens. The wrapper scrolls horizontally and
      company names wrap instead of being clipped to zero width. */

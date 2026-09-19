@@ -1710,92 +1710,6 @@ function initFundSearch(available) {
   });
 }
 
-// ---------------------------------------------------------------------------
-// Top Movers (NIFTY 50)
-// ---------------------------------------------------------------------------
-
-let currentMoversPeriod = "daily";
-
-async function loadTopMovers(period = "daily") {
-  try {
-    const response = await fetch(`data/top_movers_${period}.json`);
-    if (!response.ok) {
-      throw new Error(`Failed to load top movers: ${response.status}`);
-    }
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("Error loading top movers:", error);
-    return null;
-  }
-}
-
-function renderTopMovers(data) {
-  const content = document.getElementById("moversContent");
-
-  if (!data || !data.top_movers || data.top_movers.length === 0) {
-    content.innerHTML =
-      '<p class="loading-text">No top movers data available</p>';
-    return;
-  }
-
-  const changeKey =
-    data.period === "daily" ? "daily_change_pct" : "weekly_change_pct";
-  const priceKey = data.period === "daily" ? "prev_close" : "week_ago_close";
-
-  const rows = data.top_movers
-    .map((mover) => {
-      const change = mover[changeKey];
-      const changeClass =
-        change >= 0 ? "mover-change" : "mover-change negative";
-      const changeSign = change >= 0 ? "+" : "";
-      return `
-      <tr>
-        <td class="mover-symbol">${mover.symbol}</td>
-        <td class="mover-price">₹${mover.last_price.toLocaleString("en-IN", { maximumFractionDigits: 2 })}</td>
-        <td class="${changeClass}">${changeSign}${change.toFixed(2)}%</td>
-        <td class="mover-price">₹${mover[priceKey].toLocaleString("en-IN", { maximumFractionDigits: 2 })}</td>
-      </tr>
-    `;
-    })
-    .join("");
-
-  content.innerHTML = `
-    <table class="movers-table">
-      <thead>
-        <tr>
-          <th>Symbol</th>
-          <th>Last Price</th>
-          <th>${data.period === "daily" ? "Daily Change" : "Weekly Change"}</th>
-          <th>${data.period === "daily" ? "Prev Close" : "Week Ago Close"}</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-    <p style="margin-top: 12px; font-size: 0.8rem; color: var(--gray-400);">
-      Updated: ${new Date(data.generated_at).toLocaleString()}
-    </p>
-  `;
-}
-
-async function initTopMovers() {
-  const data = await loadTopMovers(currentMoversPeriod);
-  renderTopMovers(data);
-
-  // Tab switching
-  document.querySelectorAll(".mover-tab").forEach((tab) => {
-    tab.addEventListener("click", async () => {
-      document
-        .querySelectorAll(".mover-tab")
-        .forEach((t) => t.classList.remove("active"));
-      tab.classList.add("active");
-      currentMoversPeriod = tab.dataset.period;
-      const newData = await loadTopMovers(currentMoversPeriod);
-      renderTopMovers(newData);
-    });
-  });
-}
-
 async function init() {
   const loading = document.getElementById("loadingOverlay");
 
@@ -1834,7 +1748,6 @@ async function init() {
     populateFundSelector(availableMonths);
     populateDropdowns(availableMonths);
     initFundSearch(availableMonths);
-    initTopMovers();
 
     const fundMonths = availableMonths[currentFund] || [];
     if (fundMonths.length > 0) {
