@@ -2,13 +2,14 @@
   "fundName": "Canara Robeco Small Cap Fund",
   "month": "August",
   "year": 2026,
-  "extractedAt": "2026-09-17T12:22:59.758977",
-  "holdingsCount": 92,
+  "extractedAt": "2026-09-19T14:12:18.069270",
+  "holdingsCount": 93,
   "sectionCounts": {
     "treps": 1,
     "equity": 89,
     "net_receivable": 1,
-    "margin": 1
+    "margin": 1,
+    "derivatives": 1
   },
   "holdings": [
     {
@@ -652,6 +653,13 @@
       "company": "Margin on Derivatives",
       "instrumentType": "margin",
       "percentOfNAV": 0.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Interglobe Aviation Ltd Fut 29-Sep-26",
+      "instrumentType": "derivatives",
+      "percentOfNAV": -0.29,
       "shares": null,
       "value": null
     }

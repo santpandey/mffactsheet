@@ -45,6 +45,10 @@ const FUNDS = {
     name: "Old Bridge Focused Fund",
     displayName: "Old Bridge Focused",
   },
+  PPFASFlexiCapFund: {
+    name: "Parag Parikh Flexi Cap Fund",
+    displayName: "PPFAS Flexi Cap",
+  },
 };
 
 const MONTHS_ORDER = [

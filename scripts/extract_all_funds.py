@@ -82,6 +82,12 @@ FUNDS = {
         "excel_folder": "excel-data/old-bridge-focused",
         "data_folder": "data",
     },
+    "ppfas_flexi_cap": {
+        "name": "Parag Parikh Flexi Cap Fund",
+        "normalized_name": "PPFASFlexiCapFund",
+        "excel_folder": "excel-data/ppfas-flexi-cap",
+        "data_folder": "data",
+    },
 }
 
 
@@ -332,217 +338,259 @@ def find_holdings_in_dataframe(df):
     # build a Series per row and were the dominant cost of this function.
     data = df.values
     n_rows = len(data)
+    # seen maps (instrument_type, normalized_lower) -> holding dict so
+    # duplicate merges are O(1)
+    seen = {}
 
     def row_str_of(row):
         return ' '.join([str(cell) for cell in row if pd.notna(cell)]).lower()
 
-    # Find the header row
-    header_row_idx = None
-    for idx in range(n_rows):
-        row_str = row_str_of(data[idx])
-        # Check for header indicators
-        has_instrument = 'name of the instrument' in row_str or 'instrument' in row_str
-        has_percent = '% to net' in row_str or '% to nav' in row_str or '% of nav' in row_str or '% to aum' in row_str or '% of aum' in row_str
-
-        if has_instrument and has_percent:
-            header_row_idx = idx
-            break
-
-    if header_row_idx is None:
-        print("  ERROR: Could not find header row")
-        return None
-
-    print(f"  Found header row at index {header_row_idx}")
-
-    # Extract column indices from header row
-    header_row = data[header_row_idx]
-    company_col_idx = None
-    percent_col_idx = None
-
-    coupon_col_idx = None
-    for i, cell in enumerate(header_row):
-        if pd.notna(cell):
-            cell_str = str(cell).lower().strip()
-            if 'name of the instrument' in cell_str or 'name of instrument' in cell_str:
-                if company_col_idx is None:
-                    company_col_idx = i
-            elif '% to net' in cell_str or '% to nav' in cell_str or '% to aum' in cell_str or '% of aum' in cell_str:
-                if percent_col_idx is None:
-                    percent_col_idx = i
-            elif 'coupon' in cell_str:
-                coupon_col_idx = i
-
-    if company_col_idx is None or percent_col_idx is None:
-        print(f"  ERROR: Could not find columns (company={company_col_idx}, percent={percent_col_idx})")
-        return None
-
-    print(f"  Company column: {company_col_idx}, Percent column: {percent_col_idx}, Coupon column: {coupon_col_idx}")
-
-    # Detect percentage format by checking first 10 valid values
-    # If all are < 1, it's decimal format (0.06274 = 6.274%)
-    # If any are >= 1, it's already percentage format (6.44 = 6.44%)
-    sample_values = []
-    for idx in range(header_row_idx + 1, min(header_row_idx + 30, n_rows)):
-        row = data[idx]
-        percent = row[percent_col_idx] if percent_col_idx < len(row) else None
-        if pd.notna(percent):
-            try:
-                val = float(percent)
-                if val > 0:
-                    sample_values.append(val)
-                    if len(sample_values) >= 10:
-                        break
-            except (ValueError, TypeError):
-                pass
-
-    # Determine if we need to multiply by 100
-    needs_conversion = all(v < 1 for v in sample_values) if sample_values else False
-    print(f"  Format detection: {'Decimal (needs *100)' if needs_conversion else 'Percentage (no conversion)'}")
-
-    # Extract data starting after header row, across ALL portfolio sections
-    # (equity, derivatives, debt, money market, fixed deposits, others) so the
-    # JSON mirrors every numbered factsheet entry — T-bills, TREPS, futures
-    # shorts, net receivables, etc.
-    # seen maps (instrument_type, normalized_lower) -> holding dict so
-    # duplicate merges are O(1)
-    seen = {}
+    # Extract data across ALL portfolio sections (equity, derivatives, debt,
+    # money market, fixed deposits, others) so the JSON mirrors every numbered
+    # factsheet entry — T-bills, TREPS, futures shorts, net receivables, etc.
+    # Some AMCs (PPFAS, Canara) disclose derivative positions in a second
+    # "Name of the Instrument" table AFTER the grand total, so the scan
+    # resumes looking for further headers instead of stopping at the first
+    # table's end.
+    needs_conversion = None  # detected once per sheet, shared by all tables
+    found_any_header = False
+    scan_from = 0
     section = "equity"
     subsection = None
 
-    for idx in range(header_row_idx + 1, n_rows):
-        row = data[idx]
-        row_str = row_str_of(row)
-
-        company = row[company_col_idx] if company_col_idx < len(row) else None
-        percent = row[percent_col_idx] if percent_col_idx < len(row) else None
-
-        pct_val = None
-        if pd.notna(percent):
-            try:
-                pct_str = str(percent).replace('%', '').strip() if isinstance(percent, str) else percent
-                pct_val = float(pct_str)
-            except (ValueError, TypeError):
-                pct_val = None
-
-        if pct_val is None:
-            # Non-entry row: a section header, a stop marker, or noise.
-            sec = classify_section(row_str)
-            if sec == "end":
+    while True:
+        # Scan forward to the next table header, carrying section context
+        # from labels between tables (e.g. a bare "DERIVATIVES" line above
+        # an annex header sets the type for that table's entries).
+        header_row_idx = None
+        for i in range(scan_from, n_rows):
+            row_str = row_str_of(data[i])
+            has_instrument = 'name of the instrument' in row_str or 'instrument' in row_str
+            has_percent = '% to net' in row_str or '% to nav' in row_str or '% of nav' in row_str or '% to aum' in row_str or '% of aum' in row_str
+            if has_instrument and has_percent:
+                header_row_idx = i
                 break
-            # Inside OTHERS, sub-labels like "Margin amount for Derivative
-            # positions" or "Term Deposits Placed as Margins" must not flip
-            # the section back out — but "EQUITY & EQUITY RELATED" still can,
-            # since some sheets (Motilal) list repo items before equity.
-            if sec and (section != "others" or sec in ("equity", "reit_invit")):
+            sec = classify_section(row_str)
+            # Between tables the "stay inside OTHERS" guard doesn't apply —
+            # each annex is a fresh context, so any section label wins.
+            if sec and sec != "end":
                 section = sec
                 subsection = None
-            # Track the current instrument family from sub-headers
-            # ("Certificate Of Deposit (CD)", "Treasury Bills", ...)
             sub = classify_subtype(row_str)
             if sub:
                 subsection = sub
-            continue
-        elif re.search(r"grand\s*total|net\s*assets", row_str):
+
+        if header_row_idx is None:
             break
+        found_any_header = True
+        print(f"  Found header row at index {header_row_idx}")
 
-        if pd.isna(company):
-            continue
-        company = str(company).strip()
-        if len(company) < 3:
+        # Extract column indices from header row
+        header_row = data[header_row_idx]
+        company_col_idx = None
+        percent_col_idx = None
+
+        coupon_col_idx = None
+        for i, cell in enumerate(header_row):
+            if pd.notna(cell):
+                cell_str = str(cell).lower().strip()
+                if 'name of the instrument' in cell_str or 'name of instrument' in cell_str:
+                    if company_col_idx is None:
+                        company_col_idx = i
+                elif '% to net' in cell_str or '% to nav' in cell_str or '% to aum' in cell_str or '% of aum' in cell_str:
+                    if percent_col_idx is None:
+                        percent_col_idx = i
+                elif 'coupon' in cell_str:
+                    coupon_col_idx = i
+
+        if company_col_idx is None or percent_col_idx is None:
+            # Header-like row without the expected columns (e.g. a notes row
+            # that merely mentions "instruments ... % to NAV") — skip it.
+            scan_from = header_row_idx + 1
             continue
 
-        # A pure-number name is a misaligned code column, not an instrument
-        try:
-            float(company)
-            continue
-        except ValueError:
-            pass
+        print(f"  Company column: {company_col_idx}, Percent column: {percent_col_idx}, Coupon column: {coupon_col_idx}")
 
-        # Count other numeric cells (quantity / market value / YTM ...) —
-        # distinguishes real line items from header labels
-        other_numeric = 0
-        for ci, cell in enumerate(row):
-            if ci in (company_col_idx, percent_col_idx) or pd.isna(cell):
+        # Detect percentage format once, from the first parseable table:
+        # annex tables (e.g. all-short derivative books) can have no positive
+        # values to sample, and the format is consistent within a sheet.
+        # If all are < 1, it's decimal format (0.06274 = 6.274%)
+        # If any are >= 1, it's already percentage format (6.44 = 6.44%)
+        if needs_conversion is None:
+            sample_values = []
+            for idx in range(header_row_idx + 1, min(header_row_idx + 30, n_rows)):
+                row = data[idx]
+                percent = row[percent_col_idx] if percent_col_idx < len(row) else None
+                if pd.notna(percent):
+                    try:
+                        val = float(percent)
+                        if val > 0:
+                            sample_values.append(val)
+                            if len(sample_values) >= 10:
+                                break
+                    except (ValueError, TypeError):
+                        pass
+
+            needs_conversion = all(v < 1 for v in sample_values) if sample_values else False
+            print(f"  Format detection: {'Decimal (needs *100)' if needs_conversion else 'Percentage (no conversion)'}")
+
+        idx = header_row_idx + 1
+
+        while idx < n_rows:
+            row = data[idx]
+            row_str = row_str_of(row)
+
+            company = row[company_col_idx] if company_col_idx < len(row) else None
+            percent = row[percent_col_idx] if percent_col_idx < len(row) else None
+
+            pct_val = None
+            if pd.notna(percent):
+                try:
+                    # "$0.00%"/"1,234.5%" style strings clean to a plain float
+                    pct_str = str(percent).replace('%', '').replace('$', '').replace(',', '').strip() if isinstance(percent, str) else percent
+                    pct_val = float(pct_str)
+                except (ValueError, TypeError):
+                    pct_val = None
+
+            if pct_val is None:
+                # Non-entry row: a section header, a stop marker, or noise.
+                sec = classify_section(row_str)
+                if sec == "end":
+                    break
+                # Inside OTHERS, sub-labels like "Margin amount for Derivative
+                # positions" or "Term Deposits Placed as Margins" must not flip
+                # the section back out — but "EQUITY & EQUITY RELATED" still can,
+                # since some sheets (Motilal) list repo items before equity.
+                if sec and (section != "others" or sec in ("equity", "reit_invit")):
+                    section = sec
+                    subsection = None
+                # Track the current instrument family from sub-headers
+                # ("Certificate Of Deposit (CD)", "Treasury Bills", ...)
+                sub = classify_subtype(row_str)
+                if sub:
+                    subsection = sub
+                idx += 1
                 continue
+            elif re.search(r"grand\s*total|net\s*assets", row_str):
+                break
+
+            if pd.isna(company):
+                idx += 1
+                continue
+            company = str(company).strip()
+            if len(company) < 3:
+                idx += 1
+                continue
+
+            # A pure-number name is a misaligned code column, not an instrument
             try:
-                float(cell)
-                other_numeric += 1
-            except (ValueError, TypeError):
+                float(company)
+                idx += 1
+                continue
+            except ValueError:
                 pass
 
-        # "Total"/"Sub Total"-family labels are always noise, even when they
-        # carry the section's summed % value.
-        if _NOISE_NAME.match(company):
-            continue
-        # Broader sub-header labels ("Net Current Assets", "Treasury Bills",
-        # ...) are noise only when the row carries no other numbers — the same
-        # words can be a genuine line item elsewhere (e.g. TrustMF).
-        if other_numeric == 0:
-            canonical = _ENUM_PREFIX.sub("", company.lower()).strip(" :-–—")
-            if canonical in SUBHEADER_NAMES:
-                continue
-
-        # Apply conversion based on detected format
-        if needs_conversion:
-            pct_val = pct_val * 100
-
-        # Sanity bound; negatives are legitimate (futures shorts, payables)
-        if abs(pct_val) >= 100:
-            continue
-
-        # 0% rows count only when the row carries other numeric data
-        # (quantity / market value) — e.g. residual positions like
-        # "Endurance Technologies Ltd | 1086 | 31.18 | 0"
-        if pct_val == 0 and other_numeric == 0:
-            continue
-
-        # Resolve the instrument type: the entry's own name wins, then the
-        # current sub-header ("Certificate Of Deposit"), then the section.
-        instrument_type = (
-            name_based_type(company) or subsection or section
-        )
-
-        # Debt/money-market names keep identifying parentheticals such as
-        # "(04/09/2026)" maturity or "(Tier 2 - Basel III)" tranche tags.
-        keep_parens = instrument_type != "equity"
-        normalized_name = normalize_company_name(
-            company, keep_parentheticals=keep_parens)
-        if not normalized_name:
-            continue
-
-        # Give issuer-only names a meaningful label: prepend the coupon when
-        # the sheet provides one and the name doesn't already carry a rate —
-        # "HDFC Bank Ltd." (a 9.05% NCD) reads like the equity otherwise.
-        if (instrument_type != "equity" and coupon_col_idx is not None
-                and not re.match(r"^\d+(?:\.\d+)?%", normalized_name)):
-            coupon = (row[coupon_col_idx]
-                      if coupon_col_idx < len(row) else None)
-            if pd.notna(coupon):
+            # Count other numeric cells (quantity / market value / YTM ...) —
+            # distinguishes real line items from header labels
+            other_numeric = 0
+            for ci, cell in enumerate(row):
+                if ci in (company_col_idx, percent_col_idx) or pd.isna(cell):
+                    continue
                 try:
-                    normalized_name = f"{float(coupon):g}% {normalized_name}"
+                    float(cell)
+                    other_numeric += 1
                 except (ValueError, TypeError):
                     pass
 
-        # Check for duplicates and merge if found (same type only)
-        key = (instrument_type, normalized_name.lower())
-        existing = seen.get(key)
-        if existing is not None:
-            existing['percentOfNAV'] = round(existing['percentOfNAV'] + pct_val, 2)
-            continue
+            # "Total"/"Sub Total"-family labels are always noise, even when they
+            # carry the section's summed % value.
+            if _NOISE_NAME.match(company):
+                idx += 1
+                continue
+            # Broader sub-header labels ("Net Current Assets", "Treasury Bills",
+            # ...) are noise only when the row carries no other numbers — the same
+            # words can be a genuine line item elsewhere (e.g. TrustMF).
+            if other_numeric == 0:
+                canonical = _ENUM_PREFIX.sub("", company.lower()).strip(" :-–—")
+                if canonical in SUBHEADER_NAMES:
+                    idx += 1
+                    continue
 
-        holding = {
-            "company": normalized_name,
-            "instrumentType": instrument_type,
-            "percentOfNAV": round(pct_val, 2),
-            "shares": None,
-            "value": None
-        }
-        seen[key] = holding
-        holdings.append(holding)
+            # Apply conversion based on detected format
+            if needs_conversion:
+                pct_val = pct_val * 100
 
-        # Debug: Print first few holdings
-        if len(holdings) <= 3:
-            print(f"    DEBUG: Added {normalized_name} [{instrument_type}]: {round(pct_val, 2)}%")
+            # Sanity bound; negatives are legitimate (futures shorts, payables)
+            if abs(pct_val) >= 100:
+                idx += 1
+                continue
+
+            # 0% rows count only when the row carries other numeric data
+            # (quantity / market value) — e.g. residual positions like
+            # "Endurance Technologies Ltd | 1086 | 31.18 | 0"
+            if pct_val == 0 and other_numeric == 0:
+                idx += 1
+                continue
+
+            # Resolve the instrument type: the entry's own name wins, then the
+            # current sub-header ("Certificate Of Deposit"), then the section.
+            instrument_type = (
+                name_based_type(company) or subsection or section
+            )
+
+            # Debt/money-market names keep identifying parentheticals such as
+            # "(04/09/2026)" maturity or "(Tier 2 - Basel III)" tranche tags.
+            keep_parens = instrument_type != "equity"
+            normalized_name = normalize_company_name(
+                company, keep_parentheticals=keep_parens)
+            if not normalized_name:
+                idx += 1
+                continue
+
+            # Give issuer-only names a meaningful label: prepend the coupon when
+            # the sheet provides one and the name doesn't already carry a rate —
+            # "HDFC Bank Ltd." (a 9.05% NCD) reads like the equity otherwise.
+            if (instrument_type != "equity" and coupon_col_idx is not None
+                    and not re.match(r"^\d+(?:\.\d+)?%", normalized_name)):
+                coupon = (row[coupon_col_idx]
+                          if coupon_col_idx < len(row) else None)
+                if pd.notna(coupon):
+                    try:
+                        normalized_name = f"{float(coupon):g}% {normalized_name}"
+                    except (ValueError, TypeError):
+                        pass
+
+            # Check for duplicates and merge if found (same type only)
+            key = (instrument_type, normalized_name.lower())
+            existing = seen.get(key)
+            if existing is not None:
+                existing['percentOfNAV'] = round(existing['percentOfNAV'] + pct_val, 2)
+                idx += 1
+                continue
+
+            holding = {
+                "company": normalized_name,
+                "instrumentType": instrument_type,
+                "percentOfNAV": round(pct_val, 2),
+                "shares": None,
+                "value": None
+            }
+            seen[key] = holding
+            holdings.append(holding)
+
+            # Debug: Print first few holdings
+            if len(holdings) <= 3:
+                print(f"    DEBUG: Added {normalized_name} [{instrument_type}]: {round(pct_val, 2)}%")
+
+            idx += 1
+
+        # Resume the scan where this table ended — a further annex table may
+        # follow; the header search exits when the sheet is exhausted.
+        scan_from = idx + 1
+
+    if not found_any_header:
+        print("  ERROR: Could not find header row")
+        return None
 
     return holdings if len(holdings) >= 5 else None
 

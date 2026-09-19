@@ -87,4 +87,11 @@ FUNDS = {
         "excel_folder": "excel-data/old-bridge-focused",
         "data_folder": "data",
     },
+    "ppfas_flexi_cap": {
+        "name": "Parag Parikh Flexi Cap Fund",
+        "display_name": "PPFAS Flexi Cap",
+        "normalized_name": "PPFASFlexiCapFund",
+        "excel_folder": "excel-data/ppfas-flexi-cap",
+        "data_folder": "data",
+    },
 }

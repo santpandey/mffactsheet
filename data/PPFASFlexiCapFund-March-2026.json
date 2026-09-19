@@ -1,0 +1,888 @@
+{
+  "fundName": "Parag Parikh Flexi Cap Fund",
+  "month": "March",
+  "year": 2026,
+  "extractedAt": "2026-09-19T14:12:20.511243",
+  "holdingsCount": 124,
+  "sectionCounts": {
+    "equity": 43,
+    "treps": 2,
+    "reit_invit": 3,
+    "mutual_fund_units": 1,
+    "net_receivable": 1,
+    "certificate_of_deposit": 51,
+    "commercial_paper": 13,
+    "treasury_bill": 4,
+    "futures": 6
+  },
+  "holdings": [
+    {
+      "company": "HDFC Bank Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 7.96,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Power Grid Corporation of India Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 7.16,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Coal India Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 6.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Bank Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 5.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ITC Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 5.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "TRP_020426",
+      "instrumentType": "treps",
+      "percentOfNAV": 4.55,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Holdings & Investment Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Mahindra Bank Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Alphabet Inc A",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mahindra & Mahindra Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HCL Technologies Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Axis Bank Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharti Airtel Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.93,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Maruti Suzuki India Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.9,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Infosys Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.61,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Embassy Office Parks REIT",
+      "instrumentType": "reit_invit",
+      "percentOfNAV": 2.6,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Meta Platforms Registered Shares A",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Consultancy Services Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.27,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Amazon Com Inc",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Microsoft Corp",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dr. Reddy's Laboratories Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.34,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Zydus Lifesciences Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.27,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Cipla Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Brookfield India Real Estate Trust",
+      "instrumentType": "reit_invit",
+      "percentOfNAV": 1.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Parag Parikh Liquid Fund- Direct Plan- Growth",
+      "instrumentType": "mutual_fund_units",
+      "percentOfNAV": 1.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Zydus Wellness Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.73,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Energy Exchange Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.72,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Net Receivables / (Payables)",
+      "instrumentType": "net_receivable",
+      "percentOfNAV": 0.56,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Mahindra Bank Limited (24/09/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Axis Bank Limited (11/08/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.49,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bank of Baroda (16/09/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.47,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Canara Bank (12/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.46,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "EID Parry India Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.44,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Union Bank of India (25/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.42,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Limited (10/09/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.38,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Balkrishna Industries Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Bank For Agriculture and Rural Development (18/09/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Mahindra Bank Limited (18/12/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Small Industries Dev Bank of India (05/05/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Bank For Agriculture and Rural Development (25/06/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.34,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Canara Bank (18/12/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.33,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Limited (24/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.3,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Canara Bank (11/11/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.3,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Union Bank of India (12/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.27,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "364 Days Tbill (MD 15/10/2026)",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Narayana Hrudayalaya Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Bank (12/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bank of Baroda (23/07/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.25,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "The Great Eastern Shipping Company Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.24,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Axis Bank Limited (11/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.23,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Bank (28/07/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.23,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finance Limited (18/06/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.23,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Small Industries Dev Bank of India (24/09/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Small Industries Dev Bank of India (13/10/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Bank (30/10/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Bank (22/01/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Reliance Industries Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.21,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Central Depository Services (India) Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.2,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bank of Baroda (16/10/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.19,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Bank For Agriculture and Rural Development (19/01/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.18,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Punjab National Bank (05/02/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.18,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Bank For Agriculture and Rural Development (14/01/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.17,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Bank (06/05/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Limited (12/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Punjab National Bank (15/12/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bank of Baroda (15/12/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Mahindra Bank Limited (08/01/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Bank Limited (27/01/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finance Limited (06/05/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finance Limited (26/05/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "364 Days Tbill (MD 15/01/2027)",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.15,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "CMS Info System Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.14,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Axis Bank Limited (25/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bank of Baroda (25/11/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Small Industries Dev Bank of India (16/12/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Union Bank of India (23/04/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.12,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICRA Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Bank (03/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indian Bank (05/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Small Industries Dev Bank of India (09/07/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Bank For Agriculture and Rural Development (22/01/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Bank For Agriculture and Rural Development (28/01/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.11,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Limited (19/05/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.1,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Securities Limited (15/06/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.1,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Titan Company Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bank of Baroda (25/05/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Canara Bank (15/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Axis Bank Limited (10/08/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finance Limited (07/05/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Securities Limited (12/05/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Securities Limited (15/05/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Export Import Bank of India (27/05/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Small Industries Dev Bank of India (05/06/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "364 Days Tbill (MD 30/07/2026)",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "364 Days Tbill (MD 16/04/2026)",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Maharashtra Scooters Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sun Pharmaceutical Industries Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Limited (21/09/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Small Industries Dev Bank of India (10/11/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Limited (13/11/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Bank Limited (22/01/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Securities Limited (07/05/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.06,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bank of Baroda (04/06/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Axis Bank Limited (27/11/2026)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Bank For Agriculture and Rural Development (04/02/2027)",
+      "instrumentType": "certificate_of_deposit",
+      "percentOfNAV": 0.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bajaj Finance Limited (29/04/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Kotak Securities Limited (04/06/2026)",
+      "instrumentType": "commercial_paper",
+      "percentOfNAV": 0.04,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hindalco Industries Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mindspace Business Parks REIT",
+      "instrumentType": "reit_invit",
+      "percentOfNAV": 0.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "REP5_300326",
+      "instrumentType": "treps",
+      "percentOfNAV": 0.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indus Towers Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "CIE Automotive India Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Swaraj Engines Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Nesco Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indraprastha Gas Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "IndusInd Bank Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Mahanagar Gas Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharat Electronics Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharat Electronics Limited April 2026 Future",
+      "instrumentType": "futures",
+      "percentOfNAV": 0.0,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "IndusInd Bank Limited April 2026 Future",
+      "instrumentType": "futures",
+      "percentOfNAV": -0.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Hindalco Industries Limited April 2026 Future",
+      "instrumentType": "futures",
+      "percentOfNAV": -0.03,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Sun Pharmaceutical Industries Limited April 2026 Future",
+      "instrumentType": "futures",
+      "percentOfNAV": -0.07,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Titan Company Limited April 2026 Future",
+      "instrumentType": "futures",
+      "percentOfNAV": -0.08,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Reliance Industries Limited April 2026 Future",
+      "instrumentType": "futures",
+      "percentOfNAV": -0.21,
+      "shares": null,
+      "value": null
+    }
+  ]
+}
