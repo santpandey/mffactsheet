@@ -70,6 +70,8 @@ const MONTHS_ORDER = [
   "December",
 ];
 
+const MONTH_INDEX = new Map(MONTHS_ORDER.map((m, i) => [m, i]));
+
 let currentFund = "CanaraRobecoLargeAndMidCapFund";
 let allData = {};
 let currentData = null;
@@ -79,6 +81,11 @@ let allocationChart = null;
 let pieChart = null;
 let deltaChart = null;
 let availableMonths = [];
+
+// Memoized element lookup — hot paths (renderTable runs per keystroke)
+// shouldn't pay for repeated getElementById calls.
+const _els = {};
+const $ = (id) => (_els[id] ??= document.getElementById(id));
 
 async function loadAvailableMonths() {
   const available = {};
@@ -165,10 +172,10 @@ async function loadAvailableMonths() {
   );
 
   for (const fundKey of Object.keys(available)) {
-    available[fundKey].sort((a, b) => {
-      if (a.year !== b.year) return a.year - b.year;
-      return MONTHS_ORDER.indexOf(a.month) - MONTHS_ORDER.indexOf(b.month);
-    });
+    available[fundKey].sort(
+      (a, b) =>
+        a.year - b.year || MONTH_INDEX.get(a.month) - MONTH_INDEX.get(b.month),
+    );
   }
 
   return available;
@@ -212,15 +219,13 @@ function populateDropdowns(available) {
     compareSelect.appendChild(separator);
   }
 
-  fundMonths.forEach((item) => {
+  for (const item of fundMonths) {
     const option = document.createElement("option");
     option.value = item.key;
     option.textContent = `${item.month} ${item.year}`;
     monthSelect.appendChild(option);
-
-    const compareOption = option.cloneNode(true);
-    compareSelect.appendChild(compareOption);
-  });
+    compareSelect.appendChild(option.cloneNode(true));
+  }
 
   if (fundMonths.length > 0) {
     monthSelect.value = fundMonths[fundMonths.length - 1].key;
@@ -230,8 +235,7 @@ function populateDropdowns(available) {
 const _numberFmt = new Intl.NumberFormat("en-IN");
 
 function formatNumber(num) {
-  if (num === null || num === undefined) return "-";
-  return _numberFmt.format(Math.round(num));
+  return num == null ? "-" : _numberFmt.format(Math.round(num));
 }
 
 const TYPE_LABELS = {
@@ -262,63 +266,62 @@ const TYPE_LABELS = {
 };
 
 function typeBadge(instrumentType) {
-  const t = instrumentType || "equity";
-  if (t === "equity") return "";
-  return ` <span class="type-badge">${TYPE_LABELS[t] || t}</span>`;
+  const t = instrumentType ?? "equity";
+  return t === "equity"
+    ? ""
+    : ` <span class="type-badge">${TYPE_LABELS[t] || t}</span>`;
 }
 
+const truncate = (s, n) => (s.length > n ? `${s.slice(0, n)}...` : s);
+
 function formatPercent(num) {
-  if (num === null || num === undefined) return "-";
-  return num.toFixed(2) + "%";
+  return num == null ? "-" : `${num.toFixed(2)}%`;
 }
 
 function formatDelta(num) {
-  if (num === null || num === undefined) return "-";
-  const sign = num >= 0 ? "+" : "";
-  return sign + num.toFixed(2) + "%";
+  return num == null ? "-" : `${num >= 0 ? "+" : ""}${num.toFixed(2)}%`;
 }
 
 function updateStats(data) {
-  document.getElementById("totalHoldings").textContent = data.holdings.length;
+  $("totalHoldings").textContent = data.holdings.length;
 
   if (data.holdings.length > 0) {
     const top = data.holdings[0];
-    document.getElementById("topHolding").textContent =
-      `${top.company.substring(0, 20)}${top.company.length > 20 ? "..." : ""} (${formatPercent(top.percentOfNAV)})`;
+    $("topHolding").textContent =
+      `${truncate(top.company, 20)} (${formatPercent(top.percentOfNAV)})`;
 
     const top10Sum = data.holdings
       .slice(0, 10)
       .reduce((sum, h) => sum + (h.percentOfNAV || 0), 0);
-    document.getElementById("top10Concentration").textContent =
-      formatPercent(top10Sum);
+    $("top10Concentration").textContent = formatPercent(top10Sum);
   }
 
   // Update fund name display
-  document.getElementById("currentFundName").textContent =
-    FUNDS[currentFund].name;
+  $("currentFundName").textContent = FUNDS[currentFund].name;
 }
 
+const BASE_COLORS = [
+  "#2563eb",
+  "#10b981",
+  "#f59e0b",
+  "#ef4444",
+  "#8b5cf6",
+  "#ec4899",
+  "#06b6d4",
+  "#84cc16",
+  "#f97316",
+  "#6366f1",
+  "#14b8a6",
+  "#a855f7",
+  "#eab308",
+  "#22c55e",
+  "#3b82f6",
+];
+
 function getChartColors(count) {
-  const baseColors = [
-    "#2563eb",
-    "#10b981",
-    "#f59e0b",
-    "#ef4444",
-    "#8b5cf6",
-    "#ec4899",
-    "#06b6d4",
-    "#84cc16",
-    "#f97316",
-    "#6366f1",
-    "#14b8a6",
-    "#a855f7",
-    "#eab308",
-    "#22c55e",
-    "#3b82f6",
-  ];
   return Array.from(
     { length: count },
-    (_, i) => baseColors[i % baseColors.length],
+    (_, i) => BASE_COLORS[i % BASE_COLORS.length],
   );
 }
 
@@ -327,9 +330,7 @@ function renderAllocationChart(data) {
   if (allocationChart) allocationChart.destroy();
 
   const top15 = data.holdings.slice(0, 15);
-  const labels = top15.map((h) =>
-    h.company.length > 25 ? h.company.substring(0, 25) + "..." : h.company,
-  );
+  const labels = top15.map((h) => truncate(h.company, 25));
   const values = top15.map((h) => h.percentOfNAV || 0);
 
   allocationChart = new Chart(ctx, {
@@ -371,9 +372,7 @@ function renderPieChart(data) {
     .slice(10)
     .reduce((sum, h) => sum + (h.percentOfNAV || 0), 0);
 
-  const labels = top10.map((h) =>
-    h.company.length > 20 ? h.company.substring(0, 20) + "..." : h.company,
-  );
+  const labels = top10.map((h) => truncate(h.company, 20));
   const values = top10.map((h) => h.percentOfNAV || 0);
 
   if (othersSum > 0) {
@@ -413,55 +412,45 @@ function renderPieChart(data) {
 }
 
 function calculateDelta(current, previous) {
-  const currentMap = new Map();
-  const previousMap = new Map();
+  const byCompany = (list) =>
+    new Map(list.map((h) => [h.company.toLowerCase(), h]));
+  const currentMap = byCompany(current.holdings);
+  const previousMap = byCompany(previous.holdings);
 
-  current.holdings.forEach((h) => currentMap.set(h.company.toLowerCase(), h));
-  previous.holdings.forEach((h) => previousMap.set(h.company.toLowerCase(), h));
+  const entry = (h, currentNAV, previousNAV, status) => ({
+    company: h.company,
+    instrumentType: h.instrumentType ?? "equity",
+    currentNAV,
+    previousNAV,
+    navDelta: currentNAV - previousNAV,
+    status,
+  });
 
   const delta = { added: [], removed: [], changed: [], all: [] };
 
-  currentMap.forEach((holding, key) => {
+  for (const [key, h] of currentMap) {
+    const cur = h.percentOfNAV ?? 0;
     const prev = previousMap.get(key);
     if (!prev) {
-      delta.added.push({
-        company: holding.company,
-        instrumentType: holding.instrumentType || "equity",
-        currentNAV: holding.percentOfNAV,
-        previousNAV: 0,
-        navDelta: holding.percentOfNAV || 0,
-        status: "new",
-      });
+      delta.added.push(entry(h, cur, 0, "new"));
     } else {
-      const navDelta = (holding.percentOfNAV || 0) - (prev.percentOfNAV || 0);
-      delta.changed.push({
-        company: holding.company,
-        instrumentType: holding.instrumentType || "equity",
-        currentNAV: holding.percentOfNAV,
-        previousNAV: prev.percentOfNAV,
-        navDelta: navDelta,
-        status:
-          navDelta > 0 ? "increased" : navDelta < 0 ? "decreased" : "unchanged",
-      });
+      const prevNAV = prev.percentOfNAV ?? 0;
+      const navDelta = cur - prevNAV;
+      const status =
+        navDelta > 0 ? "increased" : navDelta < 0 ? "decreased" : "unchanged";
+      delta.changed.push(entry(h, cur, prevNAV, status));
     }
-  });
+  }
 
-  previousMap.forEach((holding, key) => {
+  for (const [key, h] of previousMap) {
     if (!currentMap.has(key)) {
-      delta.removed.push({
-        company: holding.company,
-        instrumentType: holding.instrumentType || "equity",
-        currentNAV: 0,
-        previousNAV: holding.percentOfNAV,
-        navDelta: -(holding.percentOfNAV || 0),
-        status: "exited",
-      });
+      delta.removed.push(entry(h, 0, h.percentOfNAV ?? 0, "exited"));
     }
-  });
+  }
 
-  delta.all = [...delta.added, ...delta.changed, ...delta.removed];
-  delta.all.sort((a, b) => Math.abs(b.navDelta) - Math.abs(a.navDelta));
-
+  delta.all = [...delta.added, ...delta.changed, ...delta.removed].sort(
+    (a, b) => Math.abs(b.navDelta) - Math.abs(a.navDelta),
+  );
   return delta;
 }
 
@@ -470,9 +459,7 @@ function renderDeltaChart(delta) {
   if (deltaChart) deltaChart.destroy();
 
   const top20 = delta.all.slice(0, 20);
-  const labels = top20.map((d) =>
-    d.company.length > 30 ? d.company.substring(0, 30) + "..." : d.company,
-  );
+  const labels = top20.map((d) => truncate(d.company, 30));
   const values = top20.map((d) => d.navDelta);
   const colors = values.map((v) => (v >= 0 ? "#10b981" : "#ef4444"));
 
@@ -515,7 +502,7 @@ function renderDeltaChart(delta) {
 function formatMonthKey(key) {
   if (!key || key === "compare-all") return "";
   const [month, year] = key.split("-");
-  return `${month.substring(0, 3)} ${year}`;
+  return `${month.slice(0, 3)} ${year}`;
 }
 
 function renderTable(
@@ -524,44 +511,29 @@ function renderTable(
   currentMonthKey = "",
   previousMonthKey = "",
 ) {
-  const headerCurrent = document.getElementById("headerCurrent");
-  const headerPrevious = document.getElementById("headerPrevious");
-
   const currentLabel = formatMonthKey(currentMonthKey);
   const prevLabel = formatMonthKey(previousMonthKey);
 
-  if (headerCurrent) {
-    headerCurrent.textContent = currentLabel
-      ? `Current % (${currentLabel})`
-      : "Current %";
-  }
-  if (headerPrevious) {
-    headerPrevious.textContent = prevLabel
-      ? `Previous % (${prevLabel})`
-      : "Previous %";
-  }
+  $("headerCurrent").textContent = currentLabel
+    ? `Current % (${currentLabel})`
+    : "Current %";
+  $("headerPrevious").textContent = prevLabel
+    ? `Previous % (${prevLabel})`
+    : "Previous %";
 
-  const tbody = document.getElementById("holdingsBody");
+  const tbody = $("holdingsBody");
 
-  let items = [];
-  switch (filter) {
-    case "added":
-      items = [...delta.added];
-      break;
-    case "removed":
-      items = [...delta.removed];
-      break;
-    case "changed":
-      items = [...delta.changed];
-      break;
-    default:
-      items = [...delta.all];
-  }
+  // filter value -> delta bucket; "all" falls through to delta.all
+  const FILTER_LISTS = {
+    added: delta.added,
+    removed: delta.removed,
+    changed: delta.changed,
+  };
+  let items = [...(FILTER_LISTS[filter] ?? delta.all)];
 
   // Rebuild the instrument-type filter from whatever this delta contains,
   // preserving the user's current selection when possible
-  const typeSelect = document.getElementById("typeSelect");
-  let typeFilter = "all";
+  const typeSelect = $("typeSelect");
   if (typeSelect) {
     const prevVal = typeSelect.value || "all";
     const types = [
@@ -573,58 +545,38 @@ function renderTable(
         .map((t) => `<option value="${t}">${TYPE_LABELS[t] || t}</option>`)
         .join("");
     typeSelect.value = types.includes(prevVal) ? prevVal : "all";
-    typeFilter = typeSelect.value;
-  }
-  if (typeFilter !== "all") {
-    items = items.filter(
-      (h) => (h.instrumentType || "equity") === typeFilter,
-    );
+    if (typeSelect.value !== "all") {
+      items = items.filter(
+        (h) => (h.instrumentType || "equity") === typeSelect.value,
+      );
+    }
   }
 
-  const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+  const searchTerm = $("searchInput").value.toLowerCase();
   if (searchTerm) {
     items = items.filter((h) => h.company.toLowerCase().includes(searchTerm));
   }
 
-  const sortValue = document.getElementById("sortSelect").value;
-  switch (sortValue) {
-    case "nav-desc":
-      items.sort((a, b) => (b.currentNAV || 0) - (a.currentNAV || 0));
-      break;
-    case "nav-asc":
-      items.sort((a, b) => (a.currentNAV || 0) - (b.currentNAV || 0));
-      break;
-    case "delta-desc":
-      items.sort((a, b) => (b.navDelta || 0) - (a.navDelta || 0));
-      break;
-    case "delta-asc":
-      items.sort((a, b) => (a.navDelta || 0) - (b.navDelta || 0));
-      break;
-    case "name-asc":
-      items.sort((a, b) => a.company.localeCompare(b.company));
-      break;
-  }
+  const HOLDING_SORTERS = {
+    "nav-desc": (a, b) => (b.currentNAV || 0) - (a.currentNAV || 0),
+    "nav-asc": (a, b) => (a.currentNAV || 0) - (b.currentNAV || 0),
+    "delta-desc": (a, b) => (b.navDelta || 0) - (a.navDelta || 0),
+    "delta-asc": (a, b) => (a.navDelta || 0) - (b.navDelta || 0),
+    "name-asc": (a, b) => a.company.localeCompare(b.company),
+  };
+  items.sort(HOLDING_SORTERS[$("sortSelect").value] ?? HOLDING_SORTERS["nav-desc"]);
+
+  const STATUS_CLASSES = {
+    new: ["delta-new", "NEW"],
+    exited: ["delta-exited", "EXITED"],
+  };
 
   tbody.innerHTML = items
     .map((h, i) => {
-      let statusClass = "";
-      let statusText = "";
-
-      if (h.status === "new") {
-        statusClass = "delta-new";
-        statusText = "NEW";
-      } else if (h.status === "exited") {
-        statusClass = "delta-exited";
-        statusText = "EXITED";
-      } else if (h.navDelta > 0) {
-        statusClass = "delta-positive";
-        statusText = "INCREASED";
-      } else if (h.navDelta < 0) {
-        statusClass = "delta-negative";
-        statusText = "DECREASED";
-      } else {
-        statusText = "NO CHANGE";
-      }
+      const [statusClass, statusText] = STATUS_CLASSES[h.status] ?? [
+        h.navDelta > 0 ? "delta-positive" : h.navDelta < 0 ? "delta-negative" : "",
+        h.navDelta > 0 ? "INCREASED" : h.navDelta < 0 ? "DECREASED" : "NO CHANGE",
+      ];
 
       const changeClass = h.navDelta >= 0 ? "delta-positive" : "delta-negative";
 
@@ -1249,17 +1201,27 @@ function _renderInvestTable() {
   document.getElementById("minInvestTbody").innerHTML = rowsHtml;
 }
 
+/** Runs `fn` while `btn` shows a busy label, then restores it. */
+async function _withButton(btn, busyText, fn) {
+  const orig = btn.textContent;
+  btn.textContent = busyText;
+  btn.disabled = true;
+  try {
+    return await fn();
+  } finally {
+    btn.textContent = orig;
+    btn.disabled = false;
+  }
+}
+
 async function showMinInvestment() {
   const btn = document.getElementById("showMinInvestBtn");
-  const orig = btn.textContent;
-  btn.textContent = "⏳ Fetching prices…";
-  btn.disabled = true;
-
   _lotMultiplier = 1;
-  _lastEnrichedRows = await _buildEnrichedRows();
-
-  btn.textContent = orig;
-  btn.disabled = false;
+  _lastEnrichedRows = await _withButton(
+    btn,
+    "⏳ Fetching prices…",
+    _buildEnrichedRows,
+  );
 
   if (!_lastEnrichedRows.length) return;
 
@@ -1301,12 +1263,11 @@ async function showMinInvestment() {
 }
 
 async function exportDiffCsv() {
-  const btn = document.getElementById("exportCsvBtn");
-  btn.textContent = "⏳ Fetching…";
-  btn.disabled = true;
-  const rows = await _buildEnrichedRows();
-  btn.textContent = "⬇ CSV";
-  btn.disabled = false;
+  const rows = await _withButton(
+    document.getElementById("exportCsvBtn"),
+    "⏳ Fetching…",
+    _buildEnrichedRows,
+  );
   if (!rows.length) return;
   const header =
     "Company,Ticker,Status,Change %,Rel. Weight %,Last Close (₹),Min Qty,Min Investment (₹)";
@@ -1323,12 +1284,11 @@ async function exportDiffCsv() {
 }
 
 async function exportDiffJson() {
-  const btn = document.getElementById("exportJsonBtn");
-  btn.textContent = "⏳ Fetching…";
-  btn.disabled = true;
-  const rows = await _buildEnrichedRows();
-  btn.textContent = "⬇ JSON";
-  btn.disabled = false;
+  const rows = await _withButton(
+    document.getElementById("exportJsonBtn"),
+    "⏳ Fetching…",
+    _buildEnrichedRows,
+  );
   if (!rows.length) return;
   const title = document.getElementById("deltaTitle").textContent.trim();
   const total = rows.reduce((s, r) => s + (r.min_investment ?? 0), 0);
@@ -1348,10 +1308,7 @@ async function exportDiffJson() {
 
 async function exportDiffCopy() {
   const btn = document.getElementById("exportCopyBtn");
-  btn.textContent = "⏳ Fetching…";
-  btn.disabled = true;
-  const rows = await _buildEnrichedRows();
-  btn.disabled = false;
+  const rows = await _withButton(btn, "⏳ Fetching…", _buildEnrichedRows);
   if (!rows.length) return;
   const header =
     "Company\tTicker\tStatus\tChange %\tRel. Weight %\tLast Close (₹)\tMin Qty\tMin Investment (₹)";
@@ -1444,7 +1401,7 @@ async function reloadData() {
   // Update UI
   populateFundSelector(availableMonths);
   populateDropdowns(availableMonths);
-  initFundSearch(availableMonths);
+  initFundSearch();
 
   // Display latest month for current fund
   const fundMonths = availableMonths[currentFund] || [];
@@ -1567,153 +1524,150 @@ function fundBadgeText(displayName) {
     .toUpperCase();
 }
 
-let _searchHighlightIdx = -1;
 let _fundSearchBound = false;
+let _companySearchBound = false;
 
-function initFundSearch(available) {
+/**
+ * Wire up a search modal: open/close, clear button, live filtering on input,
+ * and arrow/Enter/Esc navigation. `render(query, resultsEl)` rebuilds the
+ * result list on every keystroke; each item carries its own click handler,
+ * so Enter simply clicks the highlighted (or first) item.
+ */
+function createSearchModal(ids, render) {
+  const modal = $(ids.modal);
+  const input = $(ids.input);
+  const results = $(ids.results);
+  const clearBtn = $(ids.clear);
+  let highlightIdx = -1;
+
+  const open = () => {
+    modal.style.display = "flex";
+    input.value = "";
+    clearBtn.classList.remove("visible");
+    render("", results);
+    setTimeout(() => input.focus(), 100);
+  };
+  const close = () => {
+    modal.style.display = "none";
+    highlightIdx = -1;
+  };
+  const moveHighlight = (dir) => {
+    const items = results.querySelectorAll(".fund-search-item");
+    if (!items.length) return;
+    items.forEach((el) => el.classList.remove("highlighted"));
+    highlightIdx = Math.max(
+      0,
+      Math.min(items.length - 1, highlightIdx + dir),
+    );
+    items[highlightIdx].classList.add("highlighted");
+    items[highlightIdx].scrollIntoView({ block: "nearest" });
+  };
+
+  $(ids.openBtn).addEventListener("click", open);
+  $(ids.closeBtn).addEventListener("click", close);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) close();
+  });
+  input.addEventListener("input", () => {
+    const q = input.value.trim();
+    clearBtn.classList.toggle("visible", q.length > 0);
+    render(q, results);
+  });
+  input.addEventListener("keydown", (e) => {
+    const actions = {
+      ArrowDown: () => moveHighlight(1),
+      ArrowUp: () => moveHighlight(-1),
+      Enter: () =>
+        (
+          results.querySelector(".fund-search-item.highlighted") ??
+          results.querySelector(".fund-search-item")
+        )?.click(),
+      Escape: close,
+    };
+    if (actions[e.key]) {
+      e.preventDefault();
+      actions[e.key]();
+    }
+  });
+  clearBtn.addEventListener("click", () => {
+    input.value = "";
+    clearBtn.classList.remove("visible");
+    render("", results);
+    input.focus();
+  });
+
+  return { open, close };
+}
+
+function initFundSearch() {
   // Bind listeners once — reloadData() calls this on every sync and each
   // call used to stack duplicate listeners (incl. the document Ctrl+K handler).
   if (_fundSearchBound) return;
   _fundSearchBound = true;
-  const modal = document.getElementById("fundSearchModal");
-  const searchBtn = document.getElementById("fundSearchBtn");
-  const closeBtn = document.getElementById("fundSearchClose");
-  const input = document.getElementById("fundSearchInput");
-  const results = document.getElementById("fundSearchResults");
-  const clearBtn = document.getElementById("fundSearchClear");
-  const fundSelect = document.getElementById("fundSelect");
 
-  function openModal() {
-    modal.style.display = "flex";
-    input.value = "";
-    clearBtn.classList.remove("visible");
-    renderResults("");
-    setTimeout(() => input.focus(), 100);
-  }
-
-  function closeModal() {
-    modal.style.display = "none";
-    _searchHighlightIdx = -1;
-  }
+  const api = createSearchModal(
+    {
+      openBtn: "fundSearchBtn",
+      modal: "fundSearchModal",
+      closeBtn: "fundSearchClose",
+      input: "fundSearchInput",
+      results: "fundSearchResults",
+      clear: "fundSearchClear",
+    },
+    renderFundResults,
+  );
 
   function getResults(query) {
-    // Read the live global — `available` captured here goes stale after syncs
+    // Read the live global — an `available` captured here goes stale after syncs
     const months = availableMonths;
-    const resultList = [];
-    for (const [key, config] of Object.entries(FUNDS)) {
-      if (!months[key] || months[key].length === 0) continue;
-      const score = query ? fuzzyScore(query, config.name) : 100;
-      if (score >= 0) {
-        resultList.push({ key, config, score, months: months[key].length });
-      }
-    }
-    resultList.sort((a, b) => b.score - a.score);
-    return resultList.slice(0, 10);
+    return Object.entries(FUNDS)
+      .map(([key, config]) => ({
+        key,
+        config,
+        score: query ? fuzzyScore(query, config.name) : 100,
+        months: months[key]?.length ?? 0,
+      }))
+      .filter((r) => r.months > 0 && r.score >= 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 10);
   }
 
-  function renderResults(query) {
+  function renderFundResults(query, results) {
     const items = getResults(query);
-    _searchHighlightIdx = -1;
     results.innerHTML = "";
-
     if (items.length === 0) {
       results.innerHTML = `<div class="fund-search-no-results">No funds found for "${escapeHtml(query)}"</div>`;
       return;
     }
-
-    items.forEach(({ key, config, months }) => {
+    for (const { key, config, months } of items) {
       const item = document.createElement("div");
       item.className = "fund-search-item";
-      item.dataset.fundKey = key;
-
-      const badge = fundBadgeText(config.displayName);
       const highlighted = query
         ? highlightMatch(query, config.name)
         : escapeHtml(config.name);
-
       item.innerHTML = `
-        <div class="fund-search-badge">${escapeHtml(badge)}</div>
+        <div class="fund-search-badge">${escapeHtml(fundBadgeText(config.displayName))}</div>
         <div class="fund-search-item-info">
           <div class="fund-search-item-name">${highlighted}</div>
           <div class="fund-search-item-meta">${months} month${months !== 1 ? "s" : ""} of data available</div>
         </div>
       `;
-
-      item.addEventListener("click", () => {
-        selectFund(key);
-      });
-
+      item.addEventListener("click", () => selectFund(key));
       results.appendChild(item);
-    });
+    }
   }
 
   function selectFund(key) {
-    fundSelect.value = key;
+    $("fundSelect").value = key;
     switchFund(key);
-    closeModal();
+    api.close();
   }
-
-  function moveHighlight(dir) {
-    const items = results.querySelectorAll(".fund-search-item");
-    if (!items.length) return;
-    items.forEach((el) => el.classList.remove("highlighted"));
-    _searchHighlightIdx = Math.max(
-      0,
-      Math.min(items.length - 1, _searchHighlightIdx + dir),
-    );
-    items[_searchHighlightIdx].classList.add("highlighted");
-    items[_searchHighlightIdx].scrollIntoView({ block: "nearest" });
-  }
-
-  // Event listeners
-  searchBtn.addEventListener("click", openModal);
-  closeBtn.addEventListener("click", closeModal);
-
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  input.addEventListener("input", () => {
-    const q = input.value.trim();
-    clearBtn.classList.toggle("visible", q.length > 0);
-    renderResults(q);
-  });
-
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      moveHighlight(1);
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      moveHighlight(-1);
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      const highlighted = results.querySelector(
-        ".fund-search-item.highlighted",
-      );
-      if (highlighted) {
-        selectFund(highlighted.dataset.fundKey);
-      } else {
-        const first = results.querySelector(".fund-search-item");
-        if (first) selectFund(first.dataset.fundKey);
-      }
-    } else if (e.key === "Escape") {
-      closeModal();
-    }
-  });
-
-  clearBtn.addEventListener("click", () => {
-    input.value = "";
-    clearBtn.classList.remove("visible");
-    renderResults("");
-    input.focus();
-  });
 
   // Keyboard shortcut to open search (Ctrl+K or Cmd+K)
   document.addEventListener("keydown", (e) => {
     if ((e.ctrlKey || e.metaKey) && e.key === "k") {
       e.preventDefault();
-      openModal();
+      api.open();
     }
   });
 }
@@ -1722,38 +1676,21 @@ function initFundSearch(available) {
 // Global Company Search (latest month of every fund, no backend calls)
 // ---------------------------------------------------------------------------
 
-let _companySearchBound = false;
-let _companySearchHighlightIdx = -1;
-
 function initCompanySearch() {
   if (_companySearchBound) return;
   _companySearchBound = true;
 
-  const modal = document.getElementById("companySearchModal");
-  const searchBtn = document.getElementById("companySearchBtn");
-  const closeBtn = document.getElementById("companySearchClose");
-  const input = document.getElementById("companySearchInput");
-  const results = document.getElementById("companySearchResults");
-  const clearBtn = document.getElementById("companySearchClear");
-  const fundSelect = document.getElementById("fundSelect");
-
-  function openModal() {
-    modal.style.display = "flex";
-    input.value = "";
-    clearBtn.classList.remove("visible");
-    renderHint();
-    setTimeout(() => input.focus(), 100);
-  }
-
-  function closeModal() {
-    modal.style.display = "none";
-    _companySearchHighlightIdx = -1;
-  }
-
-  function renderHint() {
-    results.innerHTML =
-      '<div class="fund-search-no-results">Type at least 2 characters to search holdings across all funds</div>';
-  }
+  const api = createSearchModal(
+    {
+      openBtn: "companySearchBtn",
+      modal: "companySearchModal",
+      closeBtn: "companySearchClose",
+      input: "companySearchInput",
+      results: "companySearchResults",
+      clear: "companySearchClear",
+    },
+    renderCompanyResults,
+  );
 
   // Search each fund's latest month; returns companies grouped with every
   // fund that holds them, sorted by the highest % of NAV.
@@ -1763,12 +1700,11 @@ function initCompanySearch() {
 
     for (const [fundKey, fundConfig] of Object.entries(FUNDS)) {
       const months = availableMonths[fundKey] || [];
-      if (!months.length) continue;
-      const latest = (allData[fundKey] || {})[months[months.length - 1].key];
-      if (!latest || !latest.holdings) continue;
+      const latest = (allData[fundKey] || {})[months[months.length - 1]?.key];
+      if (!latest?.holdings) continue;
 
       for (const h of latest.holdings) {
-        if (!h.company || !h.company.toLowerCase().includes(q)) continue;
+        if (!h.company?.toLowerCase().includes(q)) continue;
         if (!byCompany.has(h.company)) byCompany.set(h.company, []);
         byCompany.get(h.company).push({
           fundKey,
@@ -1778,122 +1714,67 @@ function initCompanySearch() {
       }
     }
 
-    const list = [...byCompany.entries()].map(([company, hits]) => {
-      hits.sort((a, b) => b.pct - a.pct);
-      return { company, hits, maxPct: hits[0].pct };
-    });
-    list.sort((a, b) => b.maxPct - a.maxPct);
-    return list.slice(0, 15);
+    return [...byCompany.entries()]
+      .map(([company, hits]) => {
+        hits.sort((a, b) => b.pct - a.pct);
+        return { company, hits, maxPct: hits[0].pct };
+      })
+      .sort((a, b) => b.maxPct - a.maxPct)
+      .slice(0, 15);
   }
 
-  function renderResults(query) {
-    _companySearchHighlightIdx = -1;
-    results.innerHTML = "";
-
+  function renderCompanyResults(query, results) {
     if (query.length < 2) {
-      renderHint();
+      results.innerHTML =
+        '<div class="fund-search-no-results">Type at least 2 characters to search holdings across all funds</div>';
       return;
     }
-
     const items = getCompanyResults(query);
+    results.innerHTML = "";
     if (items.length === 0) {
       results.innerHTML = `<div class="fund-search-no-results">No holdings found for "${escapeHtml(query)}"</div>`;
       return;
     }
 
-    items.forEach(({ company, hits }) => {
+    for (const { company, hits } of items) {
       const item = document.createElement("div");
       item.className = "fund-search-item";
 
-      const meta = hits
-        .slice(0, 3)
-        .map((x) => `${escapeHtml(x.displayName)} ${x.pct}%`)
-        .join(" · ");
-      const extra =
-        hits.length > 3 ? ` · +${hits.length - 3} more` : "";
+      // Every fund holding the company, one row per fund — readable on mobile
+      const fundRows = hits
+        .map(
+          (x) => `
+          <div class="fund-search-fund-row">
+            <span class="fund-search-fund-name">${escapeHtml(x.displayName)}</span>
+            <span class="fund-search-fund-pct">${formatPercent(x.pct)}</span>
+          </div>`,
+        )
+        .join("");
 
       item.innerHTML = `
         <div class="fund-search-badge">${hits.length}</div>
         <div class="fund-search-item-info">
           <div class="fund-search-item-name">${highlightMatch(query, company)}</div>
-          <div class="fund-search-item-meta">${meta}${extra}</div>
+          <div class="fund-search-fund-list">${fundRows}</div>
         </div>
       `;
-
-      item.addEventListener("click", () => {
-        selectResult(hits[0].fundKey, company);
-      });
-
+      item.addEventListener("click", () =>
+        selectResult(hits[0].fundKey, company),
+      );
       results.appendChild(item);
-    });
+    }
   }
 
   // Jump to the fund holding the company at the highest weight and pre-fill
   // the holdings table filter so the row is easy to spot.
   function selectResult(fundKey, company) {
-    fundSelect.value = fundKey;
+    $("fundSelect").value = fundKey;
     switchFund(fundKey);
-    const tableSearch = document.getElementById("searchInput");
+    const tableSearch = $("searchInput");
     tableSearch.value = company;
     tableSearch.dispatchEvent(new Event("input"));
-    closeModal();
+    api.close();
   }
-
-  function moveHighlight(dir) {
-    const items = results.querySelectorAll(".fund-search-item");
-    if (!items.length) return;
-    items.forEach((el) => el.classList.remove("highlighted"));
-    _companySearchHighlightIdx = Math.max(
-      0,
-      Math.min(items.length - 1, _companySearchHighlightIdx + dir),
-    );
-    items[_companySearchHighlightIdx].classList.add("highlighted");
-    items[_companySearchHighlightIdx].scrollIntoView({ block: "nearest" });
-  }
-
-  // Event listeners
-  searchBtn.addEventListener("click", openModal);
-  closeBtn.addEventListener("click", closeModal);
-
-  modal.addEventListener("click", (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  input.addEventListener("input", () => {
-    const q = input.value.trim();
-    clearBtn.classList.toggle("visible", q.length > 0);
-    renderResults(q);
-  });
-
-  input.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      moveHighlight(1);
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      moveHighlight(-1);
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      const highlighted = results.querySelector(
-        ".fund-search-item.highlighted",
-      );
-      if (highlighted) {
-        highlighted.click();
-      } else {
-        const first = results.querySelector(".fund-search-item");
-        if (first) first.click();
-      }
-    } else if (e.key === "Escape") {
-      closeModal();
-    }
-  });
-
-  clearBtn.addEventListener("click", () => {
-    input.value = "";
-    clearBtn.classList.remove("visible");
-    renderHint();
-    input.focus();
-  });
 }
 
 async function init() {
@@ -1933,7 +1814,7 @@ async function init() {
 
     populateFundSelector(availableMonths);
     populateDropdowns(availableMonths);
-    initFundSearch(availableMonths);
+    initFundSearch();
     initCompanySearch();
 
     const fundMonths = availableMonths[currentFund] || [];

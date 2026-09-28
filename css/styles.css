@@ -337,6 +337,40 @@ header h1 {
   margin-top: 2px;
 }
 
+.fund-search-fund-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+  width: 100%;
+}
+
+.fund-search-fund-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  background: var(--gray-50);
+  border: 1px solid var(--gray-100);
+  border-radius: 6px;
+  font-size: 0.8rem;
+  color: var(--gray-500);
+}
+
+.fund-search-fund-name {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.fund-search-fund-pct {
+  font-weight: 600;
+  color: var(--gray-700);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
 .fund-search-no-results {
   padding: 20px 16px;
   text-align: center;
@@ -1269,6 +1303,13 @@ th.sticky-col {
   }
   .fund-search-modal {
     width: 95%;
+    max-width: 95%;
+  }
+  .fund-search-results {
+    max-height: 55vh;
+  }
+  .fund-search-fund-row {
+    padding: 8px 10px;
   }
   /* Holdings table: keep the fixed-layout column widths from crushing the
      Company column on narrow screens. The wrapper scrolls horizontally and
