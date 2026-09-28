@@ -49,6 +49,10 @@ const FUNDS = {
     name: "Parag Parikh Flexi Cap Fund",
     displayName: "PPFAS Flexi Cap",
   },
+  QuantFlexiCapFund: {
+    name: "Quant Flexi Cap Fund",
+    displayName: "Quant Flexi Cap",
+  },
 };
 
 const MONTHS_ORDER = [

@@ -255,6 +255,38 @@
       "filename": "PPFASFlexiCapFund-May-2026.json"
     }
   ],
+  "QuantFlexiCapFund": [
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "QuantFlexiCapFund-April-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "QuantFlexiCapFund-August-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2026,
+      "filename": "QuantFlexiCapFund-July-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "QuantFlexiCapFund-June-2026.json"
+    },
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "QuantFlexiCapFund-March-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "QuantFlexiCapFund-May-2026.json"
+    }
+  ],
   "QuantSmallCapFund": [
     {
       "month": "April",

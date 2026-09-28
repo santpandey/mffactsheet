@@ -1,0 +1,346 @@
+{
+  "fundName": "Quant Flexi Cap Fund",
+  "month": "May",
+  "year": 2026,
+  "extractedAt": "2026-09-28T13:51:11.900077",
+  "holdingsCount": 47,
+  "sectionCounts": {
+    "treps": 1,
+    "equity": 26,
+    "futures": 9,
+    "reit_invit": 1,
+    "treasury_bill": 9,
+    "net_receivable": 1
+  },
+  "holdings": [
+    {
+      "company": "TREPS 01-Jun-2026 DEPO 10",
+      "instrumentType": "treps",
+      "percentOfNAV": 12.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Power Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 9.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Samvardhana Motherson International Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 8.56,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Enterprises Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 8.51,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Prudential AMC Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 6.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aurobindo Pharma Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 6.13,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Bank Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 5.79,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Green Energy Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 4.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Energy Solutions Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.82,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Larsen & Toubro Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.62,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Power Company Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.53,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "ICICI Bank Limited 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 3.22,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharti Airtel Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 3.01,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Dixon Technologies (India) Ltd. 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 2.87,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Reliance Industries Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharat Electronics Ltd 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 2.46,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Life Insurance Co Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 2.09,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Swan Corp Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.99,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "K.P.R. Mill Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.83,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Alivus Life Sciences",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.64,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "JSW Infrastructure Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.57,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indus Infra Trust (InvIT)",
+      "instrumentType": "reit_invit",
+      "percentOfNAV": 1.56,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Indus Towers Limited 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 1.48,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "HDFC Life Insurance Co Ltd 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 1.44,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tech Mahindra Limited 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 1.38,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Bharti Airtel Limited 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 1.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "AU Small Finance Bank Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aurobindo Pharma Limited 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 1.14,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Piramal Finance Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 1.02,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "LG Electronics India Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.85,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 13-Aug-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.71,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Lloyds Metals And Energy Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.66,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Aditya Birla Lifestyle Brands Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.57,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 20-Aug-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.56,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 04-Jun-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.5,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "National Building Construction Corp",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.43,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Communications Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.37,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 19-Jun-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.36,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 30-Jul-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.35,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Tata Chemicals Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.34,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "Adani Green Energy Limited 30/06/2026",
+      "instrumentType": "futures",
+      "percentOfNAV": 0.31,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 11-Jun-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.29,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 23-Jul-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 06-Aug-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.28,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "IRB Infrastructure Developers Ltd.",
+      "instrumentType": "equity",
+      "percentOfNAV": 0.26,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "91 Days Treasury Bill 28-Aug-2026",
+      "instrumentType": "treasury_bill",
+      "percentOfNAV": 0.21,
+      "shares": null,
+      "value": null
+    },
+    {
+      "company": "NCA-NET CURRENT ASSETS",
+      "instrumentType": "net_receivable",
+      "percentOfNAV": -15.2,
+      "shares": null,
+      "value": null
+    }
+  ]
+}

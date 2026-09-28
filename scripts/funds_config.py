@@ -94,4 +94,11 @@ FUNDS = {
         "excel_folder": "excel-data/ppfas-flexi-cap",
         "data_folder": "data",
     },
+    "quant_flexi_cap": {
+        "name": "Quant Flexi Cap Fund",
+        "display_name": "Quant Flexi Cap",
+        "normalized_name": "QuantFlexiCapFund",
+        "excel_folder": "excel-data/quant-flexi-cap",
+        "data_folder": "data",
+    },
 }
