@@ -24,6 +24,13 @@
         >
           <span class="search-icon">🔍</span> Search Funds
         </button>
+        <button
+          id="companySearchBtn"
+          class="btn-primary-search"
+          title="Search holdings across all funds"
+        >
+          <span class="search-icon">🏢</span> Search Companies
+        </button>
       </div>
 
       <div class="controls">
@@ -236,6 +243,36 @@
           </button>
         </div>
         <div class="fund-search-results" id="fundSearchResults"></div>
+        <div class="fund-search-hint">
+          ↑↓ to navigate · Enter to select · Esc to close
+        </div>
+      </div>
+    </div>
+
+    <!-- Company Search Modal -->
+    <div id="companySearchModal" class="modal-overlay" style="display: none">
+      <div class="modal-content fund-search-modal">
+        <div class="modal-header">
+          <h3>🏢 Search Companies</h3>
+          <button class="modal-close" id="companySearchClose">✕</button>
+        </div>
+        <div class="fund-search-input-wrap">
+          <input
+            type="text"
+            id="companySearchInput"
+            placeholder="Type 2+ characters to search holdings..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button
+            class="fund-search-clear"
+            id="companySearchClear"
+            title="Clear"
+          >
+            ✕
+          </button>
+        </div>
+        <div class="fund-search-results" id="companySearchResults"></div>
         <div class="fund-search-hint">
           ↑↓ to navigate · Enter to select · Esc to close
         </div>

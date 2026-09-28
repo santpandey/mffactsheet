@@ -1718,6 +1718,184 @@ function initFundSearch(available) {
   });
 }
 
+// ---------------------------------------------------------------------------
+// Global Company Search (latest month of every fund, no backend calls)
+// ---------------------------------------------------------------------------
+
+let _companySearchBound = false;
+let _companySearchHighlightIdx = -1;
+
+function initCompanySearch() {
+  if (_companySearchBound) return;
+  _companySearchBound = true;
+
+  const modal = document.getElementById("companySearchModal");
+  const searchBtn = document.getElementById("companySearchBtn");
+  const closeBtn = document.getElementById("companySearchClose");
+  const input = document.getElementById("companySearchInput");
+  const results = document.getElementById("companySearchResults");
+  const clearBtn = document.getElementById("companySearchClear");
+  const fundSelect = document.getElementById("fundSelect");
+
+  function openModal() {
+    modal.style.display = "flex";
+    input.value = "";
+    clearBtn.classList.remove("visible");
+    renderHint();
+    setTimeout(() => input.focus(), 100);
+  }
+
+  function closeModal() {
+    modal.style.display = "none";
+    _companySearchHighlightIdx = -1;
+  }
+
+  function renderHint() {
+    results.innerHTML =
+      '<div class="fund-search-no-results">Type at least 2 characters to search holdings across all funds</div>';
+  }
+
+  // Search each fund's latest month; returns companies grouped with every
+  // fund that holds them, sorted by the highest % of NAV.
+  function getCompanyResults(query) {
+    const q = query.toLowerCase();
+    const byCompany = new Map();
+
+    for (const [fundKey, fundConfig] of Object.entries(FUNDS)) {
+      const months = availableMonths[fundKey] || [];
+      if (!months.length) continue;
+      const latest = (allData[fundKey] || {})[months[months.length - 1].key];
+      if (!latest || !latest.holdings) continue;
+
+      for (const h of latest.holdings) {
+        if (!h.company || !h.company.toLowerCase().includes(q)) continue;
+        if (!byCompany.has(h.company)) byCompany.set(h.company, []);
+        byCompany.get(h.company).push({
+          fundKey,
+          displayName: fundConfig.displayName,
+          pct: h.percentOfNAV,
+        });
+      }
+    }
+
+    const list = [...byCompany.entries()].map(([company, hits]) => {
+      hits.sort((a, b) => b.pct - a.pct);
+      return { company, hits, maxPct: hits[0].pct };
+    });
+    list.sort((a, b) => b.maxPct - a.maxPct);
+    return list.slice(0, 15);
+  }
+
+  function renderResults(query) {
+    _companySearchHighlightIdx = -1;
+    results.innerHTML = "";
+
+    if (query.length < 2) {
+      renderHint();
+      return;
+    }
+
+    const items = getCompanyResults(query);
+    if (items.length === 0) {
+      results.innerHTML = `<div class="fund-search-no-results">No holdings found for "${escapeHtml(query)}"</div>`;
+      return;
+    }
+
+    items.forEach(({ company, hits }) => {
+      const item = document.createElement("div");
+      item.className = "fund-search-item";
+
+      const meta = hits
+        .slice(0, 3)
+        .map((x) => `${escapeHtml(x.displayName)} ${x.pct}%`)
+        .join(" · ");
+      const extra =
+        hits.length > 3 ? ` · +${hits.length - 3} more` : "";
+
+      item.innerHTML = `
+        <div class="fund-search-badge">${hits.length}</div>
+        <div class="fund-search-item-info">
+          <div class="fund-search-item-name">${highlightMatch(query, company)}</div>
+          <div class="fund-search-item-meta">${meta}${extra}</div>
+        </div>
+      `;
+
+      item.addEventListener("click", () => {
+        selectResult(hits[0].fundKey, company);
+      });
+
+      results.appendChild(item);
+    });
+  }
+
+  // Jump to the fund holding the company at the highest weight and pre-fill
+  // the holdings table filter so the row is easy to spot.
+  function selectResult(fundKey, company) {
+    fundSelect.value = fundKey;
+    switchFund(fundKey);
+    const tableSearch = document.getElementById("searchInput");
+    tableSearch.value = company;
+    tableSearch.dispatchEvent(new Event("input"));
+    closeModal();
+  }
+
+  function moveHighlight(dir) {
+    const items = results.querySelectorAll(".fund-search-item");
+    if (!items.length) return;
+    items.forEach((el) => el.classList.remove("highlighted"));
+    _companySearchHighlightIdx = Math.max(
+      0,
+      Math.min(items.length - 1, _companySearchHighlightIdx + dir),
+    );
+    items[_companySearchHighlightIdx].classList.add("highlighted");
+    items[_companySearchHighlightIdx].scrollIntoView({ block: "nearest" });
+  }
+
+  // Event listeners
+  searchBtn.addEventListener("click", openModal);
+  closeBtn.addEventListener("click", closeModal);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  input.addEventListener("input", () => {
+    const q = input.value.trim();
+    clearBtn.classList.toggle("visible", q.length > 0);
+    renderResults(q);
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      moveHighlight(1);
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      moveHighlight(-1);
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const highlighted = results.querySelector(
+        ".fund-search-item.highlighted",
+      );
+      if (highlighted) {
+        highlighted.click();
+      } else {
+        const first = results.querySelector(".fund-search-item");
+        if (first) first.click();
+      }
+    } else if (e.key === "Escape") {
+      closeModal();
+    }
+  });
+
+  clearBtn.addEventListener("click", () => {
+    input.value = "";
+    clearBtn.classList.remove("visible");
+    renderHint();
+    input.focus();
+  });
+}
+
 async function init() {
   const loading = document.getElementById("loadingOverlay");
 
@@ -1756,6 +1934,7 @@ async function init() {
     populateFundSelector(availableMonths);
     populateDropdowns(availableMonths);
     initFundSearch(availableMonths);
+    initCompanySearch();
 
     const fundMonths = availableMonths[currentFund] || [];
     if (fundMonths.length > 0) {
