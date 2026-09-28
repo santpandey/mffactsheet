@@ -1692,6 +1692,17 @@ function initCompanySearch() {
     renderCompanyResults,
   );
 
+  // Group key: same company across funds despite spelling/casing variants
+  // ("InterGlobe Aviation" vs "Interglobe Aviation", "Divi's" vs "Divis").
+  // Strips legal suffixes and all non-alphanumerics so those merge, while
+  // distinct instruments (e.g. a Call Option name) stay separate.
+  function companyGroupKey(name) {
+    return name
+      .toLowerCase()
+      .replace(/\b(limited|ltd|pvt|private)\b/g, "")
+      .replace(/[^a-z0-9]/g, "");
+  }
+
   // Search each fund's latest month; returns companies grouped with every
   // fund that holds them, sorted by the highest % of NAV.
   function getCompanyResults(query) {
@@ -1705,19 +1716,27 @@ function initCompanySearch() {
 
       for (const h of latest.holdings) {
         if (!h.company?.toLowerCase().includes(q)) continue;
-        if (!byCompany.has(h.company)) byCompany.set(h.company, []);
-        byCompany.get(h.company).push({
+        const key = companyGroupKey(h.company);
+        if (!key) continue;
+        if (!byCompany.has(key)) byCompany.set(key, []);
+        byCompany.get(key).push({
           fundKey,
           displayName: fundConfig.displayName,
+          rawName: h.company,
+          type: h.instrumentType ?? "equity",
           pct: h.percentOfNAV,
         });
       }
     }
 
-    return [...byCompany.entries()]
-      .map(([company, hits]) => {
+    return [...byCompany.values()]
+      .map((hits) => {
         hits.sort((a, b) => b.pct - a.pct);
-        return { company, hits, maxPct: hits[0].pct };
+        // Prefer the spelling variant that matches the query so the card
+        // title (and its highlight) reflect what the user typed.
+        const display =
+          hits.find((h) => h.rawName.toLowerCase().includes(q)) ?? hits[0];
+        return { company: display.rawName, hits, maxPct: hits[0].pct };
       })
       .sort((a, b) => b.maxPct - a.maxPct)
       .slice(0, 15);
@@ -1740,15 +1759,19 @@ function initCompanySearch() {
       const item = document.createElement("div");
       item.className = "fund-search-item";
 
-      // Every fund holding the company, one row per fund — readable on mobile
+      // One linked row per fund holding — clicking lands on that fund.
       const fundRows = hits
-        .map(
-          (x) => `
-          <div class="fund-search-fund-row">
-            <span class="fund-search-fund-name">${escapeHtml(x.displayName)}</span>
+        .map((x) => {
+          const typeChip =
+            x.type !== "equity"
+              ? ` <span class="fund-search-fund-type">${escapeHtml(TYPE_LABELS[x.type] || x.type)}</span>`
+              : "";
+          return `
+          <div class="fund-search-fund-row" data-fund="${x.fundKey}" role="link" tabindex="-1" title="Open ${escapeHtml(x.displayName)} holdings">
+            <span class="fund-search-fund-name">${escapeHtml(x.displayName)}${typeChip}</span>
             <span class="fund-search-fund-pct">${formatPercent(x.pct)}</span>
-          </div>`,
-        )
+          </div>`;
+        })
         .join("");
 
       item.innerHTML = `
@@ -1758,6 +1781,14 @@ function initCompanySearch() {
           <div class="fund-search-fund-list">${fundRows}</div>
         </div>
       `;
+
+      // Row-level links win over the card-level default (top-weighted fund).
+      item.querySelectorAll(".fund-search-fund-row").forEach((row) => {
+        row.addEventListener("click", (e) => {
+          e.stopPropagation();
+          selectResult(row.dataset.fund, company);
+        });
+      });
       item.addEventListener("click", () =>
         selectResult(hits[0].fundKey, company),
       );
@@ -1765,14 +1796,23 @@ function initCompanySearch() {
     }
   }
 
-  // Jump to the fund holding the company at the highest weight and pre-fill
-  // the holdings table filter so the row is easy to spot.
+  // Jump to the chosen fund and flash-highlight the stock's row so it's
+  // obvious we've landed in the right place.
   function selectResult(fundKey, company) {
     $("fundSelect").value = fundKey;
     switchFund(fundKey);
+
     const tableSearch = $("searchInput");
     tableSearch.value = company;
-    tableSearch.dispatchEvent(new Event("input"));
+
+    // Render the holdings table (latest vs earliest month) so the row is
+    // actually visible — the table only exists inside the delta view.
+    $("compareSelect").value = "compare-all";
+    showDelta();
+
+    for (const tr of $("holdingsBody").querySelectorAll("tr")) {
+      tr.classList.add("row-flash");
+    }
     api.close();
   }
 }

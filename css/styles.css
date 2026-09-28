@@ -356,6 +356,30 @@ header h1 {
   border-radius: 6px;
   font-size: 0.8rem;
   color: var(--gray-500);
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+
+/* Rows are links to a fund's holdings — affordance without blue underlines */
+.fund-search-fund-row::after {
+  content: "→";
+  font-size: 0.85rem;
+  color: var(--primary);
+  opacity: 0;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.fund-search-fund-row:hover {
+  background: #eef2ff;
+  border-color: var(--primary);
+  color: var(--primary-dark);
+}
+
+.fund-search-fund-row:hover::after {
+  opacity: 1;
 }
 
 .fund-search-fund-name {
@@ -364,11 +388,41 @@ header h1 {
   overflow-wrap: anywhere;
 }
 
+.fund-search-fund-type {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.7rem;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
 .fund-search-fund-pct {
   font-weight: 600;
   color: var(--gray-700);
   white-space: nowrap;
   flex-shrink: 0;
+}
+
+.fund-search-fund-row:hover .fund-search-fund-pct {
+  color: var(--primary-dark);
+}
+
+/* Flash-highlight a holding row after jumping to it from company search */
+@keyframes rowFlash {
+  0% {
+    background-color: #fef08a;
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+tr.row-flash {
+  animation: rowFlash 2.5s ease-out;
 }
 
 .fund-search-no-results {
