@@ -29,6 +29,11 @@
       "month": "May",
       "year": 2026,
       "filename": "CanaraRobecoLargeAndMidCapFund-May-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "CanaraRobecoLargeAndMidCapFund-September-2026.json"
     }
   ],
   "CanaraRobecoSmallCapFund": [
@@ -61,6 +66,11 @@
       "month": "May",
       "year": 2026,
       "filename": "CanaraRobecoSmallCapFund-May-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-September-2026.json"
     }
   ],
   "HDFCMultiAssetAllocationFund": [
@@ -125,6 +135,11 @@
       "month": "May",
       "year": 2026,
       "filename": "InvescoIndiaMulticapFund-May-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-September-2026.json"
     }
   ],
   "MiraeAssetLargeAndMidcapFund": [
@@ -221,6 +236,11 @@
       "month": "May",
       "year": 2026,
       "filename": "OldBridgeFocusedFund-May-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "OldBridgeFocusedFund-September-2026.json"
     }
   ],
   "PPFASFlexiCapFund": [
@@ -253,6 +273,11 @@
       "month": "May",
       "year": 2026,
       "filename": "PPFASFlexiCapFund-May-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "PPFASFlexiCapFund-September-2026.json"
     }
   ],
   "QuantFlexiCapFund": [
@@ -285,6 +310,11 @@
       "month": "May",
       "year": 2026,
       "filename": "QuantFlexiCapFund-May-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "QuantFlexiCapFund-September-2026.json"
     }
   ],
   "QuantSmallCapFund": [
@@ -317,6 +347,11 @@
       "month": "May",
       "year": 2026,
       "filename": "QuantSmallCapFund-May-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-September-2026.json"
     }
   ],
   "SBIChildrensFund": [
@@ -349,6 +384,11 @@
       "month": "May",
       "year": 2026,
       "filename": "SBIChildrensFund-May-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "SBIChildrensFund-September-2026.json"
     }
   ],
   "TrustMFSmallCapFund": [
@@ -381,6 +421,11 @@
       "month": "May",
       "year": 2026,
       "filename": "TrustMFSmallCapFund-May-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-September-2026.json"
     }
   ]
 }
