@@ -583,7 +583,11 @@ function renderTable(
       return `
       <tr>
         <td>${i + 1}</td>
-        <td>${h.company}${typeBadge(h.instrumentType)}</td>
+        <td>
+          <span class="company-cell">
+            <span class="cell-scroll"><span class="cell-scroll-inner">${escapeHtml(h.company)}</span></span>${typeBadge(h.instrumentType)}
+          </span>
+        </td>
         <td>${formatPercent(h.currentNAV)}</td>
         <td>${formatPercent(h.previousNAV)}</td>
         <td class="${changeClass}">${formatDelta(h.navDelta)}</td>
@@ -592,6 +596,80 @@ function renderTable(
     `;
     })
     .join("");
+
+  // Marquee-on-hover: mark cells whose company name overflows, sized to the
+  // exact scroll distance so text pauses at both ends.
+  for (const el of tbody.querySelectorAll(".cell-scroll")) {
+    const inner = el.firstElementChild;
+    const shift = inner.scrollWidth - el.clientWidth;
+    if (shift > 0) {
+      inner.style.setProperty("--shift", `${-shift}px`);
+      inner.style.setProperty("--dur", `${Math.max(1.5, shift / 40)}s`);
+      el.classList.add("scrollable");
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Resizable columns (Google Sheets style) — drag the handle at each header's
+// right edge. Widths persist in localStorage; double-click a handle to reset.
+// ---------------------------------------------------------------------------
+
+const COL_WIDTH_KEY = "mf_col_widths";
+
+const _loadColWidths = () => {
+  try {
+    return JSON.parse(localStorage.getItem(COL_WIDTH_KEY)) || {};
+  } catch {
+    return {};
+  }
+};
+
+const _saveColWidth = (idx, px) => {
+  const w = _loadColWidths();
+  if (px == null) delete w[idx];
+  else w[idx] = px;
+  localStorage.setItem(COL_WIDTH_KEY, JSON.stringify(w));
+};
+
+function initColumnResize() {
+  const table = $("holdingsTable");
+  if (!table) return;
+  const saved = _loadColWidths();
+
+  table.querySelectorAll("th").forEach((th, i) => {
+    if (saved[i] != null) th.style.width = `${saved[i]}px`;
+
+    const handle = document.createElement("span");
+    handle.className = "col-resizer";
+    handle.title = "Drag to resize · double-click to reset";
+    th.appendChild(handle);
+
+    handle.addEventListener("mousedown", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const startX = e.clientX;
+      const startW = th.offsetWidth;
+      document.body.classList.add("col-resizing");
+
+      const onMove = (ev) => {
+        th.style.width = `${Math.max(48, startW + ev.clientX - startX)}px`;
+      };
+      const onUp = () => {
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+        document.body.classList.remove("col-resizing");
+        _saveColWidth(i, th.offsetWidth);
+      };
+      document.addEventListener("mousemove", onMove);
+      document.addEventListener("mouseup", onUp);
+    });
+
+    handle.addEventListener("dblclick", () => {
+      th.style.width = "";
+      _saveColWidth(i, null);
+    });
+  });
 }
 
 function setActiveFilter(filter) {
@@ -1856,6 +1934,7 @@ async function init() {
     populateDropdowns(availableMonths);
     initFundSearch();
     initCompanySearch();
+    initColumnResize();
 
     const fundMonths = availableMonths[currentFund] || [];
     if (fundMonths.length > 0) {

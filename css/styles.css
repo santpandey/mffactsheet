@@ -880,6 +880,81 @@ input[type="text"]:focus {
   background: var(--gray-50) !important;
 }
 
+/* Column resize handles — Google Sheets style */
+#holdingsTable th {
+  position: relative;
+}
+
+.col-resizer {
+  position: absolute;
+  top: 0;
+  right: -4px;
+  bottom: 0;
+  width: 9px;
+  cursor: col-resize;
+  z-index: 2;
+  touch-action: none;
+}
+
+.col-resizer::after {
+  content: "";
+  position: absolute;
+  right: 3px;
+  top: 25%;
+  bottom: 25%;
+  width: 3px;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 0.15s;
+}
+
+.col-resizer:hover::after {
+  background: var(--primary);
+}
+
+body.col-resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
+body.col-resizing * {
+  cursor: col-resize !important;
+}
+
+/* Company cell: scrolling name + pinned type badge */
+.company-cell {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+
+.cell-scroll {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.cell-scroll-inner {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.company-cell .type-badge {
+  flex-shrink: 0;
+}
+
+/* Marquee on hover for overflowing names — --shift/--dur set per cell */
+@keyframes cellMarquee {
+  to {
+    transform: translateX(var(--shift));
+  }
+}
+
+tr:hover .cell-scroll.scrollable .cell-scroll-inner {
+  animation: cellMarquee var(--dur, 3s) ease-in-out infinite alternate;
+}
+
 .delta-positive {
   color: var(--success);
   font-weight: 600;

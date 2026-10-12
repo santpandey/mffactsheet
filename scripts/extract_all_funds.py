@@ -329,10 +329,20 @@ def name_based_type(name):
         return "securitized_debt"
     if "fund" in n and re.search(r"direct\s*plan|growth|idcw", n):
         return "mutual_fund_units"
-    if "future" in n or re.search(r"\d{2}[/\-.]\d{2}[/\-.]\d{4}\s*$", n):
+    if "future" in n:
         return "futures"
     if re.search(r"option|call\b|put\b", n):
         return "options"
+    return None
+
+
+def date_suffix_type(name):
+    """Weakest type hint: a bare trailing date ("Reliance Industries Limited
+    29/09/2026") is Quant-style futures-expiry naming. It must lose to every
+    structured hint — a dated name is just as often a CP/CD/NCD maturity —
+    so it only applies when subsection and name keywords gave nothing."""
+    if re.search(r"\d{2}[/\-.]\d{2}[/\-.]\d{4}\s*$", name.lower()):
+        return "futures"
     return None
 
 
@@ -539,9 +549,13 @@ def find_holdings_in_dataframe(df):
                 continue
 
             # Resolve the instrument type: the entry's own name wins, then the
-            # current sub-header ("Certificate Of Deposit"), then the section.
+            # current sub-header ("Certificate Of Deposit"), then the weak
+            # bare-date futures hint, then the section.
             instrument_type = (
-                name_based_type(company) or subsection or section
+                name_based_type(company)
+                or subsection
+                or date_suffix_type(company)
+                or section
             )
 
             # Debt/money-market names keep identifying parentheticals such as
