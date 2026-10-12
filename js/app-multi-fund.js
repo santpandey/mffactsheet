@@ -265,6 +265,31 @@ const TYPE_LABELS = {
   others: "Other",
 };
 
+// Broad buckets for the diff view's category filter. Anything not listed
+// (net_receivable, margin, mutual_fund_units, reit_invit, etf, aif, others)
+// falls under "other".
+const TYPE_CATEGORY = {
+  stocks: new Set(["equity", "foreign_equity", "preference_shares"]),
+  debt: new Set([
+    "debt",
+    "corporate_bond",
+    "government_bond",
+    "securitized_debt",
+    "treasury_bill",
+    "commercial_paper",
+    "certificate_of_deposit",
+    "commercial_bill",
+    "money_market",
+    "fixed_deposit",
+    "treps",
+  ]),
+  derivatives: new Set(["futures", "options", "derivatives"]),
+};
+
+const categoryOf = (type) =>
+  Object.keys(TYPE_CATEGORY).find((c) => TYPE_CATEGORY[c].has(type)) ??
+  "other";
+
 function typeBadge(instrumentType) {
   const t = instrumentType ?? "equity";
   return t === "equity"
@@ -532,7 +557,9 @@ function renderTable(
   let items = [...(FILTER_LISTS[filter] ?? delta.all)];
 
   // Rebuild the instrument-type filter from whatever this delta contains,
-  // preserving the user's current selection when possible
+  // preserving the user's current selection when possible. The dropdown
+  // offers broad categories (Stocks / Debt / Derivatives / Other) plus the
+  // specific instrument types present in this delta.
   const typeSelect = $("typeSelect");
   if (typeSelect) {
     const prevVal = typeSelect.value || "all";
@@ -540,15 +567,33 @@ function renderTable(
       ...new Set(delta.all.map((h) => h.instrumentType || "equity")),
     ].sort();
     typeSelect.innerHTML =
-      `<option value="all">All Types</option>` +
+      '<option value="all">All Types</option>' +
+      '<optgroup label="By Category">' +
+      '<option value="cat:stocks">Stocks</option>' +
+      '<option value="cat:debt">Debt / Money Market</option>' +
+      '<option value="cat:derivatives">Futures & Derivatives</option>' +
+      '<option value="cat:other">Other (Cash, MF Units, REITs)</option>' +
+      "</optgroup>" +
+      '<optgroup label="Specific Type">' +
       types
         .map((t) => `<option value="${t}">${TYPE_LABELS[t] || t}</option>`)
-        .join("");
-    typeSelect.value = types.includes(prevVal) ? prevVal : "all";
+        .join("") +
+      "</optgroup>";
+    typeSelect.value = [...typeSelect.options].some((o) => o.value === prevVal)
+      ? prevVal
+      : "all";
     if (typeSelect.value !== "all") {
-      items = items.filter(
-        (h) => (h.instrumentType || "equity") === typeSelect.value,
-      );
+      const v = typeSelect.value;
+      if (v.startsWith("cat:")) {
+        const cat = v.slice(4);
+        items = items.filter(
+          (h) => categoryOf(h.instrumentType || "equity") === cat,
+        );
+      } else {
+        items = items.filter(
+          (h) => (h.instrumentType || "equity") === v,
+        );
+      }
     }
   }
 
