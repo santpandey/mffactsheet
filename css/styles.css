@@ -921,38 +921,25 @@ body.col-resizing * {
   cursor: col-resize !important;
 }
 
-/* Company cell: scrolling name + pinned type badge */
+/* Company cell: name wraps to extra lines; badge stays pinned at the end */
 .company-cell {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 6px;
   min-width: 0;
+  white-space: normal;
 }
 
-.cell-scroll {
+.cell-name {
   flex: 1 1 auto;
   min-width: 0;
-  overflow: hidden;
-}
-
-.cell-scroll-inner {
-  display: inline-block;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .company-cell .type-badge {
   flex-shrink: 0;
-}
-
-/* Marquee on hover for overflowing names — --shift/--dur set per cell */
-@keyframes cellMarquee {
-  to {
-    transform: translateX(var(--shift));
-  }
-}
-
-tr:hover .cell-scroll.scrollable .cell-scroll-inner {
-  animation: cellMarquee var(--dur, 3s) ease-in-out infinite alternate;
+  margin-top: 1px;
 }
 
 .delta-positive {

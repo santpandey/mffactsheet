@@ -630,7 +630,7 @@ function renderTable(
         <td>${i + 1}</td>
         <td>
           <span class="company-cell">
-            <span class="cell-scroll"><span class="cell-scroll-inner">${escapeHtml(h.company)}</span></span>${typeBadge(h.instrumentType)}
+            <span class="cell-name">${escapeHtml(h.company)}</span>${typeBadge(h.instrumentType)}
           </span>
         </td>
         <td>${formatPercent(h.currentNAV)}</td>
@@ -641,18 +641,6 @@ function renderTable(
     `;
     })
     .join("");
-
-  // Marquee-on-hover: mark cells whose company name overflows, sized to the
-  // exact scroll distance so text pauses at both ends.
-  for (const el of tbody.querySelectorAll(".cell-scroll")) {
-    const inner = el.firstElementChild;
-    const shift = inner.scrollWidth - el.clientWidth;
-    if (shift > 0) {
-      inner.style.setProperty("--shift", `${-shift}px`);
-      inner.style.setProperty("--dur", `${Math.max(1.5, shift / 40)}s`);
-      el.classList.add("scrollable");
-    }
-  }
 }
 
 // ---------------------------------------------------------------------------
