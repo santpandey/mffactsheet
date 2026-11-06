@@ -842,7 +842,7 @@ input[type="text"]:focus {
 #holdingsTable th:nth-child(1),
 #holdingsTable td:nth-child(1) {
   text-align: left !important;
-  width: 50px !important;
+  width: 68px !important;
 }
 #holdingsTable th:nth-child(2),
 #holdingsTable td:nth-child(2) {
@@ -1086,236 +1086,6 @@ th.sticky-col {
   z-index: 2;
 }
 
-/* Export Bar */
-.export-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-top: 16px;
-  justify-content: flex-end;
-}
-
-.export-label {
-  font-size: 0.8rem;
-  color: var(--gray-500);
-  font-weight: 500;
-  margin-right: 4px;
-}
-
-.btn-export {
-  padding: 8px 16px;
-  background: white;
-  color: var(--gray-700);
-  border: 2px solid var(--gray-200);
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.15s ease;
-}
-
-.btn-export:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: rgba(37, 99, 235, 0.04);
-}
-
-.btn-export.copied {
-  border-color: var(--success);
-  color: var(--success);
-  background: rgba(16, 185, 129, 0.06);
-}
-
-/* Budget Input */
-.budget-input-wrap {
-  display: flex;
-  align-items: center;
-  border: 2px solid var(--gray-200);
-  border-radius: 8px;
-  overflow: hidden;
-  background: white;
-  transition: border-color 0.15s;
-}
-
-.budget-input-wrap:focus-within {
-  border-color: var(--primary);
-}
-
-.budget-prefix {
-  padding: 0 8px 0 10px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--gray-500);
-  background: var(--gray-50);
-  border-right: 1px solid var(--gray-200);
-  height: 100%;
-  display: flex;
-  align-items: center;
-  align-self: stretch;
-}
-
-.budget-input {
-  border: none;
-  outline: none;
-  padding: 8px 10px;
-  font-size: 0.875rem;
-  width: 160px;
-  color: var(--gray-800);
-  background: white;
-}
-
-.btn-export-primary {
-  background: var(--primary);
-  color: white;
-  border-color: var(--primary);
-}
-
-.btn-export-primary:hover {
-  background: #1d4ed8;
-  border-color: #1d4ed8;
-  color: white;
-}
-
-/* Min Investment Section */
-#minInvestSection {
-  margin-top: 20px;
-  border-top: 1px solid var(--gray-200);
-  padding-top: 16px;
-}
-
-.export-meta {
-  font-size: 0.78rem;
-  color: var(--gray-400);
-  margin-bottom: 10px;
-}
-
-.export-total {
-  font-size: 1rem;
-  color: var(--gray-700);
-  margin-bottom: 14px;
-  padding: 12px 16px;
-  background: var(--gray-50);
-  border-radius: 10px;
-  border: 1px solid var(--gray-200);
-}
-
-.export-total strong {
-  color: var(--success);
-  font-size: 1.15rem;
-}
-
-.export-table-wrap {
-  overflow-x: auto;
-}
-
-.export-price-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.875rem;
-}
-
-.export-price-table th {
-  background: var(--gray-50);
-  padding: 10px 14px;
-  text-align: left;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--gray-600);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-bottom: 2px solid var(--gray-200);
-  white-space: nowrap;
-}
-
-.export-price-table td {
-  padding: 9px 14px;
-  border-bottom: 1px solid var(--gray-100);
-  vertical-align: middle;
-}
-
-.export-price-table tr:hover td {
-  background: var(--gray-50);
-}
-
-.invest-toolbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
-}
-
-.lot-multiplier {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.mult-ctrl {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  border: 2px solid var(--gray-300);
-  background: white;
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.15s;
-  color: var(--gray-700);
-  line-height: 1;
-}
-
-.mult-ctrl:hover {
-  border-color: var(--primary);
-  color: var(--primary);
-  background: rgba(37, 99, 235, 0.06);
-}
-
-#lotMultValue {
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--gray-800);
-  min-width: 36px;
-  text-align: center;
-}
-
-.export-ticker {
-  font-size: 0.72rem;
-  font-weight: 700;
-  background: var(--gray-100);
-  color: var(--gray-600);
-  padding: 2px 7px;
-  border-radius: 5px;
-  font-family: "SF Mono", Monaco, monospace;
-  letter-spacing: 0.03em;
-}
-
-.running-total {
-  font-weight: 700;
-  color: var(--primary);
-  font-family: "SF Mono", Monaco, monospace;
-  font-size: 0.82rem;
-}
-
-.na-cell {
-  color: var(--gray-300);
-  font-size: 0.8rem;
-}
-
-.export-positive {
-  color: var(--success);
-  font-weight: 600;
-}
-
-.export-negative {
-  color: var(--danger);
-  font-weight: 600;
-}
-
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -1347,6 +1117,169 @@ th.sticky-col {
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Consensus section — cross-fund smart money moves */
+.consensus-section {
+  background: white;
+  padding: 28px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid var(--gray-100);
+  margin-bottom: 32px;
+}
+
+.cons-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cons-head h2 {
+  font-size: 1.25rem;
+  color: var(--gray-800);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cons-arrow {
+  font-size: 0.85rem;
+  color: var(--gray-400);
+}
+
+.cons-head:hover .cons-arrow,
+.cons-head:focus-visible .cons-arrow {
+  color: var(--primary);
+}
+
+.cons-head:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.cons-mini {
+  font-size: 0.85rem;
+  color: var(--gray-500);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.cons-body {
+  margin-top: 16px;
+}
+
+.consensus-controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+
+.consensus-controls input {
+  min-width: 200px;
+  flex: 1;
+}
+
+.consensus-controls select {
+  min-width: 160px;
+}
+
+#consensusTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#consensusTable th,
+#consensusTable td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--gray-200);
+  vertical-align: middle;
+  text-align: left;
+}
+
+#consensusTable th {
+  background: var(--gray-50);
+  font-weight: 600;
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#consensusTable th.num,
+#consensusTable td.num {
+  text-align: right;
+  font-family: "SF Mono", Monaco, monospace;
+  white-space: nowrap;
+}
+
+#consensusTable tr:hover td {
+  background: var(--gray-50);
+}
+
+#consensusTable th.sortable {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+#consensusTable th.sortable:hover {
+  color: var(--gray-800);
+}
+
+#consensusTable th.sortable.sorted {
+  color: var(--primary);
+}
+
+.sort-arrow {
+  font-size: 0.65rem;
+  margin-left: 2px;
+}
+
+.cons-fundmoves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cons-chip {
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: default;
+}
+
+.cons-chip.chip-new {
+  background: rgba(16, 185, 129, 0.18);
+  color: #047857;
+}
+
+.cons-chip.chip-increased {
+  background: rgba(16, 185, 129, 0.08);
+  color: var(--success);
+}
+
+.cons-chip.chip-decreased {
+  background: rgba(239, 68, 68, 0.07);
+  color: var(--danger);
+}
+
+.cons-chip.chip-exited {
+  background: rgba(239, 68, 68, 0.16);
+  color: #b91c1c;
+}
+
+.consensus-empty {
+  text-align: center !important;
+  color: var(--gray-500);
+  padding: 28px !important;
 }
 
 @media (max-width: 768px) {
@@ -1408,17 +1341,6 @@ th.sticky-col {
   .delta-value {
     font-size: 1.3rem;
   }
-  .export-bar {
-    flex-wrap: wrap;
-    justify-content: flex-start;
-  }
-  .budget-input-wrap {
-    flex: 1;
-    min-width: 140px;
-  }
-  .budget-input {
-    width: 100%;
-  }
   .modal-overlay {
     padding-top: 40px;
   }
@@ -1474,5 +1396,21 @@ th.sticky-col {
   #holdingsTable th:nth-child(6),
   #holdingsTable td:nth-child(6) {
     width: 100px !important;
+  }
+  .consensus-section {
+    padding: 16px;
+  }
+  .cons-head {
+    flex-wrap: wrap;
+  }
+  .cons-mini {
+    white-space: normal;
+  }
+  .consensus-controls input,
+  .consensus-controls select {
+    min-width: 100%;
+  }
+  #consensusTable {
+    min-width: 560px;
   }
 }

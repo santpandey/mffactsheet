@@ -232,12 +232,6 @@ function populateDropdowns(available) {
   }
 }
 
-const _numberFmt = new Intl.NumberFormat("en-IN");
-
-function formatNumber(num) {
-  return num == null ? "-" : _numberFmt.format(Math.round(num));
-}
-
 const TYPE_LABELS = {
   equity: "Equity",
   debt: "Debt",
@@ -671,7 +665,10 @@ function initColumnResize() {
   const saved = _loadColWidths();
 
   table.querySelectorAll("th").forEach((th, i) => {
-    if (saved[i] != null) th.style.width = `${saved[i]}px`;
+    // Restore persisted widths, but never below a readable floor — a stale
+    // saved width (or the base CSS) can otherwise clip the cell's text.
+    const minW = i === 0 ? 68 : 48;
+    if (saved[i] != null) th.style.width = `${Math.max(minW, saved[i])}px`;
 
     const handle = document.createElement("span");
     handle.className = "col-resizer";
@@ -686,7 +683,7 @@ function initColumnResize() {
       document.body.classList.add("col-resizing");
 
       const onMove = (ev) => {
-        th.style.width = `${Math.max(48, startW + ev.clientX - startX)}px`;
+        th.style.width = `${Math.max(minW, startW + ev.clientX - startX)}px`;
       };
       const onUp = () => {
         document.removeEventListener("mousemove", onMove);
@@ -774,7 +771,6 @@ function showDelta() {
   }
 
   document.getElementById("deltaSection").style.display = "block";
-  document.getElementById("minInvestSection").style.display = "none";
 
   currentDelta = calculateDelta(current, previous);
   currentFilter = "all";
@@ -820,630 +816,6 @@ function displayMonth(key) {
   renderPieChart(data);
 
   document.getElementById("deltaSection").style.display = "none";
-}
-
-// ---------------------------------------------------------------------------
-// Diff Export + Minimum Investment Summary
-// ---------------------------------------------------------------------------
-
-// Cache: symbol -> last closing price (₹)
-const _priceCache = new Map();
-
-// Cache: normalizedName -> NSE symbol (populated from EQUITY_L.csv)
-const _nseSymbolMap = new Map();
-let _nseMapLoaded = false;
-
-/**
- * Normalise a company name for fuzzy matching:
- * lowercase, strip legal suffixes, remove punctuation.
- */
-function _normName(s) {
-  return s
-    .toLowerCase()
-    .replace(/\b(limited|ltd\.?|pvt\.?|private|corporation|corp\.?)\b/gi, "")
-    .replace(/[^a-z0-9\s]/g, " ")
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
-/**
- * Load NSE EQUITY_L.csv (Symbol, Name_of_Company, ...) from NSE archives.
- * Falls back silently — hardcoded overrides still apply.
- * CSV URL via corsproxy.io to bypass CORS.
- */
-async function _loadNseSymbolMap() {
-  if (_nseMapLoaded) return;
-  _nseMapLoaded = true; // mark early to prevent parallel loads
-  const csvUrl =
-    "https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv";
-  const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(csvUrl)}`;
-  try {
-    const res = await fetch(proxyUrl);
-    if (!res.ok) return;
-    const text = await res.text();
-    const lines = text.split("\n").slice(1); // skip header
-    for (const line of lines) {
-      if (!line.trim()) continue;
-      // Format: SYMBOL,"NAME OF COMPANY",SERIES,...
-      const parts = line.split(",");
-      if (parts.length < 2) continue;
-      const symbol = parts[0].trim().replace(/"/g, "");
-      const rawName = parts[1].trim().replace(/"/g, "");
-      if (!symbol || !rawName) continue;
-      const key = _normName(rawName);
-      if (key) _nseSymbolMap.set(key, symbol);
-    }
-  } catch {
-    // silently fall back to hardcoded overrides
-  }
-}
-
-/**
- * Find NSE symbol for a company name using the loaded CSV map.
- * Uses substring matching on normalised names.
- */
-function _lookupInNseMap(name) {
-  if (_nseSymbolMap.size === 0) return null;
-  const query = _normName(name);
-  // Exact match first
-  if (_nseSymbolMap.has(query)) return _nseSymbolMap.get(query);
-  // Substring: find the CSV entry whose name contains our query (or vice versa)
-  let best = null;
-  let bestLen = 0;
-  for (const [key, symbol] of _nseSymbolMap) {
-    // Only one direction can match: a shorter string can't contain a longer one
-    if (key.length > query.length ? key.includes(query) : query.includes(key)) {
-      // prefer the longer (more specific) key match
-      if (key.length > bestLen) {
-        bestLen = key.length;
-        best = symbol;
-      }
-    }
-  }
-  return best;
-}
-
-/**
- * Derive NSE ticker symbol from fund holding company name.
- * Priority: 1) hardcoded overrides  2) EQUITY_L.csv lookup  3) generic fallback
- * Yahoo Finance uses ".NS" suffix for NSE symbols.
- */
-// Hoisted out of _toNseTicker — this map was being rebuilt on every call
-// (~160 keys allocated per holding lookup).
-const TICKER_OVERRIDES = {
-    // Large caps
-    "reliance industries": "RELIANCE",
-    "hdfc bank": "HDFCBANK",
-    infosys: "INFY",
-    "tata consultancy services": "TCS",
-    "icici bank": "ICICIBANK",
-    "kotak mahindra bank": "KOTAKBANK",
-    "axis bank": "AXISBANK",
-    "larsen & toubro": "LT",
-    "larsen and toubro": "LT",
-    "bharti airtel": "BHARTIARTL",
-    "state bank of india": "SBIN",
-    "hindustan unilever": "HINDUNILVR",
-    itc: "ITC",
-    "bajaj finance": "BAJFINANCE",
-    "maruti suzuki": "MARUTI",
-    "sun pharmaceutical": "SUNPHARMA",
-    wipro: "WIPRO",
-    "hcl technologies": "HCLTECH",
-    "titan co": "TITAN",
-    "titan company": "TITAN",
-    "asian paints": "ASIANPAINT",
-    "ultratech cement": "ULTRACEMCO",
-    // Post-demerger (Oct 2025): PV entity kept ISIN and renamed TMPV;
-    // the CV entity took the legal name "Tata Motors Ltd" (NSE: TMCV).
-    // Specific keys must precede the generic "tata motors" match.
-    "tata motors passenger": "TMPV",
-    "tata motors ltd. (commercial vehicles)": "TMCV",
-    "tata motors commercial": "TMCV",
-    "tata motors": "TATAMOTORS",
-    "power grid corporation": "POWERGRID",
-    "power grid corp": "POWERGRID",
-    ntpc: "NTPC",
-    ongc: "ONGC",
-    "oil & natural gas": "ONGC",
-    "mahindra & mahindra": "M&M",
-    "adani enterprises": "ADANIENT",
-    "adani ports": "ADANIPORTS",
-    "adani green": "ADANIGREEN",
-    "adani total gas": "ATGL",
-    "adani transmission": "ADANITRANS",
-    "jsw steel": "JSWSTEEL",
-    "tata steel": "TATASTEEL",
-    "dr. reddy": "DRREDDY",
-    "dr reddy": "DRREDDY",
-    cipla: "CIPLA",
-    "divis laboratories": "DIVISLAB",
-    "divi's laboratories": "DIVISLAB",
-    "eicher motors": "EICHERMOT",
-    "hero motocorp": "HEROMOTOCO",
-    "bajaj auto": "BAJAJ-AUTO",
-    "sbi life insurance": "SBILIFE",
-    "hdfc life insurance": "HDFCLIFE",
-    "apollo hospitals": "APOLLOHOSP",
-    "britannia industries": "BRITANNIA",
-    "nestle india": "NESTLEIND",
-    "pidilite industries": "PIDILITIND",
-    "havells india": "HAVELLS",
-    dmart: "DMART",
-    "avenue supermarts": "DMART",
-    zomato: "ZOMATO",
-    nykaa: "NYKAA",
-    "fsl beauty": "NYKAA",
-    paytm: "PAYTM",
-    "one 97": "PAYTM",
-    // Mid caps
-    "billionbrains garage": "HONASA",
-    honasa: "HONASA",
-    mamaearth: "HONASA",
-    "premier energies": "PREMIENRG",
-    biocon: "BIOCON",
-    "hindustan aeronautics": "HAL",
-    hal: "HAL",
-    "balkrishna industries": "BALKRISIND",
-    "hindustan petroleum": "HINDPETRO",
-    "pb fintech": "PBFINTECH",
-    policybazaar: "PBFINTECH",
-    "jubilant foodworks": "JUBLFOOD",
-    "jubilant food": "JUBLFOOD",
-    "persistent systems": "PERSISTENT",
-    mphasis: "MPHASIS",
-    ltimindtree: "LTIM",
-    "lti mindtree": "LTIM",
-    "l&t technology": "LTTS",
-    "l&t finance": "LTF",
-    "shriram finance": "SHRIRAMFIN",
-    "cholamandalam investment": "CHOLAFIN",
-    cholamandalam: "CHOLAFIN",
-    "max financial": "MFSL",
-    "muthoot finance": "MUTHOOTFIN",
-    "bajaj finserv": "BAJAJFINSV",
-    "icici prudential": "ICICIPRULI",
-    "sbi cards": "SBICARD",
-    "indusind bank": "INDUSINDBK",
-    "yes bank": "YESBANK",
-    "bank of baroda": "BANKBARODA",
-    "canara bank": "CANARABANK",
-    "punjab national bank": "PNB",
-    "union bank": "UNIONBANK",
-    "indian bank": "INDIANB",
-    "federal bank": "FEDERALBNK",
-    "idfc first bank": "IDFCFIRSTB",
-    "bandhan bank": "BANDHANBNK",
-    "tata power": "TATAPOWER",
-    "tata chemicals": "TATACHEM",
-    "tata consumer": "TATACONSUM",
-    "tata elxsi": "TATAELXSI",
-    "tata communications": "TATACOMM",
-    voltas: "VOLTAS",
-    "cummins india": "CUMMINSIND",
-    "polycab india": "POLYCAB",
-    "dixon technologies": "DIXON",
-    "blue star": "BLUESTARCO",
-    "crompton greaves consumer": "CROMPTON",
-    "bata india": "BATAIND",
-    "page industries": "PAGEIND",
-    "metro brands": "METROBRAND",
-    "dalmia bharat": "DALMIA",
-    "shree cement": "SHREECEM",
-    acc: "ACC",
-    "ambuja cements": "AMBUJACEM",
-    birlasoft: "BSOFT",
-    "kpit technologies": "KPITTECH",
-    "tata technologies": "TATATECH",
-    cyient: "CYIENT",
-    coforge: "COFORGE",
-    "happiest minds": "HAPPSTMNDS",
-    "solar industries": "SOLARINDS",
-    "hindustan zinc": "HINDZINC",
-    vedanta: "VEDL",
-    "national aluminium": "NALCO",
-    hindalco: "HINDALCO",
-    nmdc: "NMDC",
-    "coal india": "COALINDIA",
-    "oil india": "OIL",
-    "petronet lng": "PETRONET",
-    gail: "GAIL",
-    "indraprastha gas": "IGL",
-    "mahanagar gas": "MGL",
-    "gujarat gas": "GUJGASLTD",
-    "torrent power": "TORNTPOWER",
-    "jsw energy": "JSWENERGY",
-    "suzlon energy": "SUZLON",
-    "kalpataru projects": "KPIL",
-    "abb india": "ABB",
-    siemens: "SIEMENS",
-    "bharat heavy electricals": "BHEL",
-    bhel: "BHEL",
-    "bharat electronics": "BEL",
-    bel: "BEL",
-    rites: "RITES",
-    rvnl: "RVNL",
-    "rail vikas nigam": "RVNL",
-    "indian hotels": "INDHOTEL",
-    ihcl: "INDHOTEL",
-    "lemon tree": "LEMONTREE",
-    irctc: "IRCTC",
-    "indian railway catering": "IRCTC",
-    "container corporation": "CONCOR",
-    delhivery: "DELHIVERY",
-    "interglobe aviation": "INDIGO",
-    indigo: "INDIGO",
-    "gland pharma": "GLAND",
-    "alkem laboratories": "ALKEM",
-    "ipca laboratories": "IPCALAB",
-    "aarti industries": "AARTIIND",
-    "navin fluorine": "NAVINFLUOR",
-    srf: "SRF",
-    "deepak nitrite": "DEEPAKNTR",
-    "pi industries": "PIIND",
-    upl: "UPL",
-    "coromandel international": "COROMANDEL",
-    "chambal fertilisers": "CHAMBLFERT",
-    // SKF demerger (2025): "SKF India (Industrial)" is a distinct listing
-    // from "SKF India" — keep both mapped explicitly.
-    "skf india (industrial)": "SKFINDUS",
-    "skf india": "SKFINDIA",
-};
-
-// Pre-built once: entries array for the ordered override scan.
-const TICKER_OVERRIDE_ENTRIES = Object.entries(TICKER_OVERRIDES);
-
-// Memoizes resolved tickers by normalized name — holdings overlap heavily
-// month-over-month, so repeat export/min-investment clicks become O(1).
-const _tickerCache = new Map();
-
-function _toNseTicker(name) {
-  const lower = name
-    .toLowerCase()
-    .replace(/\s+ltd\.?$/i, "")
-    .replace(/\s+limited$/i, "")
-    .trim();
-
-  const cached = _tickerCache.get(lower);
-  if (cached !== undefined) return cached;
-
-  let ticker = null;
-  // 1) Hardcoded overrides
-  for (const [key, t] of TICKER_OVERRIDE_ENTRIES) {
-    if (lower.includes(key)) {
-      ticker = t;
-      break;
-    }
-  }
-  // 2) Dynamic NSE EQUITY_L.csv map (loaded async before this is called)
-  if (!ticker) ticker = _lookupInNseMap(name);
-  // 3) Generic string-munge fallback
-  if (!ticker) {
-    ticker = lower
-      .replace(
-        /\s+(ltd|limited|pvt|private|india|industries|corporation|company|enterprises|technologies|solutions|services|group)$/i,
-        "",
-      )
-      .replace(/[^a-z0-9&]/gi, "")
-      .toUpperCase()
-      .slice(0, 10);
-  }
-  const result = ticker + ".NS";
-  _tickerCache.set(lower, result);
-  return result;
-}
-
-/**
- * Fetch last closing price for a single Yahoo Finance ticker.
- * Yahoo Finance blocks direct browser fetches (CORS), so we route through
- * corsproxy.io which adds the required CORS headers transparently.
- */
-async function _fetchOneTicker(ticker) {
-  if (_priceCache.has(ticker)) return;
-  const yhUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d`;
-  // Try direct first (works in some environments), fallback to CORS proxy
-  const urls = [
-    yhUrl,
-    `https://corsproxy.io/?url=${encodeURIComponent(yhUrl)}`,
-  ];
-  for (const url of urls) {
-    try {
-      const res = await fetch(url);
-      if (!res.ok) continue;
-      const json = await res.json();
-      const meta = json?.chart?.result?.[0]?.meta;
-      const closes = json?.chart?.result?.[0]?.indicators?.quote?.[0]?.close;
-      const price =
-        meta?.chartPreviousClose ??
-        meta?.regularMarketPrice ??
-        (closes ? closes.filter(Boolean).at(-1) : null);
-      if (price) {
-        _priceCache.set(ticker, +price.toFixed(2));
-        return; // success
-      }
-    } catch {
-      // try next url
-    }
-  }
-}
-
-/**
- * Fetch prices for all tickers in parallel (capped at 8 concurrent).
- */
-async function _fetchPrices(tickers) {
-  const missing = tickers.filter((t) => !_priceCache.has(t));
-  if (missing.length === 0) return;
-
-  const CONCURRENCY = 8;
-  for (let i = 0; i < missing.length; i += CONCURRENCY) {
-    const batch = missing.slice(i, i + CONCURRENCY);
-    await Promise.all(batch.map((t) => _fetchOneTicker(t)));
-  }
-}
-
-/**
- * Parse Indian rupee budget string — handles 1,00,000 / 100000 / ₹50000
- */
-function _parseBudget(str) {
-  if (!str || !str.trim()) return null;
-  const clean = str.replace(/[,\s₹]/g, "");
-  const n = parseFloat(clean);
-  return isNaN(n) || n <= 0 ? null : n;
-}
-
-/**
- * Build enriched diff rows with prices and budget-aware quantities.
- *
- * Base qty logic (no budget):
- *   - Use the 10th-percentile |navDelta| as base unit to avoid exploding
- *     ratios when one stock barely moved.
- *   - qty = round(delta / baseDelta), capped at 20.
- *   - Smallest movers get qty 1.
- *
- * Budget logic (budget provided):
- *   - Compute base total cost at qty above.
- *   - Find integer multiplier M = floor(budget / baseTotal).
- *   - Apply M to all qtys so total fits within budget.
- */
-async function _buildEnrichedRows() {
-  if (!currentDelta) return [];
-
-  // Load NSE master CSV first (no-op if already loaded)
-  await _loadNseSymbolMap();
-
-  // Only equity entries are actionable buys — debt, TREPS, futures shorts,
-  // net receivables etc. are portfolio context, not purchasable stocks.
-  const actionable = currentDelta.all.filter(
-    (d) =>
-      d.status !== "unchanged" &&
-      (d.instrumentType || "equity") === "equity",
-  );
-  const tickers = actionable.map((d) => _toNseTicker(d.company));
-  await _fetchPrices(tickers);
-
-  const deltas = actionable.map((d) => Math.abs(d.navDelta));
-  const maxDelta = Math.max(...deltas, 0.0001);
-
-  // Normalize: largest mover gets qty 10, all others scale proportionally.
-  // This avoids any arbitrary cap while keeping numbers meaningful.
-  // e.g. a stock with 50% of max delta → qty 5, 20% → qty 2, etc.
-  const REF_QTY = 10;
-  const baseQtys = deltas.map((d) =>
-    Math.max(1, Math.round((d / maxDelta) * REF_QTY)),
-  );
-
-  // Budget scaling
-  const budget = _parseBudget(document.getElementById("budgetInput").value);
-  let multiplier = 1;
-  if (budget) {
-    const baseTotal = actionable.reduce((s, d, i) => {
-      const price = _priceCache.get(tickers[i]) ?? null;
-      return s + (price ? price * baseQtys[i] : 0);
-    }, 0);
-    if (baseTotal > 0) {
-      multiplier = Math.max(1, Math.floor(budget / baseTotal));
-    }
-  }
-
-  return actionable.map((d, i) => {
-    const ticker = tickers[i];
-    const price = _priceCache.get(ticker) ?? null;
-    const absDelta = Math.abs(d.navDelta);
-    const weight = absDelta / maxDelta;
-    const qty = baseQtys[i] * multiplier;
-    return {
-      company: d.company,
-      ticker: ticker.replace(".NS", ""),
-      status: d.status,
-      change_pct: +d.navDelta.toFixed(4),
-      weight: +(weight * 100).toFixed(1),
-      price,
-      qty,
-      min_investment: price ? +(price * qty).toFixed(2) : null,
-    };
-  });
-}
-
-// Cached rows from last fetch — used to re-render on multiplier change
-let _lastEnrichedRows = [];
-let _lotMultiplier = 1;
-
-function _inr(n) {
-  return "₹" + n.toLocaleString("en-IN", { maximumFractionDigits: 2 });
-}
-
-function _renderInvestTable() {
-  const rows = _lastEnrichedRows;
-  if (!rows.length) return;
-  const m = _lotMultiplier;
-  let running = 0;
-  const priced = rows.filter((r) => r.price !== null).length;
-
-  const rowsHtml = rows
-    .map((r) => {
-      const cls = r.change_pct >= 0 ? "export-positive" : "export-negative";
-      const sign = r.change_pct >= 0 ? "+" : "";
-      const qty = r.qty * m;
-      const inv = r.price != null ? r.price * qty : null;
-      if (inv != null) running += inv;
-      return `<tr>
-          <td>${r.company}</td>
-          <td><span class="export-ticker">${r.ticker}</span></td>
-          <td class="${cls}">${sign}${r.change_pct}%</td>
-          <td>${r.weight}%</td>
-          <td>${r.price != null ? _inr(r.price) : "<span class='na-cell'>N/A</span>"}</td>
-          <td>${qty}</td>
-          <td>${inv != null ? _inr(inv) : "<span class='na-cell'>N/A</span>"}</td>
-          <td class="running-total">${inv != null ? _inr(running) : "—"}</td>
-        </tr>`;
-    })
-    .join("");
-
-  const total = rows.reduce(
-    (s, r) => s + (r.price ? r.price * r.qty * m : 0),
-    0,
-  );
-
-  document.getElementById("minInvestMeta").textContent =
-    `Prices from NSE via Yahoo Finance · ${priced}/${rows.length} fetched`;
-  document.getElementById("minInvestTotal").innerHTML =
-    `Total (${m}× lot): <strong>${_inr(total)}</strong>`;
-  document.getElementById("lotMultValue").textContent = `${m}×`;
-  document.getElementById("minInvestTbody").innerHTML = rowsHtml;
-}
-
-/** Runs `fn` while `btn` shows a busy label, then restores it. */
-async function _withButton(btn, busyText, fn) {
-  const orig = btn.textContent;
-  btn.textContent = busyText;
-  btn.disabled = true;
-  try {
-    return await fn();
-  } finally {
-    btn.textContent = orig;
-    btn.disabled = false;
-  }
-}
-
-async function showMinInvestment() {
-  const btn = document.getElementById("showMinInvestBtn");
-  _lotMultiplier = 1;
-  _lastEnrichedRows = await _withButton(
-    btn,
-    "⏳ Fetching prices…",
-    _buildEnrichedRows,
-  );
-
-  if (!_lastEnrichedRows.length) return;
-
-  const priced = _lastEnrichedRows.filter((r) => r.price !== null).length;
-
-  document.getElementById("minInvestTable").innerHTML = `
-    <p class="export-meta" id="minInvestMeta"></p>
-    <div class="invest-toolbar">
-      <div class="export-total" id="minInvestTotal"></div>
-      <div class="lot-multiplier">
-        <span class="export-label">Lot size:</span>
-        <button class="mult-ctrl" id="lotMinus">−</button>
-        <span id="lotMultValue">1×</span>
-        <button class="mult-ctrl" id="lotPlus">+</button>
-      </div>
-    </div>
-    <div class="export-table-wrap">
-      <table class="export-price-table">
-        <thead><tr>
-          <th>Company</th><th>Ticker</th><th>Change</th>
-          <th>Rel. Weight</th><th>Last Close</th>
-          <th>Qty</th><th>Investment</th><th>Running Total</th>
-        </tr></thead>
-        <tbody id="minInvestTbody"></tbody>
-      </table>
-    </div>`;
-
-  document.getElementById("lotPlus").addEventListener("click", () => {
-    _lotMultiplier = Math.min(_lotMultiplier * 2, 1024);
-    _renderInvestTable();
-  });
-  document.getElementById("lotMinus").addEventListener("click", () => {
-    _lotMultiplier = Math.max(1, Math.floor(_lotMultiplier / 2));
-    _renderInvestTable();
-  });
-
-  _renderInvestTable();
-  document.getElementById("minInvestSection").style.display = "block";
-}
-
-async function exportDiffCsv() {
-  const rows = await _withButton(
-    document.getElementById("exportCsvBtn"),
-    "⏳ Fetching…",
-    _buildEnrichedRows,
-  );
-  if (!rows.length) return;
-  const header =
-    "Company,Ticker,Status,Change %,Rel. Weight %,Last Close (₹),Min Qty,Min Investment (₹)";
-  const lines = rows.map(
-    (r) =>
-      `"${r.company.replace(/"/g, '""')}",${r.ticker},${r.status},${r.change_pct},${r.weight},${r.price ?? ""},${r.qty},${r.min_investment ?? ""}`,
-  );
-  const csv = [header, ...lines].join("\n");
-  const fileTitle = document
-    .getElementById("deltaTitle")
-    .textContent.trim()
-    .replace(/\s+/g, "_");
-  _downloadFile(`diff_${fileTitle}.csv`, csv, "text/csv");
-}
-
-async function exportDiffJson() {
-  const rows = await _withButton(
-    document.getElementById("exportJsonBtn"),
-    "⏳ Fetching…",
-    _buildEnrichedRows,
-  );
-  if (!rows.length) return;
-  const title = document.getElementById("deltaTitle").textContent.trim();
-  const total = rows.reduce((s, r) => s + (r.min_investment ?? 0), 0);
-  const payload = {
-    fund: document.getElementById("currentFundName").textContent.trim(),
-    comparison: title,
-    exported_at: new Date().toISOString(),
-    minimum_total_investment: +total.toFixed(2),
-    diff: rows,
-  };
-  _downloadFile(
-    `diff_${title.replace(/\s+/g, "_")}.json`,
-    JSON.stringify(payload, null, 2),
-    "application/json",
-  );
-}
-
-async function exportDiffCopy() {
-  const btn = document.getElementById("exportCopyBtn");
-  const rows = await _withButton(btn, "⏳ Fetching…", _buildEnrichedRows);
-  if (!rows.length) return;
-  const header =
-    "Company\tTicker\tStatus\tChange %\tRel. Weight %\tLast Close (₹)\tMin Qty\tMin Investment (₹)";
-  const lines = rows.map(
-    (r) =>
-      `${r.company}\t${r.ticker}\t${r.status}\t${r.change_pct}\t${r.weight}\t${r.price ?? "N/A"}\t${r.qty}\t${r.min_investment ?? "N/A"}`,
-  );
-  await navigator.clipboard.writeText([header, ...lines].join("\n"));
-  btn.textContent = "✓ Copied!";
-  btn.classList.add("copied");
-  setTimeout(() => {
-    btn.textContent = "📋 Copy";
-    btn.classList.remove("copied");
-  }, 2000);
-}
-
-function _downloadFile(filename, content, mime) {
-  const blob = new Blob([content], { type: mime });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = filename;
-  a.click();
-  URL.revokeObjectURL(url);
 }
 
 async function handleSync() {
@@ -1513,6 +885,7 @@ async function reloadData() {
   populateFundSelector(availableMonths);
   populateDropdowns(availableMonths);
   initFundSearch();
+  initConsensus();
 
   // Display latest month for current fund
   const fundMonths = availableMonths[currentFund] || [];
@@ -1622,6 +995,17 @@ function highlightMatch(query, text) {
 
 function escapeHtml(str) {
   return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+// Group key: same company across funds despite spelling/casing variants
+// ("InterGlobe Aviation" vs "Interglobe Aviation", "Divi's" vs "Divis").
+// Strips legal suffixes and all non-alphanumerics so those merge, while
+// distinct instruments (e.g. a Call Option name) stay separate.
+function companyGroupKey(name) {
+  return name
+    .toLowerCase()
+    .replace(/\b(limited|ltd|pvt|private)\b/g, "")
+    .replace(/[^a-z0-9]/g, "");
 }
 
 /** Return initials badge text (up to 3 chars) */
@@ -1803,17 +1187,6 @@ function initCompanySearch() {
     renderCompanyResults,
   );
 
-  // Group key: same company across funds despite spelling/casing variants
-  // ("InterGlobe Aviation" vs "Interglobe Aviation", "Divi's" vs "Divis").
-  // Strips legal suffixes and all non-alphanumerics so those merge, while
-  // distinct instruments (e.g. a Call Option name) stay separate.
-  function companyGroupKey(name) {
-    return name
-      .toLowerCase()
-      .replace(/\b(limited|ltd|pvt|private)\b/g, "")
-      .replace(/[^a-z0-9]/g, "");
-  }
-
   // Search each fund's latest month; returns companies grouped with every
   // fund that holds them, sorted by the highest % of NAV.
   function getCompanyResults(query) {
@@ -1928,6 +1301,325 @@ function initCompanySearch() {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Smart Money Moves — cross-fund consensus
+// Aggregates each fund's month-over-month delta across ALL funds for a chosen
+// month: which stocks were newly bought / increased / decreased / exited, and
+// by how many funds. Equity-category moves only — TREPS/cash churn and debt
+// reshuffles aren't a stock-picking signal.
+// ---------------------------------------------------------------------------
+
+let consensusFilter = "all";
+let consensusSortCol = "funds";
+let consensusSortDir = "desc";
+let _consensusBound = false;
+let _consensusCache = { monthKey: null, result: null };
+
+const CONS_STATUS_ORDER = ["new", "increased", "decreased", "exited"];
+const CONS_STATUS_WORDS = {
+  new: "New entry",
+  increased: "Increased",
+  decreased: "Decreased",
+  exited: "Exited",
+};
+
+// Months where at least one fund has data AND a prior month to diff against.
+function consensusMonthKeys() {
+  const keys = new Set();
+  for (const fundKey of Object.keys(FUNDS)) {
+    const months = availableMonths[fundKey] || [];
+    months.forEach((m, i) => {
+      if (i > 0) keys.add(m.key);
+    });
+  }
+  return [...keys].sort((a, b) => {
+    const [am, ay] = a.split("-");
+    const [bm, by] = b.split("-");
+    return ay - by || MONTH_INDEX.get(am) - MONTH_INDEX.get(bm);
+  });
+}
+
+function buildConsensus(monthKey) {
+  const byCompany = new Map();
+  const fundsReporting = [];
+
+  for (const [fundKey, cfg] of Object.entries(FUNDS)) {
+    const months = availableMonths[fundKey] || [];
+    const idx = months.findIndex((m) => m.key === monthKey);
+    if (idx <= 0) continue; // month not published for this fund, or no baseline
+    const cur = allData[fundKey]?.[monthKey];
+    const prev = allData[fundKey]?.[months[idx - 1].key];
+    if (!cur?.holdings || !prev?.holdings) continue;
+
+    fundsReporting.push(fundKey);
+    const delta = calculateDelta(cur, prev);
+    for (const d of delta.all) {
+      if (d.status === "unchanged") continue;
+      if (categoryOf(d.instrumentType || "equity") !== "stocks") continue;
+      const gk = companyGroupKey(d.company);
+      if (!gk) continue;
+      let rec = byCompany.get(gk);
+      if (!rec) {
+        rec = { moves: [] };
+        byCompany.set(gk, rec);
+      }
+      rec.moves.push({
+        company: d.company,
+        fundKey,
+        displayName: cfg.displayName,
+        status: d.status,
+        navDelta: d.navDelta,
+        currentNAV: d.currentNAV,
+        previousNAV: d.previousNAV,
+      });
+    }
+  }
+
+  const rows = [...byCompany.values()].map((r) => {
+    const counts = { new: 0, increased: 0, decreased: 0, exited: 0 };
+    for (const m of r.moves) counts[m.status]++;
+    // Display spelling: variant attached to the largest single move
+    const topMove = r.moves.reduce((a, b) =>
+      Math.abs(b.navDelta) > Math.abs(a.navDelta) ? b : a,
+    );
+    return {
+      company: topMove.company,
+      moves: r.moves,
+      counts,
+      netDelta: r.moves.reduce((s, m) => s + m.navDelta, 0),
+      currentWeight: r.moves.reduce((s, m) => s + (m.currentNAV || 0), 0),
+      fundCount: r.moves.length,
+    };
+  });
+
+  return { rows, fundsReporting };
+}
+
+function getConsensus(monthKey) {
+  if (_consensusCache.monthKey !== monthKey || !_consensusCache.result) {
+    _consensusCache = { monthKey, result: buildConsensus(monthKey) };
+  }
+  return _consensusCache.result;
+}
+
+// Aggregate navDelta restricted to one status — secondary sort key inside a
+// bucket (a company can be "new" in one fund and "decreased" in another).
+function statusDelta(row, status) {
+  return row.moves.reduce(
+    (s, m) => s + (m.status === status ? m.navDelta : 0),
+    0,
+  );
+}
+
+const CONS_SORTERS = {
+  all: (a, b) =>
+    b.fundCount - a.fundCount || Math.abs(b.netDelta) - Math.abs(a.netDelta),
+  new: (a, b) =>
+    b.counts.new - a.counts.new || statusDelta(b, "new") - statusDelta(a, "new"),
+  increased: (a, b) =>
+    b.counts.increased - a.counts.increased ||
+    statusDelta(b, "increased") - statusDelta(a, "increased"),
+  decreased: (a, b) =>
+    b.counts.decreased - a.counts.decreased ||
+    statusDelta(a, "decreased") - statusDelta(b, "decreased"),
+  exited: (a, b) =>
+    b.counts.exited - a.counts.exited ||
+    statusDelta(a, "exited") - statusDelta(b, "exited"),
+};
+
+// Clickable column sorts (dir = "asc" | "desc"). For the Funds column inside
+// a bucket filter we count only moves of that status — "# funds newly
+// buying" is the meaningful number there, not total moves.
+const CONS_COL_SORTERS = {
+  company: (a, b, dir) =>
+    dir === "asc"
+      ? a.company.localeCompare(b.company)
+      : b.company.localeCompare(a.company),
+  funds: (a, b, dir) =>
+    (dir === "asc" ? 1 : -1) *
+    ((consensusFilter === "all" ? a.fundCount : a.counts[consensusFilter]) -
+      (consensusFilter === "all" ? b.fundCount : b.counts[consensusFilter])),
+  nav: (a, b, dir) => (dir === "asc" ? 1 : -1) * (a.currentWeight - b.currentWeight),
+  netdelta: (a, b, dir) => (dir === "asc" ? 1 : -1) * (a.netDelta - b.netDelta),
+};
+
+const CONS_COL_DEF_DIR = { company: "asc" }; // everything else defaults to desc
+
+function populateConsensusMonths() {
+  const sel = $("consensusMonth");
+  const keys = consensusMonthKeys();
+  sel.innerHTML = keys
+    .map((k) => {
+      const [m, y] = k.split("-");
+      return `<option value="${k}">${m} ${y}</option>`;
+    })
+    .join("");
+  if (keys.length) sel.value = keys[keys.length - 1];
+}
+
+// Collapse state persists across visits — the section defaults to collapsed
+// so it doesn't push the holdings table down the page.
+const CONS_OPEN_KEY = "mf_consensus_open";
+
+function setConsensusOpen(open) {
+  const head = $("consHead");
+  head.setAttribute("aria-expanded", open ? "true" : "false");
+  $("consBody").style.display = open ? "block" : "none";
+  $("consArrow").textContent = open ? "▾" : "▸";
+  $("consMini").style.display = open ? "none" : "";
+  try {
+    localStorage.setItem(CONS_OPEN_KEY, open ? "1" : "0");
+  } catch {}
+}
+
+function renderConsensus() {
+  const section = $("consensusSection");
+  const monthKey = $("consensusMonth").value;
+  if (!monthKey) {
+    section.style.display = "none";
+    return;
+  }
+
+  const { rows, fundsReporting } = getConsensus(monthKey);
+  section.style.display = "block";
+
+  const [m, y] = monthKey.split("-");
+  $("consensusScope").textContent =
+    `${m} ${y} · ${fundsReporting.length} of ${Object.keys(FUNDS).length} funds published · ` +
+    `each fund vs its previous published month · equity moves only`;
+
+  // Collapsed-state teaser: the headline numbers stay visible in the header.
+  $("consMini").textContent =
+    `${m} ${y} · ${fundsReporting.length}/${Object.keys(FUNDS).length} funds · ` +
+    `${rows.length} equity moves`;
+
+  $("consCountAll").textContent = rows.length;
+  for (const f of ["new", "increased", "decreased", "exited"]) {
+    const elId = `consCount${f[0].toUpperCase() + f.slice(1)}`;
+    $(elId).textContent = rows.filter((r) => r.counts[f] > 0).length;
+  }
+
+  const q = $("consensusSearch").value.trim().toLowerCase();
+  let items = rows.filter(
+    (r) => consensusFilter === "all" || r.counts[consensusFilter] > 0,
+  );
+  if (q) items = items.filter((r) => r.company.toLowerCase().includes(q));
+  const colSort = CONS_COL_SORTERS[consensusSortCol];
+  items.sort(
+    (a, b) => colSort(a, b, consensusSortDir) || CONS_SORTERS.all(a, b),
+  );
+
+  document
+    .querySelectorAll("#consensusTable th.sortable")
+    .forEach((th) => {
+      const active = th.dataset.col === consensusSortCol;
+      th.classList.toggle("sorted", active);
+      const arrow = th.querySelector(".sort-arrow");
+      if (arrow) {
+        arrow.textContent = active
+          ? consensusSortDir === "asc"
+            ? "▲"
+            : "▼"
+          : "";
+      }
+    });
+
+  const tbody = $("consensusBody");
+  if (!items.length) {
+    tbody.innerHTML =
+      `<tr><td colspan="6" class="consensus-empty">` +
+      `No moves${q ? ` matching &quot;${escapeHtml(q)}&quot;` : ""} for ${m} ${y}` +
+      `</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = items
+    .map((r, i) => {
+      const chips = r.moves
+        .filter(
+          (mv) => consensusFilter === "all" || mv.status === consensusFilter,
+        )
+        .sort(
+          (a, b) =>
+            CONS_STATUS_ORDER.indexOf(a.status) -
+              CONS_STATUS_ORDER.indexOf(b.status) ||
+            Math.abs(b.navDelta) - Math.abs(a.navDelta),
+        )
+        .map(
+          (mv) =>
+            `<span class="cons-chip chip-${mv.status}" ` +
+            `title="${CONS_STATUS_WORDS[mv.status]}: ${formatPercent(mv.previousNAV)} → ${formatPercent(mv.currentNAV)}">` +
+            `${escapeHtml(mv.displayName)} ${formatDelta(mv.navDelta)}</span>`,
+        )
+        .join("");
+      const netCls = r.netDelta >= 0 ? "delta-positive" : "delta-negative";
+      return `<tr>
+        <td>${i + 1}</td>
+        <td><span class="cell-name">${escapeHtml(r.company)}</span></td>
+        <td class="num">${r.fundCount}</td>
+        <td class="num">${formatPercent(r.currentWeight)}</td>
+        <td class="num ${netCls}">${formatDelta(r.netDelta)}</td>
+        <td><div class="cons-fundmoves">${chips}</div></td>
+      </tr>`;
+    })
+    .join("");
+}
+
+// Bound-once listener wiring + (re)build. Called from init() and reloadData()
+// — a sync can add a new month to the dropdown and invalidates the cache.
+function initConsensus() {
+  if (!_consensusBound) {
+    _consensusBound = true;
+    const toggle = () =>
+      setConsensusOpen(
+        $("consHead").getAttribute("aria-expanded") !== "true",
+      );
+    $("consHead").addEventListener("click", toggle);
+    $("consHead").addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        toggle();
+      }
+    });
+    $("consensusMonth").addEventListener("change", renderConsensus);
+    $("consensusSearch").addEventListener("input", renderConsensus);
+    document
+      .querySelectorAll("#consensusTable th.sortable")
+      .forEach((th) => {
+        th.addEventListener("click", () => {
+          const col = th.dataset.col;
+          if (consensusSortCol === col) {
+            consensusSortDir = consensusSortDir === "asc" ? "desc" : "asc";
+          } else {
+            consensusSortCol = col;
+            consensusSortDir = CONS_COL_DEF_DIR[col] ?? "desc";
+          }
+          renderConsensus();
+        });
+      });
+    document
+      .querySelectorAll("#consensusCards .delta-stat")
+      .forEach((card) => {
+        card.addEventListener("click", () => {
+          consensusFilter = card.dataset.consfilter;
+          document
+            .querySelectorAll("#consensusCards .delta-stat")
+            .forEach((c) => c.classList.remove("active"));
+          card.classList.add("active");
+          renderConsensus();
+        });
+      });
+  }
+  _consensusCache = { monthKey: null, result: null };
+  populateConsensusMonths();
+  renderConsensus();
+  let savedOpen = null;
+  try {
+    savedOpen = localStorage.getItem(CONS_OPEN_KEY);
+  } catch {}
+  setConsensusOpen(savedOpen === "1");
+}
+
 async function init() {
   const loading = document.getElementById("loadingOverlay");
 
@@ -1967,6 +1659,7 @@ async function init() {
     populateDropdowns(availableMonths);
     initFundSearch();
     initCompanySearch();
+    initConsensus();
     initColumnResize();
 
     const fundMonths = availableMonths[currentFund] || [];
@@ -2018,19 +1711,6 @@ async function init() {
     document
       .getElementById("filterAll")
       .addEventListener("click", () => setActiveFilter("all"));
-
-    document
-      .getElementById("showMinInvestBtn")
-      .addEventListener("click", showMinInvestment);
-    document
-      .getElementById("exportCsvBtn")
-      .addEventListener("click", exportDiffCsv);
-    document
-      .getElementById("exportJsonBtn")
-      .addEventListener("click", exportDiffJson);
-    document
-      .getElementById("exportCopyBtn")
-      .addEventListener("click", exportDiffCopy);
 
     loading.classList.add("hidden");
   } catch (error) {

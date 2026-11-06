@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mutual Fund Allocation Tracker</title>
-    <link rel="stylesheet" href="css/styles.css?v=2" />
+    <link rel="stylesheet" href="css/styles.css?v=4" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   </head>
   <body>
@@ -136,29 +136,92 @@
             <canvas id="deltaChart"></canvas>
           </div>
         </div>
-        <div class="export-bar">
-          <div class="budget-input-wrap">
-            <span class="budget-prefix">₹</span>
+      </div>
+
+      <div class="consensus-section" id="consensusSection" style="display: none">
+        <div
+          class="cons-head"
+          id="consHead"
+          role="button"
+          tabindex="0"
+          aria-expanded="false"
+        >
+          <h2>🧠 Smart Money Moves <span class="cons-arrow" id="consArrow">▸</span></h2>
+          <span class="cons-mini" id="consMini"></span>
+        </div>
+        <div class="cons-body" id="consBody" style="display: none">
+          <div class="consensus-controls">
             <input
               type="text"
-              id="budgetInput"
-              class="budget-input"
-              placeholder="Budget (e.g. 1,00,000)"
-              inputmode="numeric"
+              id="consensusSearch"
+              placeholder="Search company..."
             />
+            <select id="consensusMonth"></select>
           </div>
-          <button id="showMinInvestBtn" class="btn-export btn-export-primary">
-            📊 Show Min Investment
-          </button>
-          <span class="export-label">Export:</span>
-          <button id="exportCsvBtn" class="btn-export">⬇ CSV</button>
-          <button id="exportJsonBtn" class="btn-export">⬇ JSON</button>
-          <button id="exportCopyBtn" class="btn-export">📋 Copy</button>
+          <p class="delta-hint" id="consensusScope"></p>
+        <div class="delta-summary" id="consensusCards">
+          <div
+            class="delta-stat all clickable active"
+            data-consfilter="all"
+          >
+            <span class="delta-icon">*</span>
+            <div class="delta-info">
+              <span class="delta-label">All Moves</span>
+              <span class="delta-value" id="consCountAll">0</span>
+            </div>
+          </div>
+          <div class="delta-stat added clickable" data-consfilter="new">
+            <span class="delta-icon">+</span>
+            <div class="delta-info">
+              <span class="delta-label">New Entries</span>
+              <span class="delta-value" id="consCountNew">0</span>
+            </div>
+          </div>
+          <div class="delta-stat added clickable" data-consfilter="increased">
+            <span class="delta-icon">&#8599;</span>
+            <div class="delta-info">
+              <span class="delta-label">Increased</span>
+              <span class="delta-value" id="consCountIncreased">0</span>
+            </div>
+          </div>
+          <div class="delta-stat removed clickable" data-consfilter="decreased">
+            <span class="delta-icon">&#8600;</span>
+            <div class="delta-info">
+              <span class="delta-label">Decreased</span>
+              <span class="delta-value" id="consCountDecreased">0</span>
+            </div>
+          </div>
+          <div class="delta-stat removed clickable" data-consfilter="exited">
+            <span class="delta-icon">&#10005;</span>
+            <div class="delta-info">
+              <span class="delta-label">Exits</span>
+              <span class="delta-value" id="consCountExited">0</span>
+            </div>
+          </div>
         </div>
-
-        <!-- Minimum Investment Summary (shown after fetching prices) -->
-        <div id="minInvestSection" style="display: none">
-          <div id="minInvestTable"></div>
+        <div class="table-wrapper">
+          <table id="consensusTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th class="sortable" data-col="company">
+                  Company <span class="sort-arrow"></span>
+                </th>
+                <th class="num sortable" data-col="funds" title="Number of funds that moved this stock">
+                  Funds <span class="sort-arrow"></span>
+                </th>
+                <th class="num sortable" data-col="nav" title="Sum of current % of NAV across the funds that moved">
+                  Combined NAV % <span class="sort-arrow"></span>
+                </th>
+                <th class="num sortable" data-col="netdelta" title="Sum of % of NAV change across the funds that moved">
+                  Net Change % <span class="sort-arrow"></span>
+                </th>
+                <th>Fund Moves</th>
+              </tr>
+            </thead>
+            <tbody id="consensusBody"></tbody>
+          </table>
+        </div>
         </div>
       </div>
 
@@ -279,6 +342,6 @@
       </div>
     </div>
 
-    <script src="js/app-multi-fund.js?v=2"></script>
+    <script src="js/app-multi-fund.js?v=4"></script>
   </body>
 </html>
