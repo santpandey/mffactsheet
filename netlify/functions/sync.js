@@ -52,6 +52,33 @@ exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: JSON.stringify({ error: "use POST" }) };
   }
+
+  // Abuse guard: refuse if a run is active or one started <10 min ago.
+  // Bounds GitHub Actions usage regardless of how often the button is hit.
+  const runs = await gh(
+    `/actions/workflows/${WORKFLOW}/runs?per_page=1`,
+    "GET",
+  ).then((r) => r.json());
+  const last = runs.workflow_runs?.[0];
+  if (last) {
+    if (["queued", "in_progress", "waiting", "pending"].includes(last.status)) {
+      return {
+        statusCode: 429,
+        body: JSON.stringify({ error: "A sync is already running" }),
+      };
+    }
+    const age = Date.now() - new Date(last.created_at).getTime();
+    if (age < 10 * 60 * 1000) {
+      const wait = Math.ceil((10 * 60 * 1000 - age) / 60000);
+      return {
+        statusCode: 429,
+        body: JSON.stringify({
+          error: `Synced recently — try again in ~${wait} min`,
+        }),
+      };
+    }
+  }
+
   const res = await gh(`/actions/workflows/${WORKFLOW}/dispatches`, "POST");
   return {
     statusCode: res.status === 204 ? 200 : res.status,

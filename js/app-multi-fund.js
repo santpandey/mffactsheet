@@ -852,7 +852,10 @@ async function handleRemoteSync() {
     const res = await fetch(`/.netlify/functions/sync${key}`, {
       method: "POST",
     });
-    if (!res.ok) throw new Error(`Trigger failed (${res.status})`);
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body.error || `Trigger failed (${res.status})`);
+    }
 
     // Poll the workflow run until it finishes (or ~6 min timeout)
     const deadline = Date.now() + 6 * 60 * 1000;
