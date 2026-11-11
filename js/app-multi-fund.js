@@ -430,6 +430,34 @@ function renderPieChart(data) {
   });
 }
 
+// Dice similarity on character bigrams — catches month-over-month name
+// respellings like "Service Ltd" -> "Services Ltd" (threshold ~0.85)
+function nameSimilarity(a, b) {
+  const norm = (s) =>
+    s
+      .toLowerCase()
+      .replace(/[^a-z0-9 ]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  const [x, y] = [norm(a), norm(b)];
+  if (x === y) return 1;
+  if (x.length < 4 || y.length < 4) return 0;
+  const counts = new Map();
+  for (let i = 0; i < x.length - 1; i++) {
+    const bg = x.slice(i, i + 2);
+    counts.set(bg, (counts.get(bg) || 0) + 1);
+  }
+  let overlap = 0;
+  for (let i = 0; i < y.length - 1; i++) {
+    const bg = y.slice(i, i + 2);
+    if (counts.get(bg) > 0) {
+      overlap++;
+      counts.set(bg, counts.get(bg) - 1);
+    }
+  }
+  return (2 * overlap) / (x.length - 1 + (y.length - 1));
+}
+
 function calculateDelta(current, previous) {
   const byCompany = (list) =>
     new Map(list.map((h) => [h.company.toLowerCase(), h]));
@@ -466,6 +494,32 @@ function calculateDelta(current, previous) {
       delta.removed.push(entry(h, 0, h.percentOfNAV ?? 0, "exited"));
     }
   }
+
+  // Re-merge rename pairs: a holding the AMC respelled between months shows
+  // up as a false exited+new pair; treat it as a weight change instead
+  delta.removed = delta.removed.filter((rem) => {
+    let best = -1;
+    let bestScore = 0.85;
+    delta.added.forEach((add, i) => {
+      if (add.instrumentType !== rem.instrumentType) return;
+      const score = nameSimilarity(rem.company, add.company);
+      if (score > bestScore) {
+        best = i;
+        bestScore = score;
+      }
+    });
+    if (best === -1) return true;
+    const add = delta.added.splice(best, 1)[0];
+    const navDelta = add.currentNAV - rem.previousNAV;
+    delta.changed.push({
+      ...add,
+      previousNAV: rem.previousNAV,
+      navDelta,
+      status:
+        navDelta > 0 ? "increased" : navDelta < 0 ? "decreased" : "unchanged",
+    });
+    return false;
+  });
 
   delta.all = [...delta.added, ...delta.changed, ...delta.removed].sort(
     (a, b) => Math.abs(b.navDelta) - Math.abs(a.navDelta),
