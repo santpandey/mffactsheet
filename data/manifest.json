@@ -29,6 +29,11 @@
       "month": "April",
       "year": 2026,
       "filename": "MiraeAssetLargeAndMidcapFund-April-2026.json"
+    },
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "MiraeAssetLargeAndMidcapFund-October-2026.json"
     }
   ],
   "InvescoIndiaMulticapFund": [
@@ -46,6 +51,11 @@
       "month": "May",
       "year": 2026,
       "filename": "InvescoIndiaMulticapFund-May-2026.json"
+    },
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-October-2026.json"
     },
     {
       "month": "June",
@@ -184,9 +194,56 @@
       "filename": "OldBridgeFocusedFund-September-2026.json"
     },
     {
+      "month": "October",
+      "year": 2026,
+      "filename": "OldBridgeFocusedFund-October-2026.json"
+    },
+    {
       "month": "June",
       "year": 2026,
       "filename": "OldBridgeFocusedFund-June-2026.json"
+    }
+  ],
+  "SBIChildrensFund": [
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "SBIChildrensFund-October-2026.json"
+    },
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "SBIChildrensFund-April-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2026,
+      "filename": "SBIChildrensFund-July-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "SBIChildrensFund-September-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "SBIChildrensFund-August-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "SBIChildrensFund-May-2026.json"
+    },
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "SBIChildrensFund-March-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "SBIChildrensFund-June-2026.json"
     }
   ],
   "HDFCMultiAssetAllocationFund": [
@@ -298,6 +355,11 @@
       "month": "July",
       "year": 2026,
       "filename": "PPFASFlexiCapFund-July-2026.json"
+    },
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "PPFASFlexiCapFund-October-2026.json"
     }
   ],
   "MotilalOswalMidcapFund": [
@@ -364,6 +426,11 @@
       "filename": "TrustMFSmallCapFund-June-2026.json"
     },
     {
+      "month": "October",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-October-2026.json"
+    },
+    {
       "month": "April",
       "year": 2026,
       "filename": "TrustMFSmallCapFund-April-2026.json"
@@ -409,43 +476,6 @@
       "month": "March",
       "year": 2026,
       "filename": "QuantFlexiCapFund-March-2026.json"
-    }
-  ],
-  "SBIChildrensFund": [
-    {
-      "month": "April",
-      "year": 2026,
-      "filename": "SBIChildrensFund-April-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2026,
-      "filename": "SBIChildrensFund-July-2026.json"
-    },
-    {
-      "month": "September",
-      "year": 2026,
-      "filename": "SBIChildrensFund-September-2026.json"
-    },
-    {
-      "month": "August",
-      "year": 2026,
-      "filename": "SBIChildrensFund-August-2026.json"
-    },
-    {
-      "month": "May",
-      "year": 2026,
-      "filename": "SBIChildrensFund-May-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2026,
-      "filename": "SBIChildrensFund-March-2026.json"
-    },
-    {
-      "month": "June",
-      "year": 2026,
-      "filename": "SBIChildrensFund-June-2026.json"
     }
   ]
 }
