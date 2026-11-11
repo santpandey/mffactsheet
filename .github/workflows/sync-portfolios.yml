@@ -1,0 +1,59 @@
+name: Sync monthly portfolios
+
+on:
+  schedule:
+    - cron: "0 2 10 * *" # 07:30 IST on the 10th — previous month's factsheets are due by SEBI's deadline
+  workflow_dispatch:
+    inputs:
+      year:
+        description: "Year to sync (default: previous month)"
+        required: false
+        type: string
+      month:
+        description: "Month number 1-12 (default: previous month)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Determine target month
+        id: target
+        run: |
+          if [ -n "${{ inputs.month }}" ] && [ -n "${{ inputs.year }}" ]; then
+            echo "year=${{ inputs.year }}" >> "$GITHUB_OUTPUT"
+            echo "month=${{ inputs.month }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "year=$(date -d 'last month' +%Y)" >> "$GITHUB_OUTPUT"
+            echo "month=$(date -d 'last month' +%-m)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Install dependencies
+        run: uv sync
+
+      - name: Sync portfolios for ${{ steps.target.outputs.month }}/${{ steps.target.outputs.year }}
+        run: uv run python scripts/sync_all_funds.py --year ${{ steps.target.outputs.year }} --month ${{ steps.target.outputs.month }}
+
+      - name: Regenerate manifest
+        run: uv run python scripts/generate_manifest.py
+
+      - name: Commit new data
+        run: |
+          git add data/
+          if [ -n "$(git status --porcelain data/)" ]; then
+            git -c user.name="github-actions[bot]" \
+                -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+                commit -m "Sync portfolios for ${{ steps.target.outputs.month }}/${{ steps.target.outputs.year }}"
+            git push
+          else
+            echo "No data changes to commit"
+          fi
