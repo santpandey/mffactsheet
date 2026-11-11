@@ -818,77 +818,7 @@ function displayMonth(key) {
   document.getElementById("deltaSection").style.display = "none";
 }
 
-const SYNC_KEY = ""; // Set this if SYNC_SECRET is configured in Netlify env vars
-
 async function handleSync() {
-  const isLocal =
-    window.location.hostname === "localhost" ||
-    window.location.hostname === "127.0.0.1";
-  if (isLocal) {
-    await handleLocalSync();
-  } else {
-    await handleRemoteSync();
-  }
-}
-
-async function handleRemoteSync() {
-  const syncBtn = document.getElementById("syncBtn");
-  const originalText = syncBtn.textContent;
-  const key = SYNC_KEY ? `?key=${encodeURIComponent(SYNC_KEY)}` : "";
-  const sep = key ? "&" : "?";
-
-  const reset = (text, delay) =>
-    setTimeout(() => {
-      syncBtn.textContent = originalText;
-      syncBtn.classList.remove("syncing");
-      syncBtn.disabled = false;
-    }, delay);
-
-  try {
-    syncBtn.disabled = true;
-    syncBtn.classList.add("syncing");
-    syncBtn.textContent = "🔄 Syncing...";
-
-    const res = await fetch(`/.netlify/functions/sync${key}`, {
-      method: "POST",
-    });
-    if (!res.ok) {
-      const body = await res.json().catch(() => ({}));
-      throw new Error(body.error || `Trigger failed (${res.status})`);
-    }
-
-    // Poll the workflow run until it finishes (or ~6 min timeout)
-    const deadline = Date.now() + 6 * 60 * 1000;
-    let outcome = null;
-    while (Date.now() < deadline) {
-      await new Promise((r) => setTimeout(r, 15000));
-      const st = await fetch(
-        `/.netlify/functions/sync${key}${sep}status=1`,
-      ).then((r) => r.json());
-      if (st.status === "completed") {
-        outcome = st.conclusion;
-        break;
-      }
-      syncBtn.textContent = "🔄 Running sync…";
-    }
-
-    if (outcome === "success") {
-      syncBtn.textContent = "✓ Synced — refresh in ~1 min";
-      reset(originalText, 15000);
-    } else {
-      syncBtn.textContent =
-        outcome === null ? "⏱ Still running — check back soon" : "✗ Sync failed";
-      reset(originalText, 8000);
-    }
-  } catch (error) {
-    console.error("Sync error:", error);
-    syncBtn.textContent = "✗ Sync Failed";
-    alert(`Sync failed: ${error.message}`);
-    reset(originalText, 3000);
-  }
-}
-
-async function handleLocalSync() {
   const syncBtn = document.getElementById("syncBtn");
   const originalText = syncBtn.textContent;
 
@@ -1692,6 +1622,17 @@ function initConsensus() {
 
 async function init() {
   const loading = document.getElementById("loadingOverlay");
+
+  // Sync button only works locally against sync_server.py; production
+  // sync is handled by the scheduled GitHub Actions workflow
+  const syncBtn = document.getElementById("syncBtn");
+  if (
+    syncBtn &&
+    window.location.hostname !== "localhost" &&
+    window.location.hostname !== "127.0.0.1"
+  ) {
+    syncBtn.style.display = "none";
+  }
 
   try {
     availableMonths = await loadAvailableMonths();

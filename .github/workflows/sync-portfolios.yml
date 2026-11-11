@@ -3,6 +3,7 @@ name: Sync monthly portfolios
 on:
   schedule:
     - cron: "0 2 10 * *" # 07:30 IST on the 10th — previous month's factsheets are due by SEBI's deadline
+    - cron: "0 2 15 * *" # second pass on the 15th — catches AMCs that publish late
   workflow_dispatch:
     inputs:
       year:

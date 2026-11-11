@@ -43,3 +43,14 @@
 - Any `TODO`, `pending`, `review`, stub, or skipped input is an open item —
   resolve deterministically or disclose explicitly; never pass silently.
 - Before finishing, grep the diff for leftover deferred markers.
+
+## Monthly sync automation
+
+- `.github/workflows/sync-portfolios.yml` — runs twice a month (10th and
+  15th, 07:30 IST), syncing the previous month's factsheets. The second
+  pass catches AMCs that publish after SEBI's deadline. Commits to `main`
+  only when `data/` changed; Netlify auto-deploys on push.
+- Manual trigger: GitHub -> Actions -> "Sync monthly portfolios" ->
+  "Run workflow" (optional year/month inputs).
+- The "Sync Data" button is localhost-only (sync_server.py on :8001);
+  it is hidden on the deployed site.
