@@ -1090,16 +1090,18 @@ function createSearchModal(ids, render) {
   let highlightIdx = -1;
 
   const open = () => {
-    modal.style.display = "flex";
+    modal.showModal();
     input.value = "";
     clearBtn.classList.remove("visible");
     render("", results);
     setTimeout(() => input.focus(), 100);
   };
   const close = () => {
-    modal.style.display = "none";
-    highlightIdx = -1;
+    modal.close();
   };
+  modal.addEventListener("close", () => {
+    highlightIdx = -1;
+  });
   const moveHighlight = (dir) => {
     const items = results.querySelectorAll(".fund-search-item");
     if (!items.length) return;
@@ -1114,6 +1116,8 @@ function createSearchModal(ids, render) {
 
   $(ids.openBtn).addEventListener("click", open);
   $(ids.closeBtn).addEventListener("click", close);
+  // The dialog fills the viewport, so clicks on its padding/backdrop area
+  // land on the dialog itself — closedby="any" can't see outside its box
   modal.addEventListener("click", (e) => {
     if (e.target === modal) close();
   });
@@ -1131,7 +1135,6 @@ function createSearchModal(ids, render) {
           results.querySelector(".fund-search-item.highlighted") ??
           results.querySelector(".fund-search-item")
         )?.click(),
-      Escape: close,
     };
     if (actions[e.key]) {
       e.preventDefault();

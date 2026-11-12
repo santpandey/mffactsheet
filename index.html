@@ -4,8 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mutual Fund Allocation Tracker</title>
-    <link rel="stylesheet" href="css/styles.css?v=5" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css?v=6" />
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+      integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
   </head>
   <body>
     <div class="container">
@@ -287,7 +292,7 @@
     </div>
 
     <!-- Fund Search Modal -->
-    <div id="fundSearchModal" class="modal-overlay" style="display: none">
+    <dialog id="fundSearchModal" class="modal-overlay" closedby="any">
       <div class="modal-content fund-search-modal">
         <div class="modal-header">
           <h3>🔍 Search Funds</h3>
@@ -310,10 +315,10 @@
           ↑↓ to navigate · Enter to select · Esc to close
         </div>
       </div>
-    </div>
+    </dialog>
 
     <!-- Company Search Modal -->
-    <div id="companySearchModal" class="modal-overlay" style="display: none">
+    <dialog id="companySearchModal" class="modal-overlay" closedby="any">
       <div class="modal-content fund-search-modal">
         <div class="modal-header">
           <h3>🏢 Search Companies</h3>
@@ -340,8 +345,8 @@
           ↑↓ to navigate · Enter to select · Esc to close
         </div>
       </div>
-    </div>
+    </dialog>
 
-    <script src="js/app-multi-fund.js?v=6"></script>
+    <script src="js/app-multi-fund.js?v=7"></script>
   </body>
 </html>
