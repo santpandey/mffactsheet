@@ -74,6 +74,7 @@ const MONTH_INDEX = new Map(MONTHS_ORDER.map((m, i) => [m, i]));
 
 let currentFund = "CanaraRobecoLargeAndMidCapFund";
 let allData = {};
+let fileIndex = {};
 let currentData = null;
 let currentDelta = null;
 let currentFilter = "all";
@@ -129,9 +130,9 @@ async function loadAvailableMonths() {
   const uniqueFiles = [...new Set(fileNames)];
   const filePattern = /^([A-Za-z0-9]+)-([A-Za-z]+)-(\d{4})\.json$/;
 
-  // Build the list of files to load, then fetch them concurrently.
-  // Sequential `await` per file was the main load-time bottleneck (75+ files).
-  const tasks = [];
+  // Index only — file contents load lazily via ensureMonth(). Fetching all
+  // 90+ files up front was the main load-time bottleneck.
+  fileIndex = {};
   for (const filename of uniqueFiles) {
     const match = filename.match(filePattern);
     if (!match) continue;
@@ -139,37 +140,10 @@ async function loadAvailableMonths() {
     const [, fundKey, month, yearText] = match;
     if (!FUNDS[fundKey]) continue;
 
-    tasks.push({
-      filename,
-      fundKey,
-      month,
-      year: Number(yearText),
-      key: `${month}-${yearText}`,
-    });
+    const key = `${month}-${yearText}`;
+    (fileIndex[fundKey] ??= {})[key] = filename;
+    available[fundKey].push({ month, year: Number(yearText), key });
   }
-
-  // Bounded concurrency pool: fast on HTTP/2 (Netlify multiplexes), without
-  // firing hundreds of simultaneous requests on larger datasets.
-  const CONCURRENCY = 12;
-  let cursor = 0;
-  async function worker() {
-    while (cursor < tasks.length) {
-      const t = tasks[cursor++];
-      try {
-        const response = await fetch(`data/${t.filename}`);
-        if (!response.ok) continue;
-
-        const data = await response.json();
-        allData[t.fundKey][t.key] = data;
-        available[t.fundKey].push({ month: t.month, year: t.year, key: t.key });
-      } catch (e) {
-        console.error(`Failed to load ${t.filename}`, e);
-      }
-    }
-  }
-  await Promise.all(
-    Array.from({ length: Math.min(CONCURRENCY, tasks.length) }, () => worker()),
-  );
 
   for (const fundKey of Object.keys(available)) {
     available[fundKey].sort(
@@ -179,6 +153,49 @@ async function loadAvailableMonths() {
   }
 
   return available;
+}
+
+// Fetch one month's JSON on demand and cache it; returns null when missing.
+async function ensureMonth(fundKey, key) {
+  if (allData[fundKey]?.[key]) return allData[fundKey][key];
+  const file = fileIndex[fundKey]?.[key];
+  if (!file) return null;
+  try {
+    const response = await fetch(`data/${file}`);
+    if (!response.ok) return null;
+    const data = await response.json();
+    (allData[fundKey] ??= {})[key] = data;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+// After first paint, pull the remaining files at low fetch priority so
+// later interactions (delta, consensus, company search) resolve from memory
+// without competing with the critical initial render.
+function warmDataCache() {
+  const pending = [];
+  for (const [fund, months] of Object.entries(fileIndex)) {
+    for (const key of Object.keys(months)) {
+      if (!allData[fund]?.[key]) pending.push([fund, key]);
+    }
+  }
+  let cursor = 0;
+  const worker = async () => {
+    while (cursor < pending.length) {
+      const [fund, key] = pending[cursor++];
+      try {
+        const res = await fetch(`data/${fileIndex[fund][key]}`, {
+          priority: "low",
+        });
+        if (res.ok) (allData[fund] ??= {})[key] = await res.json();
+      } catch {}
+    }
+  };
+  return Promise.all(
+    Array.from({ length: Math.min(8, pending.length) }, worker),
+  );
 }
 
 function populateFundSelector(available) {
@@ -791,7 +808,7 @@ function setActiveFilter(filter) {
   }
 }
 
-function showDelta() {
+async function showDelta() {
   const currentKey = document.getElementById("monthSelect").value;
   const compareKey = document.getElementById("compareSelect").value;
 
@@ -800,11 +817,9 @@ function showDelta() {
     return;
   }
 
-  const fundData = allData[currentFund] || {};
-  const current = fundData[currentKey];
+  const current = await ensureMonth(currentFund, currentKey);
 
   // Handle "Select All (Historical Change)" option
-  let previous;
   let actualPrevKey;
   if (compareKey === "compare-all") {
     const fundMonths = availableMonths[currentFund] || [];
@@ -813,11 +828,10 @@ function showDelta() {
       return;
     }
     actualPrevKey = fundMonths[0].key;
-    previous = fundData[actualPrevKey];
   } else {
     actualPrevKey = compareKey;
-    previous = fundData[compareKey];
   }
+  const previous = await ensureMonth(currentFund, actualPrevKey);
 
   if (!current || !previous) {
     alert("Data not available for selected months");
@@ -857,9 +871,8 @@ function showDelta() {
   }, 100);
 }
 
-function displayMonth(key) {
-  const fundData = allData[currentFund] || {};
-  const data = fundData[key];
+async function displayMonth(key) {
+  const data = await ensureMonth(currentFund, key);
   if (!data) return;
 
   currentData = data;
@@ -947,11 +960,12 @@ async function reloadData() {
     const latestKey = fundMonths[fundMonths.length - 1].key;
     const monthSelect = document.getElementById("monthSelect");
     monthSelect.value = latestKey;
-    displayMonth(latestKey);
+    await displayMonth(latestKey);
   }
+  warmDataCache();
 }
 
-function switchFund(fundKey) {
+async function switchFund(fundKey) {
   currentFund = fundKey;
   populateDropdowns(availableMonths);
 
@@ -960,7 +974,7 @@ function switchFund(fundKey) {
     const latestKey = fundMonths[fundMonths.length - 1].key;
     const monthSelect = document.getElementById("monthSelect");
     monthSelect.value = latestKey;
-    displayMonth(latestKey);
+    await displayMonth(latestKey);
   } else {
     // No data for this fund
     currentData = null;
@@ -1246,8 +1260,14 @@ function initCompanySearch() {
 
   // Search each fund's latest month; returns companies grouped with every
   // fund that holds them, sorted by the highest % of NAV.
-  function getCompanyResults(query) {
+  async function getCompanyResults(query) {
     const q = query.toLowerCase();
+    await Promise.all(
+      Object.keys(FUNDS).map((fundKey) => {
+        const months = availableMonths[fundKey] || [];
+        return ensureMonth(fundKey, months[months.length - 1]?.key);
+      }),
+    );
     const byCompany = new Map();
 
     for (const [fundKey, fundConfig] of Object.entries(FUNDS)) {
@@ -1283,13 +1303,13 @@ function initCompanySearch() {
       .slice(0, 15);
   }
 
-  function renderCompanyResults(query, results) {
+  async function renderCompanyResults(query, results) {
     if (query.length < 2) {
       results.innerHTML =
         '<div class="fund-search-no-results">Type at least 2 characters to search holdings across all funds</div>';
       return;
     }
-    const items = getCompanyResults(query);
+    const items = await getCompanyResults(query);
     results.innerHTML = "";
     if (items.length === 0) {
       results.innerHTML = `<div class="fund-search-no-results">No holdings found for "${escapeHtml(query)}"</div>`;
@@ -1396,7 +1416,7 @@ function consensusMonthKeys() {
   });
 }
 
-function buildConsensus(monthKey) {
+async function buildConsensus(monthKey) {
   const byCompany = new Map();
   const fundsReporting = [];
 
@@ -1404,8 +1424,10 @@ function buildConsensus(monthKey) {
     const months = availableMonths[fundKey] || [];
     const idx = months.findIndex((m) => m.key === monthKey);
     if (idx <= 0) continue; // month not published for this fund, or no baseline
-    const cur = allData[fundKey]?.[monthKey];
-    const prev = allData[fundKey]?.[months[idx - 1].key];
+    const [cur, prev] = await Promise.all([
+      ensureMonth(fundKey, monthKey),
+      ensureMonth(fundKey, months[idx - 1].key),
+    ]);
     if (!cur?.holdings || !prev?.holdings) continue;
 
     fundsReporting.push(fundKey);
@@ -1452,9 +1474,9 @@ function buildConsensus(monthKey) {
   return { rows, fundsReporting };
 }
 
-function getConsensus(monthKey) {
+async function getConsensus(monthKey) {
   if (_consensusCache.monthKey !== monthKey || !_consensusCache.result) {
-    _consensusCache = { monthKey, result: buildConsensus(monthKey) };
+    _consensusCache = { monthKey, result: await buildConsensus(monthKey) };
   }
   return _consensusCache.result;
 }
@@ -1529,7 +1551,7 @@ function setConsensusOpen(open) {
   } catch {}
 }
 
-function renderConsensus() {
+async function renderConsensus() {
   const section = $("consensusSection");
   const monthKey = $("consensusMonth").value;
   if (!monthKey) {
@@ -1537,10 +1559,24 @@ function renderConsensus() {
     return;
   }
 
-  const { rows, fundsReporting } = getConsensus(monthKey);
+  const [m, y] = monthKey.split("-");
+  const open = $("consHead").getAttribute("aria-expanded") === "true";
+
+  // Collapsed: show a metadata-only teaser — no file fetches. The full
+  // aggregation runs on expand (or when data is already cached).
+  if (!open && !_consensusCache.result) {
+    section.style.display = "block";
+    const reporting = Object.keys(FUNDS).filter((f) =>
+      (availableMonths[f] || []).some((mm, i) => i > 0 && mm.key === monthKey),
+    ).length;
+    $("consMini").textContent =
+      `${m} ${y} · ${reporting}/${Object.keys(FUNDS).length} funds`;
+    return;
+  }
+
+  const { rows, fundsReporting } = await getConsensus(monthKey);
   section.style.display = "block";
 
-  const [m, y] = monthKey.split("-");
   $("consensusScope").textContent =
     `${m} ${y} · ${fundsReporting.length} of ${Object.keys(FUNDS).length} funds published · ` +
     `each fund vs its previous published month · equity moves only`;
@@ -1627,10 +1663,12 @@ function renderConsensus() {
 function initConsensus() {
   if (!_consensusBound) {
     _consensusBound = true;
-    const toggle = () =>
+    const toggle = () => {
       setConsensusOpen(
         $("consHead").getAttribute("aria-expanded") !== "true",
       );
+      renderConsensus();
+    };
     $("consHead").addEventListener("click", toggle);
     $("consHead").addEventListener("keydown", (e) => {
       if (e.key === "Enter" || e.key === " ") {
@@ -1723,8 +1761,9 @@ async function init() {
     const fundMonths = availableMonths[currentFund] || [];
     if (fundMonths.length > 0) {
       const latestKey = fundMonths[fundMonths.length - 1].key;
-      displayMonth(latestKey);
+      await displayMonth(latestKey);
     }
+    warmDataCache();
 
     // Event listeners
     document.getElementById("fundSelect").addEventListener("change", (e) => {
