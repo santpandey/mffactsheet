@@ -361,24 +361,53 @@ function getChartColors(count) {
   );
 }
 
+// Shared chart theme — one font, color and tooltip style across all charts
+Chart.defaults.font.family =
+  "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+Chart.defaults.color = "#6b7280";
+const CHART_TOOLTIP = {
+  backgroundColor: "rgba(17, 24, 39, 0.95)",
+  padding: 10,
+  cornerRadius: 8,
+  displayColors: false,
+  titleFont: { size: 12, weight: "600" },
+  bodyFont: { size: 12 },
+};
+
+// Click an allocation bar -> jump to that row in the holdings table
+function scrollToHolding(company) {
+  const tbody = $("holdingsBody");
+  if (!tbody) return;
+  for (const tr of tbody.querySelectorAll("tr")) {
+    if (tr.querySelector(".cell-name")?.textContent === company) {
+      tr.scrollIntoView({ behavior: "smooth", block: "center" });
+      tr.classList.add("row-flash");
+      setTimeout(() => tr.classList.remove("row-flash"), 1600);
+      return;
+    }
+  }
+}
+
 function renderAllocationChart(data) {
   const ctx = document.getElementById("allocationChart").getContext("2d");
   if (allocationChart) allocationChart.destroy();
 
   const top15 = data.holdings.slice(0, 15);
-  const labels = top15.map((h) => truncate(h.company, 25));
-  const values = top15.map((h) => h.percentOfNAV || 0);
+  const max = top15[0]?.percentOfNAV || 1;
 
   allocationChart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels,
+      labels: top15.map((h, i) => `#${i + 1} ${truncate(h.company, 24)}`),
       datasets: [
         {
-          label: "% of NAV",
-          data: values,
-          backgroundColor: getChartColors(15),
+          data: top15.map((h) => h.percentOfNAV || 0),
+          backgroundColor: top15.map(
+            (h) =>
+              `rgba(79, 70, 229, ${0.3 + 0.7 * ((h.percentOfNAV || 0) / max)})`,
+          ),
           borderRadius: 4,
+          borderSkipped: false,
         },
       ],
     },
@@ -386,14 +415,29 @@ function renderAllocationChart(data) {
       indexAxis: "y",
       responsive: true,
       maintainAspectRatio: false,
+      onHover: (e, els) => {
+        e.native.target.style.cursor = els.length ? "pointer" : "default";
+      },
+      onClick: (e, els) => {
+        if (els.length) scrollToHolding(top15[els[0].index].company);
+      },
       plugins: {
         legend: { display: false },
         tooltip: {
-          callbacks: { label: (ctx) => `${ctx.parsed.x.toFixed(2)}%` },
+          ...CHART_TOOLTIP,
+          callbacks: {
+            title: (items) => top15[items[0].dataIndex].company,
+            label: (ctx) => `${ctx.parsed.x.toFixed(2)}% of NAV`,
+          },
         },
       },
       scales: {
-        x: { beginAtZero: true, title: { display: true, text: "% of NAV" } },
+        x: {
+          beginAtZero: true,
+          title: { display: true, text: "% of NAV" },
+          grid: { color: "rgba(0, 0, 0, 0.05)" },
+        },
+        y: { grid: { display: false } },
       },
     },
   });
@@ -407,14 +451,36 @@ function renderPieChart(data) {
   const othersSum = data.holdings
     .slice(10)
     .reduce((sum, h) => sum + (h.percentOfNAV || 0), 0);
+  const top10Sum = top10.reduce((s, h) => s + (h.percentOfNAV || 0), 0);
 
-  const labels = top10.map((h) => truncate(h.company, 20));
+  const labels = top10.map((h) => h.company);
   const values = top10.map((h) => h.percentOfNAV || 0);
+  const colors = getChartColors(labels.length + 1);
 
   if (othersSum > 0) {
     labels.push("Others");
     values.push(othersSum);
+    colors[values.length - 1] = "#d1d5db";
   }
+
+  const centerText = {
+    id: "centerText",
+    afterDraw(chart) {
+      const { ctx, chartArea } = chart;
+      const cx = (chartArea.left + chartArea.right) / 2;
+      const cy = (chartArea.top + chartArea.bottom) / 2;
+      ctx.save();
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.font = "700 18px -apple-system, sans-serif";
+      ctx.fillStyle = "#111827";
+      ctx.fillText(`${top10Sum.toFixed(1)}%`, cx, cy - 8);
+      ctx.font = "11px -apple-system, sans-serif";
+      ctx.fillStyle = "#6b7280";
+      ctx.fillText("in Top 10", cx, cy + 10);
+      ctx.restore();
+    },
+  };
 
   pieChart = new Chart(ctx, {
     type: "doughnut",
@@ -423,27 +489,53 @@ function renderPieChart(data) {
       datasets: [
         {
           data: values,
-          backgroundColor: getChartColors(labels.length),
+          backgroundColor: colors,
           borderWidth: 2,
           borderColor: "#fff",
+          hoverOffset: 10,
         },
       ],
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      onHover: (e, els) => {
+        e.native.target.style.cursor = els.length ? "pointer" : "default";
+      },
+      onClick: (e, els) => {
+        if (els.length) {
+          const i = els[0].index;
+          if (i < top10.length) scrollToHolding(top10[i].company);
+        }
+      },
       plugins: {
         legend: {
-          position: "right",
-          labels: { boxWidth: 12, padding: 8, font: { size: 11 } },
+          position: "bottom",
+          labels: {
+            boxWidth: 10,
+            usePointStyle: true,
+            pointStyle: "circle",
+            padding: 10,
+            font: { size: 11 },
+            generateLabels: (chart) =>
+              chart.data.labels.map((l, i) => ({
+                text: `${truncate(l, 22)} · ${chart.data.datasets[0].data[i].toFixed(1)}%`,
+                fillStyle: chart.data.datasets[0].backgroundColor[i],
+                hidden: !chart.getDataVisibility(i),
+                index: i,
+              })),
+          },
         },
         tooltip: {
+          ...CHART_TOOLTIP,
           callbacks: {
-            label: (ctx) => `${ctx.label}: ${ctx.parsed.toFixed(2)}%`,
+            title: (items) => labels[items[0].dataIndex],
+            label: (ctx) => `${ctx.parsed.toFixed(2)}% of NAV`,
           },
         },
       },
     },
+    plugins: [centerText],
   });
 }
 
@@ -544,25 +636,31 @@ function calculateDelta(current, previous) {
   return delta;
 }
 
+const DELTA_STATUS_COLORS = {
+  new: "#10b981",
+  increased: "#34d399",
+  decreased: "#f87171",
+  exited: "#ef4444",
+};
+
 function renderDeltaChart(delta) {
   const ctx = document.getElementById("deltaChart").getContext("2d");
   if (deltaChart) deltaChart.destroy();
 
   const top20 = delta.all.slice(0, 20);
-  const labels = top20.map((d) => truncate(d.company, 30));
-  const values = top20.map((d) => d.navDelta);
-  const colors = values.map((v) => (v >= 0 ? "#10b981" : "#ef4444"));
 
   deltaChart = new Chart(ctx, {
     type: "bar",
     data: {
-      labels,
+      labels: top20.map((d, i) => `#${i + 1} ${truncate(d.company, 28)}`),
       datasets: [
         {
-          label: "% of NAV Change",
-          data: values,
-          backgroundColor: colors,
+          data: top20.map((d) => d.navDelta),
+          backgroundColor: top20.map(
+            (d) => DELTA_STATUS_COLORS[d.status] ?? "#9ca3af",
+          ),
           borderRadius: 4,
+          borderSkipped: false,
         },
       ],
     },
@@ -573,17 +671,26 @@ function renderDeltaChart(delta) {
       plugins: {
         legend: { display: false },
         tooltip: {
+          ...CHART_TOOLTIP,
           callbacks: {
+            title: (items) => top20[items[0].dataIndex].company,
             label: (ctx) => {
-              const val = ctx.parsed.x;
-              const sign = val >= 0 ? "+" : "";
-              return `${sign}${val.toFixed(2)}% of NAV`;
+              const d = top20[ctx.dataIndex];
+              const status = (d.status || "").toUpperCase();
+              return `${status}: ${d.previousNAV.toFixed(2)}% → ${d.currentNAV.toFixed(2)}% (${formatDelta(d.navDelta)})`;
             },
           },
         },
       },
       scales: {
-        x: { title: { display: true, text: "Change in % of NAV" } },
+        x: {
+          title: { display: true, text: "Change in % of NAV" },
+          grid: {
+            color: (c) =>
+              c.tick?.value === 0 ? "#374151" : "rgba(0, 0, 0, 0.05)",
+          },
+        },
+        y: { grid: { display: false } },
       },
     },
   });
@@ -839,6 +946,7 @@ async function showDelta() {
   }
 
   document.getElementById("deltaSection").style.display = "block";
+  document.getElementById("deltaChartCard").style.display = "block";
 
   currentDelta = calculateDelta(current, previous);
   currentFilter = "all";
@@ -848,6 +956,8 @@ async function showDelta() {
       ? `${currentKey} vs ${actualPrevKey} (Historical Change)`
       : `${currentKey} vs ${compareKey}`;
   document.getElementById("deltaTitle").textContent = titleText;
+  document.getElementById("deltaChartTitle").textContent =
+    `% of NAV Changes — ${titleText} (Top 20)`;
 
   document.getElementById("newEntries").textContent = currentDelta.added.length;
   document.getElementById("exitedEntries").textContent =
