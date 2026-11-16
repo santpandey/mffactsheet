@@ -12,10 +12,14 @@ def generate_manifest():
     
     manifest = {}
     
+    MONTHS = {m: i for i, m in enumerate(
+        ["January", "February", "March", "April", "May", "June", "July",
+         "August", "September", "October", "November", "December"], start=1)}
+
     # Matches filenames like CanaraRobecoLargeAndMidCapFund-April-2025.json
     pattern = re.compile(r'^([a-zA-Z0-9]+)-([a-zA-Z]+)-(\d{4})\.json$')
-    
-    for file_path in data_dir.glob("*.json"):
+
+    for file_path in sorted(data_dir.glob("*.json")):
         if file_path.name == "manifest.json":
             continue
             
@@ -32,7 +36,11 @@ def generate_manifest():
                 "year": year,
                 "filename": file_path.name
             })
-            
+
+    # Chronological order keeps regeneration deterministic — no reorder churn in git.
+    for entries in manifest.values():
+        entries.sort(key=lambda e: (e["year"], MONTHS.get(e["month"], 0)))
+
     with open(manifest_path, 'w', encoding='utf-8') as f:
         json.dump(manifest, f, indent=2)
         

@@ -47,9 +47,12 @@
 ## Monthly sync automation
 
 - `.github/workflows/sync-portfolios.yml` — runs twice a month (10th and
-  15th, 07:30 IST), syncing the previous month's factsheets. The second
-  pass catches AMCs that publish after SEBI's deadline. Commits to `main`
+  15th, 07:30 IST), syncing the last 3 months so backlogged factsheets
+  get backfilled (already-downloaded months skip). The second pass
+  catches AMCs that publish after SEBI's deadline. Commits to `main`
   only when `data/` changed; Netlify auto-deploys on push.
+- Extraction skips rewriting a JSON when only `extractedAt` would change,
+  so scheduled re-extractions don't produce timestamp-only commits.
 - Manual trigger: GitHub -> Actions -> "Sync monthly portfolios" ->
   "Run workflow" (optional year/month inputs).
 - The "Sync Data" button is localhost-only (sync_server.py on :8001);

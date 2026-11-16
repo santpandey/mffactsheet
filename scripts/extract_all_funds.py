@@ -702,7 +702,19 @@ def process_excel_file(filepath, fund_config):
         
         filename = f"{fund_config['normalized_name']}-{month}-{year}.json"
         output_path = Path(fund_config['data_folder']) / filename
-        
+
+        # Skip the rewrite when only the timestamp would differ — keeps
+        # scheduled re-extractions from producing timestamp-only git diffs.
+        if output_path.exists():
+            try:
+                existing = json.loads(output_path.read_text(encoding="utf-8"))
+                strip_ts = lambda d: {k: v for k, v in d.items() if k != "extractedAt"}
+                if strip_ts(existing) == strip_ts(data):
+                    print(f"  [OK] {filename} unchanged ({len(holdings)} holdings)")
+                    return True
+            except (ValueError, OSError):
+                pass
+
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
         

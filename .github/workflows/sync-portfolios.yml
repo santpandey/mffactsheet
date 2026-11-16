@@ -4,6 +4,8 @@ on:
   schedule:
     - cron: "0 2 10 * *" # 07:30 IST on the 10th — previous month's factsheets are due by SEBI's deadline
     - cron: "0 2 15 * *" # second pass on the 15th — catches AMCs that publish late
+    # Scheduled runs sync the last 3 months so backlogged factsheets get
+    # backfilled automatically; already-downloaded months are skipped.
   workflow_dispatch:
     inputs:
       year:
@@ -41,8 +43,13 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Sync portfolios for ${{ steps.target.outputs.month }}/${{ steps.target.outputs.year }}
-        run: uv run python scripts/sync_all_funds.py --year ${{ steps.target.outputs.year }} --month ${{ steps.target.outputs.month }}
+      - name: Sync portfolios
+        run: |
+          if [ -n "${{ inputs.month }}" ] && [ -n "${{ inputs.year }}" ]; then
+            uv run python scripts/sync_all_funds.py --year ${{ steps.target.outputs.year }} --month ${{ steps.target.outputs.month }}
+          else
+            uv run python scripts/sync_all_funds.py --months 3
+          fi
 
       - name: Regenerate manifest
         run: uv run python scripts/generate_manifest.py
@@ -51,9 +58,14 @@ jobs:
         run: |
           git add data/
           if [ -n "$(git status --porcelain data/)" ]; then
+            if [ -n "${{ inputs.month }}" ]; then
+              MSG="Sync portfolios for ${{ steps.target.outputs.month }}/${{ steps.target.outputs.year }}"
+            else
+              MSG="Sync portfolios (last 3 months)"
+            fi
             git -c user.name="github-actions[bot]" \
                 -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-                commit -m "Sync portfolios for ${{ steps.target.outputs.month }}/${{ steps.target.outputs.year }}"
+                commit -m "$MSG"
             git push
           else
             echo "No data changes to commit"

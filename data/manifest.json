@@ -1,29 +1,182 @@
 {
-  "MiraeAssetLargeAndMidcapFund": [
+  "CanaraRobecoLargeAndMidCapFund": [
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "CanaraRobecoLargeAndMidCapFund-March-2026.json"
+    },
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "CanaraRobecoLargeAndMidCapFund-April-2026.json"
+    },
     {
       "month": "May",
       "year": 2026,
-      "filename": "MiraeAssetLargeAndMidcapFund-May-2026.json"
+      "filename": "CanaraRobecoLargeAndMidCapFund-May-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "CanaraRobecoLargeAndMidCapFund-June-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2026,
+      "filename": "CanaraRobecoLargeAndMidCapFund-July-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "CanaraRobecoLargeAndMidCapFund-August-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "CanaraRobecoLargeAndMidCapFund-September-2026.json"
     },
     {
       "month": "October",
       "year": 2026,
-      "filename": "MiraeAssetLargeAndMidcapFund-October-2026.json"
+      "filename": "CanaraRobecoLargeAndMidCapFund-October-2026.json"
+    }
+  ],
+  "CanaraRobecoSmallCapFund": [
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-March-2026.json"
     },
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-April-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-May-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-June-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-July-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-August-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-September-2026.json"
+    },
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "CanaraRobecoSmallCapFund-October-2026.json"
+    }
+  ],
+  "HDFCMultiAssetAllocationFund": [
+    {
+      "month": "February",
+      "year": 2026,
+      "filename": "HDFCMultiAssetAllocationFund-February-2026.json"
+    },
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "HDFCMultiAssetAllocationFund-March-2026.json"
+    },
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "HDFCMultiAssetAllocationFund-April-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "HDFCMultiAssetAllocationFund-May-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "HDFCMultiAssetAllocationFund-June-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2026,
+      "filename": "HDFCMultiAssetAllocationFund-July-2026.json"
+    }
+  ],
+  "InvescoIndiaMulticapFund": [
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-March-2026.json"
+    },
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-April-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-May-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-June-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-July-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-August-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-September-2026.json"
+    },
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "InvescoIndiaMulticapFund-October-2026.json"
+    }
+  ],
+  "MiraeAssetLargeAndMidcapFund": [
     {
       "month": "March",
       "year": 2026,
       "filename": "MiraeAssetLargeAndMidcapFund-March-2026.json"
     },
     {
-      "month": "June",
-      "year": 2026,
-      "filename": "MiraeAssetLargeAndMidcapFund-June-2026.json"
-    },
-    {
       "month": "April",
       "year": 2026,
       "filename": "MiraeAssetLargeAndMidcapFund-April-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "MiraeAssetLargeAndMidcapFund-May-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "MiraeAssetLargeAndMidcapFund-June-2026.json"
     },
     {
       "month": "July",
@@ -34,102 +187,33 @@
       "month": "August",
       "year": 2026,
       "filename": "MiraeAssetLargeAndMidcapFund-August-2026.json"
-    }
-  ],
-  "SBIChildrensFund": [
-    {
-      "month": "June",
-      "year": 2026,
-      "filename": "SBIChildrensFund-June-2026.json"
-    },
-    {
-      "month": "September",
-      "year": 2026,
-      "filename": "SBIChildrensFund-September-2026.json"
-    },
-    {
-      "month": "August",
-      "year": 2026,
-      "filename": "SBIChildrensFund-August-2026.json"
     },
     {
       "month": "October",
       "year": 2026,
-      "filename": "SBIChildrensFund-October-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2026,
-      "filename": "SBIChildrensFund-March-2026.json"
-    },
-    {
-      "month": "April",
-      "year": 2026,
-      "filename": "SBIChildrensFund-April-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2026,
-      "filename": "SBIChildrensFund-July-2026.json"
-    },
-    {
-      "month": "May",
-      "year": 2026,
-      "filename": "SBIChildrensFund-May-2026.json"
-    }
-  ],
-  "CanaraRobecoLargeAndMidCapFund": [
-    {
-      "month": "September",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-September-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-July-2026.json"
-    },
-    {
-      "month": "June",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-June-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-March-2026.json"
-    },
-    {
-      "month": "May",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-May-2026.json"
-    },
-    {
-      "month": "October",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-October-2026.json"
-    },
-    {
-      "month": "August",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-August-2026.json"
-    },
-    {
-      "month": "April",
-      "year": 2026,
-      "filename": "CanaraRobecoLargeAndMidCapFund-April-2026.json"
+      "filename": "MiraeAssetLargeAndMidcapFund-October-2026.json"
     }
   ],
   "MotilalOswalMidcapFund": [
     {
-      "month": "June",
+      "month": "March",
       "year": 2026,
-      "filename": "MotilalOswalMidcapFund-June-2026.json"
+      "filename": "MotilalOswalMidcapFund-March-2026.json"
+    },
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "MotilalOswalMidcapFund-April-2026.json"
     },
     {
       "month": "May",
       "year": 2026,
       "filename": "MotilalOswalMidcapFund-May-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "MotilalOswalMidcapFund-June-2026.json"
     },
     {
       "month": "July",
@@ -145,70 +229,80 @@
       "month": "October",
       "year": 2026,
       "filename": "MotilalOswalMidcapFund-October-2026.json"
+    }
+  ],
+  "OldBridgeFocusedFund": [
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "OldBridgeFocusedFund-March-2026.json"
     },
     {
       "month": "April",
       "year": 2026,
-      "filename": "MotilalOswalMidcapFund-April-2026.json"
+      "filename": "OldBridgeFocusedFund-April-2026.json"
     },
-    {
-      "month": "March",
-      "year": 2026,
-      "filename": "MotilalOswalMidcapFund-March-2026.json"
-    }
-  ],
-  "QuantSmallCapFund": [
     {
       "month": "May",
       "year": 2026,
-      "filename": "QuantSmallCapFund-May-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2026,
-      "filename": "QuantSmallCapFund-March-2026.json"
-    },
-    {
-      "month": "August",
-      "year": 2026,
-      "filename": "QuantSmallCapFund-August-2026.json"
-    },
-    {
-      "month": "October",
-      "year": 2026,
-      "filename": "QuantSmallCapFund-October-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2026,
-      "filename": "QuantSmallCapFund-July-2026.json"
+      "filename": "OldBridgeFocusedFund-May-2026.json"
     },
     {
       "month": "June",
       "year": 2026,
-      "filename": "QuantSmallCapFund-June-2026.json"
+      "filename": "OldBridgeFocusedFund-June-2026.json"
     },
     {
-      "month": "April",
+      "month": "July",
       "year": 2026,
-      "filename": "QuantSmallCapFund-April-2026.json"
+      "filename": "OldBridgeFocusedFund-July-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "OldBridgeFocusedFund-August-2026.json"
     },
     {
       "month": "September",
       "year": 2026,
-      "filename": "QuantSmallCapFund-September-2026.json"
+      "filename": "OldBridgeFocusedFund-September-2026.json"
+    },
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "OldBridgeFocusedFund-October-2026.json"
     }
   ],
   "PPFASFlexiCapFund": [
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "PPFASFlexiCapFund-March-2026.json"
+    },
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "PPFASFlexiCapFund-April-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "PPFASFlexiCapFund-May-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "PPFASFlexiCapFund-June-2026.json"
+    },
     {
       "month": "July",
       "year": 2026,
       "filename": "PPFASFlexiCapFund-July-2026.json"
     },
     {
-      "month": "April",
+      "month": "August",
       "year": 2026,
-      "filename": "PPFASFlexiCapFund-April-2026.json"
+      "filename": "PPFASFlexiCapFund-August-2026.json"
     },
     {
       "month": "September",
@@ -219,196 +313,154 @@
       "month": "October",
       "year": 2026,
       "filename": "PPFASFlexiCapFund-October-2026.json"
-    },
+    }
+  ],
+  "QuantFlexiCapFund": [
     {
       "month": "March",
       "year": 2026,
-      "filename": "PPFASFlexiCapFund-March-2026.json"
-    },
-    {
-      "month": "June",
-      "year": 2026,
-      "filename": "PPFASFlexiCapFund-June-2026.json"
-    },
-    {
-      "month": "May",
-      "year": 2026,
-      "filename": "PPFASFlexiCapFund-May-2026.json"
-    },
-    {
-      "month": "August",
-      "year": 2026,
-      "filename": "PPFASFlexiCapFund-August-2026.json"
-    }
-  ],
-  "OldBridgeFocusedFund": [
-    {
-      "month": "September",
-      "year": 2026,
-      "filename": "OldBridgeFocusedFund-September-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2026,
-      "filename": "OldBridgeFocusedFund-July-2026.json"
-    },
-    {
-      "month": "May",
-      "year": 2026,
-      "filename": "OldBridgeFocusedFund-May-2026.json"
-    },
-    {
-      "month": "October",
-      "year": 2026,
-      "filename": "OldBridgeFocusedFund-October-2026.json"
+      "filename": "QuantFlexiCapFund-March-2026.json"
     },
     {
       "month": "April",
       "year": 2026,
-      "filename": "OldBridgeFocusedFund-April-2026.json"
-    },
-    {
-      "month": "August",
-      "year": 2026,
-      "filename": "OldBridgeFocusedFund-August-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2026,
-      "filename": "OldBridgeFocusedFund-March-2026.json"
-    },
-    {
-      "month": "June",
-      "year": 2026,
-      "filename": "OldBridgeFocusedFund-June-2026.json"
-    }
-  ],
-  "InvescoIndiaMulticapFund": [
-    {
-      "month": "September",
-      "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-September-2026.json"
-    },
-    {
-      "month": "August",
-      "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-August-2026.json"
-    },
-    {
-      "month": "June",
-      "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-June-2026.json"
+      "filename": "QuantFlexiCapFund-April-2026.json"
     },
     {
       "month": "May",
       "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-May-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-March-2026.json"
-    },
-    {
-      "month": "April",
-      "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-April-2026.json"
-    },
-    {
-      "month": "October",
-      "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-October-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2026,
-      "filename": "InvescoIndiaMulticapFund-July-2026.json"
-    }
-  ],
-  "CanaraRobecoSmallCapFund": [
-    {
-      "month": "October",
-      "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-October-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-July-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-March-2026.json"
+      "filename": "QuantFlexiCapFund-May-2026.json"
     },
     {
       "month": "June",
       "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-June-2026.json"
+      "filename": "QuantFlexiCapFund-June-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2026,
+      "filename": "QuantFlexiCapFund-July-2026.json"
     },
     {
       "month": "August",
       "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-August-2026.json"
-    },
-    {
-      "month": "April",
-      "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-April-2026.json"
-    },
-    {
-      "month": "May",
-      "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-May-2026.json"
+      "filename": "QuantFlexiCapFund-August-2026.json"
     },
     {
       "month": "September",
       "year": 2026,
-      "filename": "CanaraRobecoSmallCapFund-September-2026.json"
+      "filename": "QuantFlexiCapFund-September-2026.json"
+    },
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "QuantFlexiCapFund-October-2026.json"
     }
   ],
-  "HDFCMultiAssetAllocationFund": [
-    {
-      "month": "June",
-      "year": 2026,
-      "filename": "HDFCMultiAssetAllocationFund-June-2026.json"
-    },
-    {
-      "month": "February",
-      "year": 2026,
-      "filename": "HDFCMultiAssetAllocationFund-February-2026.json"
-    },
-    {
-      "month": "May",
-      "year": 2026,
-      "filename": "HDFCMultiAssetAllocationFund-May-2026.json"
-    },
+  "QuantSmallCapFund": [
     {
       "month": "March",
       "year": 2026,
-      "filename": "HDFCMultiAssetAllocationFund-March-2026.json"
+      "filename": "QuantSmallCapFund-March-2026.json"
     },
     {
       "month": "April",
       "year": 2026,
-      "filename": "HDFCMultiAssetAllocationFund-April-2026.json"
+      "filename": "QuantSmallCapFund-April-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-May-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-June-2026.json"
     },
     {
       "month": "July",
       "year": 2026,
-      "filename": "HDFCMultiAssetAllocationFund-July-2026.json"
+      "filename": "QuantSmallCapFund-July-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-August-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-September-2026.json"
+    },
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "QuantSmallCapFund-October-2026.json"
+    }
+  ],
+  "SBIChildrensFund": [
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "SBIChildrensFund-March-2026.json"
+    },
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "SBIChildrensFund-April-2026.json"
+    },
+    {
+      "month": "May",
+      "year": 2026,
+      "filename": "SBIChildrensFund-May-2026.json"
+    },
+    {
+      "month": "June",
+      "year": 2026,
+      "filename": "SBIChildrensFund-June-2026.json"
+    },
+    {
+      "month": "July",
+      "year": 2026,
+      "filename": "SBIChildrensFund-July-2026.json"
+    },
+    {
+      "month": "August",
+      "year": 2026,
+      "filename": "SBIChildrensFund-August-2026.json"
+    },
+    {
+      "month": "September",
+      "year": 2026,
+      "filename": "SBIChildrensFund-September-2026.json"
+    },
+    {
+      "month": "October",
+      "year": 2026,
+      "filename": "SBIChildrensFund-October-2026.json"
     }
   ],
   "TrustMFSmallCapFund": [
+    {
+      "month": "March",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-March-2026.json"
+    },
+    {
+      "month": "April",
+      "year": 2026,
+      "filename": "TrustMFSmallCapFund-April-2026.json"
+    },
     {
       "month": "May",
       "year": 2026,
       "filename": "TrustMFSmallCapFund-May-2026.json"
     },
     {
-      "month": "March",
+      "month": "June",
       "year": 2026,
-      "filename": "TrustMFSmallCapFund-March-2026.json"
+      "filename": "TrustMFSmallCapFund-June-2026.json"
     },
     {
       "month": "July",
@@ -421,66 +473,14 @@
       "filename": "TrustMFSmallCapFund-August-2026.json"
     },
     {
-      "month": "October",
-      "year": 2026,
-      "filename": "TrustMFSmallCapFund-October-2026.json"
-    },
-    {
-      "month": "April",
-      "year": 2026,
-      "filename": "TrustMFSmallCapFund-April-2026.json"
-    },
-    {
       "month": "September",
       "year": 2026,
       "filename": "TrustMFSmallCapFund-September-2026.json"
     },
     {
-      "month": "June",
-      "year": 2026,
-      "filename": "TrustMFSmallCapFund-June-2026.json"
-    }
-  ],
-  "QuantFlexiCapFund": [
-    {
-      "month": "August",
-      "year": 2026,
-      "filename": "QuantFlexiCapFund-August-2026.json"
-    },
-    {
       "month": "October",
       "year": 2026,
-      "filename": "QuantFlexiCapFund-October-2026.json"
-    },
-    {
-      "month": "May",
-      "year": 2026,
-      "filename": "QuantFlexiCapFund-May-2026.json"
-    },
-    {
-      "month": "September",
-      "year": 2026,
-      "filename": "QuantFlexiCapFund-September-2026.json"
-    },
-    {
-      "month": "July",
-      "year": 2026,
-      "filename": "QuantFlexiCapFund-July-2026.json"
-    },
-    {
-      "month": "March",
-      "year": 2026,
-      "filename": "QuantFlexiCapFund-March-2026.json"
-    },
-    {
-      "month": "April",
-      "year": 2026,
-      "filename": "QuantFlexiCapFund-April-2026.json"
-    },
-    {
-      "month": "June",
-      "year": 2026,
-      "filename": "QuantFlexiCapFund-June-2026.json"
+      "filename": "TrustMFSmallCapFund-October-2026.json"
     }
   ]
 }
