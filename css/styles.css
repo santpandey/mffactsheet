@@ -846,6 +846,10 @@ input[type="text"]:focus {
   color: var(--gray-600) !important;
   text-transform: uppercase !important;
   letter-spacing: 0.05em !important;
+  /* Headers wrap to extra lines — never clip column labels */
+  white-space: normal !important;
+  overflow: visible !important;
+  text-overflow: clip !important;
 }
 
 /* Perfect alignment for all columns */
@@ -997,105 +1001,6 @@ body.col-resizing * {
   white-space: nowrap;
 }
 
-/* Yearly Matrix Styling */
-.yearly-matrix-section {
-  background: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 24px;
-}
-
-.yearly-matrix-section h2 {
-  font-size: 1.25rem;
-  margin-bottom: 16px;
-  color: var(--gray-800);
-}
-
-#yearlyMatrixTable th,
-#yearlyMatrixTable td {
-  font-size: 0.75rem;
-  padding: 8px 12px !important;
-  border: 1px solid var(--gray-200);
-}
-
-#yearlyMatrixTable th {
-  background: var(--gray-50);
-  font-weight: 600;
-  text-align: right;
-}
-
-#yearlyMatrixTable th:first-child,
-#yearlyMatrixTable td:first-child {
-  text-align: left;
-  position: sticky;
-  left: 0;
-  background: white;
-  z-index: 1;
-  border-right: 2px solid var(--gray-200);
-}
-
-#yearlyMatrixTable td {
-  text-align: right;
-  font-family: "SF Mono", Monaco, monospace;
-}
-
-.matrix-value {
-  display: block;
-}
-
-.matrix-delta {
-  font-size: 0.65rem;
-  display: block;
-  margin-top: 2px;
-}
-
-/* Yearly Table Section */
-.yearly-table-section {
-  margin-top: 40px;
-  background: white;
-  padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 24px;
-}
-
-.yearly-table-section h2 {
-  font-size: 1.25rem;
-  margin-bottom: 16px;
-  color: var(--gray-800);
-}
-
-#yearlyComparisonTable th,
-#yearlyComparisonTable td {
-  font-size: 0.75rem;
-  padding: 8px 10px;
-  white-space: nowrap;
-}
-
-#yearlyComparisonTable th:not(:first-child),
-#yearlyComparisonTable td:not(:first-child) {
-  text-align: right;
-  font-family: "SF Mono", Monaco, monospace;
-}
-
-#yearlyComparisonTable tr:hover {
-  background: var(--gray-50);
-}
-
-.sticky-col {
-  position: sticky;
-  left: 0;
-  background: white !important;
-  z-index: 1;
-  border-right: 2px solid var(--gray-200);
-}
-
-th.sticky-col {
-  background: var(--gray-50) !important;
-  z-index: 2;
-}
-
 .loading-overlay {
   position: fixed;
   top: 0;
@@ -1219,6 +1124,8 @@ th.sticky-col {
   color: var(--gray-600);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  /* Overrides nowrap from th.num / th.sortable — headers wrap, never clip */
+  white-space: normal;
 }
 
 #consensusTable th.num,
