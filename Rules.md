@@ -19,6 +19,12 @@
 - `scripts/generate_manifest.py` — rebuilds `data/manifest.json` for the
   frontend after extraction. Always run it after extracting.
 - Frontend: vanilla JS + Chart.js, no build step (`index.html`, `js/`, `css/`).
+- **Always consult the `modern-web-guidance` skill before any HTML/CSS/
+  client-JS change** — `search` for the relevant guide first, `retrieve`
+  it, follow its patterns/fallbacks, and disclose which guide shaped the
+  code. For broad audits use `npx -y modern-web-guidance@latest
+  legacy-scan .` (covers ~20% of guides with deterministic rules; verify
+  each finding against its keep/drop criteria, don't force 0 findings).
 
 ## Sync workflow
 
