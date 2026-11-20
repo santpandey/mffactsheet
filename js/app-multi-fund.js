@@ -80,7 +80,8 @@ let currentDelta = null;
 let currentFilter = "all";
 let allocationChart = null;
 let pieChart = null;
-let deltaChart = null;
+let deltaPosChart = null;
+let deltaNegChart = null;
 let availableMonths = [];
 
 // Memoized element lookup — hot paths (renderTable runs per keystroke)
@@ -646,20 +647,42 @@ const DELTA_STATUS_COLORS = {
   exited: "#ef4444",
 };
 
-function renderDeltaChart(delta) {
-  const ctx = document.getElementById("deltaChart").getContext("2d");
-  if (deltaChart) deltaChart.destroy();
+// Paints "+x.xx%" / "−x.xx%" at each bar's end — runs in afterDatasetsDraw so
+// tooltips still paint over it.
+const barValueLabels = {
+  id: "barValueLabels",
+  afterDatasetsDraw(chart) {
+    const { ctx } = chart;
+    const meta = chart.getDatasetMeta(0);
+    ctx.save();
+    ctx.font = "600 11px -apple-system, sans-serif";
+    ctx.textBaseline = "middle";
+    meta.data.forEach((bar, i) => {
+      const v = chart.data.datasets[0].data[i];
+      if (v >= 0) {
+        ctx.fillStyle = "#047857";
+        ctx.textAlign = "left";
+        ctx.fillText(formatDelta(v), bar.x + 6, bar.y);
+      } else {
+        ctx.fillStyle = "#b91c1c";
+        ctx.textAlign = "right";
+        ctx.fillText(formatDelta(v), bar.x - 6, bar.y);
+      }
+    });
+    ctx.restore();
+  },
+};
 
-  const top20 = delta.all.slice(0, 20);
-
-  deltaChart = new Chart(ctx, {
+function makeDeltaChart(canvasId, items) {
+  const ctx = document.getElementById(canvasId).getContext("2d");
+  return new Chart(ctx, {
     type: "bar",
     data: {
-      labels: top20.map((d, i) => `#${i + 1} ${truncate(d.company, 28)}`),
+      labels: items.map((d) => truncate(d.company, 32)),
       datasets: [
         {
-          data: top20.map((d) => d.navDelta),
-          backgroundColor: top20.map(
+          data: items.map((d) => d.navDelta),
+          backgroundColor: items.map(
             (d) => DELTA_STATUS_COLORS[d.status] ?? "#9ca3af",
           ),
           borderRadius: 4,
@@ -671,14 +694,20 @@ function renderDeltaChart(delta) {
       indexAxis: "y",
       responsive: true,
       maintainAspectRatio: false,
+      onHover: (e, els) => {
+        e.native.target.style.cursor = els.length ? "pointer" : "default";
+      },
+      onClick: (e, els) => {
+        if (els.length) scrollToHolding(items[els[0].index].company);
+      },
       plugins: {
         legend: { display: false },
         tooltip: {
           ...CHART_TOOLTIP,
           callbacks: {
-            title: (items) => top20[items[0].dataIndex].company,
-            label: (ctx) => {
-              const d = top20[ctx.dataIndex];
+            title: (it) => items[it[0].dataIndex].company,
+            label: (c) => {
+              const d = items[c.dataIndex];
               const status = (d.status || "").toUpperCase();
               return `${status}: ${d.previousNAV.toFixed(2)}% → ${d.currentNAV.toFixed(2)}% (${formatDelta(d.navDelta)})`;
             },
@@ -687,16 +716,53 @@ function renderDeltaChart(delta) {
       },
       scales: {
         x: {
+          grace: "15%",
           title: { display: true, text: "Change in % of NAV" },
           grid: {
             color: (c) =>
               c.tick?.value === 0 ? "#374151" : "rgba(0, 0, 0, 0.05)",
           },
         },
-        y: { grid: { display: false } },
+        y: { grid: { display: false }, ticks: { autoSkip: false } },
       },
     },
+    plugins: [barValueLabels],
   });
+}
+
+function renderDeltaChart(delta) {
+  const buys = delta.all
+    .filter((d) => d.navDelta > 0)
+    .sort((a, b) => b.navDelta - a.navDelta)
+    .slice(0, 12);
+  const sells = delta.all
+    .filter((d) => d.navDelta < 0)
+    .sort((a, b) => a.navDelta - b.navDelta)
+    .slice(0, 12);
+
+  if (deltaPosChart) {
+    deltaPosChart.destroy();
+    deltaPosChart = null;
+  }
+  if (deltaNegChart) {
+    deltaNegChart.destroy();
+    deltaNegChart = null;
+  }
+
+  const posWrap = document.getElementById("deltaPosChart").parentElement;
+  const negWrap = document.getElementById("deltaNegChart").parentElement;
+
+  posWrap.style.display = buys.length ? "" : "none";
+  document.getElementById("deltaPosEmpty").style.display = buys.length
+    ? "none"
+    : "";
+  if (buys.length) deltaPosChart = makeDeltaChart("deltaPosChart", buys);
+
+  negWrap.style.display = sells.length ? "" : "none";
+  document.getElementById("deltaNegEmpty").style.display = sells.length
+    ? "none"
+    : "";
+  if (sells.length) deltaNegChart = makeDeltaChart("deltaNegChart", sells);
 }
 
 function formatMonthKey(key) {
@@ -960,7 +1026,7 @@ async function showDelta() {
       : `${currentKey} vs ${compareKey}`;
   document.getElementById("deltaTitle").textContent = titleText;
   document.getElementById("deltaChartTitle").textContent =
-    `% of NAV Changes — ${titleText} (Top 20)`;
+    `% of NAV Changes — ${titleText}`;
 
   document.getElementById("newEntries").textContent = currentDelta.added.length;
   document.getElementById("exitedEntries").textContent =

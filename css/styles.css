@@ -686,6 +686,42 @@ input[type="text"]:focus {
   height: 400px;
 }
 
+/* Split delta charts: buys on the left, sells on the right */
+.delta-charts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.delta-key {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  font-size: 0.72rem;
+  color: var(--gray-500);
+  margin: -6px 0 10px;
+}
+
+.delta-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-left: 8px;
+}
+
+.delta-dot:first-child {
+  margin-left: 0;
+}
+
+.delta-empty {
+  color: var(--gray-400);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 40px 0;
+}
+
 /* Delta Section */
 .delta-section {
   margin-bottom: 24px;
@@ -1222,6 +1258,9 @@ body.col-resizing * {
   }
   .chart-wrapper-wide {
     height: 320px;
+  }
+  .delta-charts {
+    grid-template-columns: 1fr;
   }
   .controls {
     flex-direction: column;

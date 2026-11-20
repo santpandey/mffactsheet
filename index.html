@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mutual Fund Allocation Tracker</title>
-    <link rel="stylesheet" href="css/styles.css?v=8" />
+    <link rel="stylesheet" href="css/styles.css?v=9" />
     <script
       src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
       integrity="sha384-9nhczxUqK87bcKHh20fSQcTGD4qq5GhayNYSYWqwBkINBhOfQLg/P5HG5lF1urn4"
@@ -238,9 +238,38 @@
           </div>
         </div>
         <div class="chart-card full-width" id="deltaChartCard" style="display: none">
-          <h2 id="deltaChartTitle">% of NAV Changes (Top 20)</h2>
-          <div class="chart-wrapper-wide">
-            <canvas id="deltaChart"></canvas>
+          <h2 id="deltaChartTitle">% of NAV Changes</h2>
+          <div class="delta-charts">
+            <div class="delta-chart-side">
+              <h3>Top Increases &amp; New Entries</h3>
+              <p class="delta-key">
+                <span class="delta-dot" style="background: #10b981"></span>New
+                entry
+                <span class="delta-dot" style="background: #34d399"></span
+                >Increased
+              </p>
+              <div class="chart-wrapper">
+                <canvas id="deltaPosChart"></canvas>
+              </div>
+              <p class="delta-empty" id="deltaPosEmpty" style="display: none">
+                No increases or new entries in this period.
+              </p>
+            </div>
+            <div class="delta-chart-side">
+              <h3>Top Exits &amp; Reductions</h3>
+              <p class="delta-key">
+                <span class="delta-dot" style="background: #ef4444"></span
+                >Exited
+                <span class="delta-dot" style="background: #f87171"></span
+                >Decreased
+              </p>
+              <div class="chart-wrapper">
+                <canvas id="deltaNegChart"></canvas>
+              </div>
+              <p class="delta-empty" id="deltaNegEmpty" style="display: none">
+                No exits or reductions in this period.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -347,6 +376,6 @@
       </div>
     </dialog>
 
-    <script src="js/app-multi-fund.js?v=11"></script>
+    <script src="js/app-multi-fund.js?v=12"></script>
   </body>
 </html>
