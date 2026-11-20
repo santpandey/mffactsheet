@@ -200,7 +200,7 @@ function warmDataCache() {
 
 function populateFundSelector(available) {
   const fundSelect = document.getElementById("fundSelect");
-  fundSelect.innerHTML = "";
+  fundSelect.replaceChildren();
 
   for (const [fundKey, fundConfig] of Object.entries(FUNDS)) {
     if (available[fundKey] && available[fundKey].length > 0) {
@@ -220,7 +220,7 @@ function populateDropdowns(available) {
 
   const fundMonths = available[currentFund] || [];
 
-  monthSelect.innerHTML = "";
+  monthSelect.replaceChildren();
   compareSelect.innerHTML =
     '<option value="">Select month to compare with...</option>';
 
@@ -1310,7 +1310,7 @@ function initFundSearch() {
 
   function renderFundResults(query, results) {
     const items = getResults(query);
-    results.innerHTML = "";
+    results.replaceChildren();
     if (items.length === 0) {
       results.innerHTML = `<div class="fund-search-no-results">No funds found for "${escapeHtml(query)}"</div>`;
       return;
@@ -1420,7 +1420,7 @@ function initCompanySearch() {
       return;
     }
     const items = await getCompanyResults(query);
-    results.innerHTML = "";
+    results.replaceChildren();
     if (items.length === 0) {
       results.innerHTML = `<div class="fund-search-no-results">No holdings found for "${escapeHtml(query)}"</div>`;
       return;
