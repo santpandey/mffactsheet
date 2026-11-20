@@ -466,6 +466,9 @@ function renderPieChart(data) {
   const centerText = {
     id: "centerText",
     afterDraw(chart) {
+      // Tooltips paint onto the same canvas — hide the center stat while
+      // one is visible so the text can't bleed over or under it.
+      if (chart.tooltip && chart.tooltip.opacity > 0) return;
       const { ctx, chartArea } = chart;
       const cx = (chartArea.left + chartArea.right) / 2;
       const cy = (chartArea.top + chartArea.bottom) / 2;
