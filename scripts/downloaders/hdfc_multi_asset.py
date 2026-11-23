@@ -10,6 +10,8 @@ not behind the main site's WAF):
   (e.g. July 2026 portfolio lives under /2026-08/), occasionally later.
 - The scheme was renamed "HDFC Multi-Asset Allocation Fund" starting with
   the December 2025 portfolio; older files use "HDFC Multi-Asset Fund".
+- Starting with the August 2026 portfolio, HDFC dropped the hyphen:
+  "HDFC Multi Asset Allocation Fund" — without it every probe 403s.
 
 find_download_link tries both name variants across the likely publish folders.
 """
@@ -29,7 +31,8 @@ EXCEL_DIR = ROOT_DIR / "excel-data" / "hdfc-multi-asset"
 CDN_BASE = "https://files.hdfcfund.com/s3fs-public"
 
 SCHEME_NAME_VARIANTS = [
-    "HDFC Multi-Asset Allocation Fund",  # Dec 2025 onwards
+    "HDFC Multi Asset Allocation Fund",  # Aug 2026 onwards (hyphen dropped)
+    "HDFC Multi-Asset Allocation Fund",  # Dec 2025 – Jul 2026
     "HDFC Multi-Asset Fund",             # older files
 ]
 
@@ -40,7 +43,8 @@ class HDFCMultiAssetDownloader(BaseFundDownloader):
     BASE_DOMAIN = "https://files.hdfcfund.com"
     DOWNLOAD_DIR = EXCEL_DIR
     FUND_NAME_KEYWORDS = [
-        "hdfc multi-asset",
+        "hdfc multi asset",   # Aug 2026+ (hyphen dropped)
+        "hdfc multi-asset",   # Dec 2025 – Jul 2026 and older
     ]
 
     def get_output_filename(self, year: int, month: int) -> Path:
