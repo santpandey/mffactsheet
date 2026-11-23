@@ -6,6 +6,7 @@ needs to implement `find_download_link()` with its own navigation logic.
 """
 
 import os
+import re
 import sys
 import time
 import logging
@@ -14,6 +15,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from datetime import datetime
 from typing import Optional, Tuple
+from urllib.parse import quote
 
 import requests
 from bs4 import BeautifulSoup
@@ -61,6 +63,66 @@ def make_session() -> requests.Session:
         "Cache-Control": "max-age=0",
     })
     return session
+
+
+def punctuation_variants(name: str) -> list:
+    """
+    Expand a scheme name into punctuation-normalized variants.
+
+    AMCs rename schemes cosmetically — dropping hyphens ("Multi-Asset" ->
+    "Multi Asset") or switching "&" <-> "and". Probing every spelling by
+    hand is brittle, so each known name is expanded mechanically:
+        "HDFC Multi-Asset Allocation Fund" ->
+            ["HDFC Multi-Asset Allocation Fund",
+             "HDFC Multi Asset Allocation Fund",
+             "HDFC MultiAsset Allocation Fund"]
+    Order preserves the original first; duplicates are removed.
+    """
+    variants = [name]
+    if "-" in name:
+        variants.append(name.replace("-", " "))
+        variants.append(name.replace("-", ""))
+    if " & " in name:
+        variants.append(name.replace(" & ", " and "))
+    if re.search(r"\band\b", name, re.I):
+        variants.append(re.sub(r"\band\b", "&", name))
+    # collapse any double spaces the substitutions produced
+    variants = [re.sub(r" {2,}", " ", v).strip() for v in variants]
+    return list(dict.fromkeys(variants))
+
+
+def wayback_lookup(url: str, logger: logging.Logger) -> Optional[str]:
+    """
+    Find an archived copy of `url` in the Wayback Machine.
+
+    Some AMC hosts (e.g. Motilal's AEM DAM) delete the previous month's
+    file when the new one publishes, so a file can be permanently gone
+    from the origin yet still archived. Queries the CDX index for the
+    most recent 200-capture and returns a playback URL whose body is the
+    original bytes (`id_` suffix skips the archive banner rewrite).
+    """
+    cdx = (
+        "https://web.archive.org/cdx/search/cdx?url="
+        + quote(url, safe="")
+        + "&output=text&limit=-5&filter=statuscode:200"
+    )
+    try:
+        r = requests.get(cdx, timeout=30)
+        r.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        logger.info(f"  Wayback lookup failed for {url}: {e}")
+        return None
+    captures = [ln.split() for ln in r.text.strip().splitlines() if ln.strip()]
+    for parts in reversed(captures):
+        # fields: urlkey timestamp original mimetype statuscode digest length
+        if len(parts) >= 5:
+            ts, original, status = parts[1], parts[2], parts[4]
+            if status == "200":
+                playback = f"https://web.archive.org/web/{ts}id_/{original}"
+                logger.info(f"  [WAYBACK] {url} -> capture {ts}")
+                return playback
+    logger.info(f"  Wayback: no archive of {url}")
+    return None
 
 
 def make_absolute(href: str, base_domain: str) -> str:
@@ -273,6 +335,17 @@ class BaseFundDownloader(ABC):
     def get_output_filename(self, year: int, month: int) -> Path:
         """Return the full Path where the downloaded file should be saved."""
 
+    def archived_url_candidates(self, year: int, month: int) -> list:
+        """
+        URLs to look up in the Wayback Machine when live probes fail.
+
+        Opt-in hook for AMCs that host files on ephemeral locations
+        (deleted when the next month publishes). Each candidate is checked
+        against web.archive.org's CDX index; the first archived 200
+        capture wins. Default: no fallback.
+        """
+        return []
+
     # ------------------------------------------------------------------
     # Shared orchestration
     # ------------------------------------------------------------------
@@ -320,6 +393,14 @@ class BaseFundDownloader(ABC):
             if download_url:
                 break
             time.sleep(1)
+
+        if not download_url:
+            # Wayback fallback: the live URL may have been published and
+            # deleted between sync runs — check for an archived capture.
+            for candidate in self.archived_url_candidates(year, month):
+                download_url = wayback_lookup(candidate, self.logger)
+                if download_url:
+                    break
 
         if not download_url:
             self.logger.error(f"Download link not found after {MAX_PAGINATION} pages")

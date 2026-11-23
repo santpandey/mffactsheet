@@ -9,6 +9,11 @@ embedded `portfolioUrl` field). The URL is constructed directly; if it 404s,
 the fund page is scraped for the live `portfolioUrl` as a fallback (only
 usable when it points at the requested month).
 
+IMPORTANT: this DAM keeps only the LATEST month — previous folders are
+deleted when a new one publishes (September 2026 was live ~Oct 20-Nov 10,
+then gone). Months missed during their live window are recovered via the
+Wayback Machine fallback in archived_url_candidates().
+
 This DAM layout exists for 2026 onwards — older months were published under
 a different path and are not available here.
 """
@@ -98,3 +103,15 @@ class MotilalOswalMidcapDownloader(BaseFundDownloader):
 
         self.logger.info(f"  [NO MATCH] {month_name} {year} not found")
         return None
+
+    def archived_url_candidates(self, year: int, month: int) -> list:
+        # DAM folders are deleted when the next month publishes — the only
+        # recovery path for a missed month is a Wayback capture of the
+        # canonical DAM URL.
+        return [
+            PORTFOLIO_URL_TEMPLATE.format(
+                month_name=MONTH_NAMES[month - 1],
+                year=year,
+                code=SCHEME_CODE,
+            )
+        ]

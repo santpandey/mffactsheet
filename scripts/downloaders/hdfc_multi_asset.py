@@ -13,7 +13,9 @@ not behind the main site's WAF):
 - Starting with the August 2026 portfolio, HDFC dropped the hyphen:
   "HDFC Multi Asset Allocation Fund" — without it every probe 403s.
 
-find_download_link tries both name variants across the likely publish folders.
+find_download_link expands each known name through punctuation_variants()
+(hyphen<->space/none, &<->and) so cosmetic renames self-heal, and probes
+every variant across the likely publish folders.
 """
 
 import calendar
@@ -23,18 +25,28 @@ from urllib.parse import quote
 
 import requests
 
-from .base_downloader import BaseFundDownloader, MONTH_NAMES
+from .base_downloader import (
+    BaseFundDownloader, MONTH_NAMES, punctuation_variants,
+)
 
 ROOT_DIR = Path(__file__).parent.parent.parent
 EXCEL_DIR = ROOT_DIR / "excel-data" / "hdfc-multi-asset"
 
 CDN_BASE = "https://files.hdfcfund.com/s3fs-public"
 
+# Canonical names only — punctuation_variants() derives the rest at runtime.
 SCHEME_NAME_VARIANTS = [
     "HDFC Multi Asset Allocation Fund",  # Aug 2026 onwards (hyphen dropped)
     "HDFC Multi-Asset Allocation Fund",  # Dec 2025 – Jul 2026
     "HDFC Multi-Asset Fund",             # older files
 ]
+
+# Every spelling permutation of every known name, deduped, originals first.
+ALL_SCHEME_NAMES = list(
+    dict.fromkeys(
+        v for name in SCHEME_NAME_VARIANTS for v in punctuation_variants(name)
+    )
+)
 
 
 class HDFCMultiAssetDownloader(BaseFundDownloader):
@@ -62,37 +74,47 @@ class HDFCMultiAssetDownloader(BaseFundDownloader):
             return None
 
         month_name = MONTH_NAMES[month - 1]
-        last_day = calendar.monthrange(year, month)[1]
+        for url in self._candidate_urls(year, month):
+            try:
+                # NOTE: this CDN 403s on HEAD — use a streamed GET and
+                # close without reading the body.
+                r = session.get(url, timeout=30, stream=True)
+                ok = r.ok
+                r.close()
+                if ok:
+                    self.logger.info(f"  [MATCH] {url}")
+                    return url
+            except requests.exceptions.RequestException as e:
+                self.logger.error(f"  Probe failed for {url}: {e}")
 
+        self.logger.info(f"  [NO MATCH] {month_name} {year} not found on CDN")
+        return None
+
+    def _candidate_urls(self, year: int, month: int) -> list:
+        """All constructed CDN URLs for this portfolio month."""
+        month_name = MONTH_NAMES[month - 1]
+        last_day = calendar.monthrange(year, month)[1]
+        urls = []
+        for pub in self._publish_folders(year, month):
+            for scheme in ALL_SCHEME_NAMES:
+                fname = (
+                    f"Monthly {scheme} - {last_day} {month_name} {year}.xlsx"
+                )
+                urls.append(f"{CDN_BASE}/{pub}/{quote(fname)}")
+        return urls
+
+    @staticmethod
+    def _publish_folders(year: int, month: int) -> list:
         # Portfolio is uploaded into the folder of the publish month —
         # normally month+1, occasionally month+2.
-        publish_folders = []
+        folders = []
         for offset in (1, 2):
             py, pm = year, month + offset
             while pm > 12:
                 pm -= 12
                 py += 1
-            publish_folders.append(f"{py}-{pm:02d}")
+            folders.append(f"{py}-{pm:02d}")
+        return folders
 
-        for pub in publish_folders:
-            for scheme in SCHEME_NAME_VARIANTS:
-                fname = (
-                    f"Monthly {scheme} - {last_day} {month_name} {year}.xlsx"
-                )
-                url = f"{CDN_BASE}/{pub}/{quote(fname)}"
-                try:
-                    # NOTE: this CDN 403s on HEAD — use a streamed GET and
-                    # close without reading the body.
-                    r = session.get(url, timeout=30, stream=True)
-                    ok = r.ok
-                    r.close()
-                    if ok:
-                        self.logger.info(
-                            f"  [MATCH] {month_name} {year}: {url}"
-                        )
-                        return url
-                except requests.exceptions.RequestException as e:
-                    self.logger.error(f"  Probe failed for {url}: {e}")
-
-        self.logger.info(f"  [NO MATCH] {month_name} {year} not found on CDN")
-        return None
+    def archived_url_candidates(self, year: int, month: int) -> list:
+        return self._candidate_urls(year, month)
