@@ -2,10 +2,13 @@
 Mirae Asset Large & Midcap Fund - Downloader
 Factsheet URL: https://miraeassetmf.co.in/downloads/factsheet
 
-NOTE: Mirae Asset's portfolio page uses client-side JavaScript rendering,
-so direct scraping is not reliable. This downloader attempts static HTML
-scraping but will likely require manual download.
-Manual path: excel-data/mirae-asset/maebf_{mon}{year}.xlsx
+NOTE: Mirae Asset's portfolio page is client-side JS-rendered, so link
+discovery isn't possible. Two publish channels are probed instead:
+
+1. AMC site:   /docs/default-source/portfolios/maebf-{mon}{year}.xlsx
+2. CloudFront: d3hwtxj0w1i8v8.cloudfront.net/{pub_y}/{pub_m}/{day}/117/EB.xlsx
+   (the KFintech mailer CDN; files land ~day 2 of the following month —
+   discovered when Sept 2026 was missing on the AMC site but present here)
 """
 
 from pathlib import Path
@@ -71,6 +74,28 @@ class MiraeAssetDownloader(BaseFundDownloader):
                 )
             except requests.exceptions.RequestException as exc:
                 self.logger.info(f"  [MISS] {filename}: {exc}")
+
+        # Fallback: KFintech mailer CDN — files land ~day 2 of the following
+        # month (probe days 1-15). 403 = not uploaded yet.
+        pub_y, pub_m = (year + 1, 1) if month == 12 else (year, month + 1)
+        for day in range(1, 16):
+            cf_url = (
+                f"https://d3hwtxj0w1i8v8.cloudfront.net/"
+                f"{pub_y}/{pub_m}/{day}/117/EB.xlsx"
+            )
+            try:
+                r = session.get(cf_url, timeout=15, stream=True)
+                ct = r.headers.get("Content-Type", "").lower()
+                ok = r.ok and any(
+                    t in ct
+                    for t in ("excel", "spreadsheet", "octet-stream", "zip")
+                )
+                r.close()
+                if ok:
+                    self.logger.info(f"  [MATCH] CloudFront {cf_url}")
+                    return cf_url
+            except requests.exceptions.RequestException as exc:
+                self.logger.info(f"  [MISS] {cf_url}: {exc}")
 
         self.logger.error("  No valid portfolio Excel URL found")
         return None
